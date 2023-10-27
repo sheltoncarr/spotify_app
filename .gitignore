@@ -1,0 +1,20 @@
+# Environment Variables
+.env
+
+# Virtual Environment
+spotify_venv
+
+# Jupyter Notebooks
+*.ipynb
+
+# __pycache__
+app/__pycache__
+
+# Notes
+notes
+
+# Cache
+.cache
+
+# DS_Store
+**/.DS_Store

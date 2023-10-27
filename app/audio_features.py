@@ -1,0 +1,83 @@
+import pandas as pd
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
+import os
+from dotenv import load_dotenv
+from app import top_tracks
+
+load_dotenv()
+
+SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
+SPOTIPY_REDIRECT_URL = os.getenv("SPOTIPY_REDIRECT_URL")
+
+scope = "user-library-read user-read-recently-played user-top-read"
+
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URL))
+
+
+# Get Audio Features of top tracks (short term)
+
+def get_audio_features_short_term():
+    top_short_term_tracks_df = top_tracks.get_top_tracks_short_term_df()
+    top_tracks_af = top_short_term_tracks_df[['Track', 'Artist']].reset_index()
+
+    track_uri = []
+
+    for i in top_tracks_af.index:
+        search_results = sp.search(q='track:{track} artist:{artist}'.format(track=top_tracks_af['Track'][i],artist=top_tracks_af['Artist'][i]), type='track')
+        if search_results['tracks']['items'] == []:
+            continue
+        track_uri.append(search_results['tracks']['items'][0]['uri'])
+
+    df = pd.DataFrame(sp.audio_features(tracks=track_uri))
+    df.index +=1
+    drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
+    df = df.drop(columns=drop_columns)
+    df_audio_features_mean = df.mean(axis=0)
+    return df_audio_features_mean
+
+
+# Get Audio Features of top tracks (medium term)
+
+def get_audio_features_medium_term():
+    top_medium_term_tracks_df = top_tracks.get_top_tracks_medium_term_df()
+    top_tracks_af = top_medium_term_tracks_df[['Track', 'Artist']].reset_index()
+
+    track_uri = []
+
+    for i in top_tracks_af.index:
+        search_results = sp.search(q='track:{track} artist:{artist}'.format(track=top_tracks_af['Track'][i],artist=top_tracks_af['Artist'][i]), type='track')
+        if search_results['tracks']['items'] == []:
+            continue
+        track_uri.append(search_results['tracks']['items'][0]['uri'])
+
+    df = pd.DataFrame(sp.audio_features(tracks=track_uri))
+    df.index +=1
+    drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
+    df = df.drop(columns=drop_columns)
+    df_audio_features_mean = df.mean(axis=0)
+    return df_audio_features_mean
+
+
+# Get Audio Features of top tracks (long term)
+
+def get_audio_features_long_term():
+    top_long_term_tracks_df = top_tracks.get_top_tracks_long_term_df()
+    top_tracks_af = top_long_term_tracks_df[['Track', 'Artist']].reset_index()
+
+    track_uri = []
+
+    for i in top_tracks_af.index:
+        search_results = sp.search(q='track:{track} artist:{artist}'.format(track=top_tracks_af['Track'][i],artist=top_tracks_af['Artist'][i]), type='track')
+        if search_results['tracks']['items'] == []:
+            continue
+        track_uri.append(search_results['tracks']['items'][0]['uri'])
+
+    df = pd.DataFrame(sp.audio_features(tracks=track_uri))
+    df.index +=1
+    drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
+    df = df.drop(columns=drop_columns)
+    df_audio_features_mean = df.mean(axis=0)
+    return df_audio_features_mean
