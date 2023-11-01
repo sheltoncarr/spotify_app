@@ -1,0 +1,108 @@
+html, body{
+	height: 100%;
+}
+	
+body{
+	margin: 0px;
+	padding: 0px;
+	background: #91aac3;
+	font-family: 'Roboto';
+	font-size: 12pt;
+}
+		
+h1, h2, h3{
+	margin: 0;
+	padding: 0;
+	color: #404040;
+}
+	
+p, ol, ul{
+	margin-top: 0;
+}
+
+p {
+	line-height: 180%;
+}
+
+ol, ul{
+	padding: 0;
+	list-style: none;
+}
+	
+.container{ 
+	/* Set width of container to 
+		1200px and align center */
+	margin: 200px;
+	width: 1800px;
+}
+
+header{
+	
+	overflow: hidden;
+}
+
+#top-header{
+	background: #445f76;
+	text-align: center;
+	height: 100px;
+
+}
+
+#logo{
+	float: left;
+	padding: none;
+	margin: none;
+    width: 40%;
+}
+
+#logo img{
+	float: left;
+} 
+
+
+#main-header{
+    text-align: left;
+    padding-top: 10px;
+    font-size: 35px;
+    font-family: Cambria;
+    color: white;
+}
+
+#menu{
+	float: right;
+    padding-right: 20px;
+	width: 40%;
+	height: 100%;
+	margin: none;
+}
+	
+#menu ul{
+	text-align: center;
+	float: right;
+	margin: none;
+}
+	
+#menu li{
+	display: inline-block;
+	padding: none;
+	margin: none;
+}
+	
+#menu li a, #menu li span{
+	display: inline-block;
+	padding: none;
+	text-decoration: none;
+	font-weight: 60;
+	text-transform: uppercase;
+	line-height: 10px;
+}
+	
+#menu li a{
+		
+	color: #FFF;
+}
+	
+#menu li:hover a, #menu li span{
+	color: #b12414;
+	text-decoration: none;
+}
