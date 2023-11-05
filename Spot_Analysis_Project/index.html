@@ -21,48 +21,70 @@
 
             <!-- If we want a photo or logo-->
             <div id="logo">
-                <img src="Images/spotify_logo.png" width="70" height="70"/>
+                <img src="Images/spotify_logo.png" width="100" height="100"/>
             </div>
             <!-- Main header of the page-->
             <div id="main-header">
-                Spotify Data Analysis
+                <b>Spotify Data Analysis</b>
             </div>
 
             <!-- Internal links -->
             <nav>
                 <div id="menu">
                     <ul>
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Your Data</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#Home" target="_self"
+                            rel="follow">Home</a></li>
+                        <li><a href="#About_Us" target="_self"
+                            rel="follow">About Us</a></li>
+                        <li><a href="#Your_Data" target="_self"
+                            rel="follow">Your Data</a></li>
+                        <li><a href="#Careers" target="_self"
+                            rel="follow">Careers</a></li>
+                        <li><a href="#Contact_Us" target="_self"
+                            rel="follow">Contact Us</a></li>
                     </ul>
                 </div>
             </nav>
-        </div>
-        <!-- For the image header links -->
-        <div id="image-header-menu">
-
-        </div>
     </header>
     <main>
         <section>
-            <!-- Used to display heading content -->
-            <h1>Welcome to Relto and Trev's website for Spotify Analysis!</h1>
- 
-            <!-- Used to display paragraph content -->
-            <p>We are gonna beef this bad boy out. </p>
+            <div id="intro">
+                <!-- Display heading content -->
+                <h1 class="title">
+                    Welcome to Relto and Trev's website for Spotify Analysis!
+                </h1>
+    
+                <!-- Used to display paragraph content -->
+                <p>We are gonna beef this bad boy out. But first, you have to 
+                    <a href="https://www.spotify.com" onclick="toggleBox('spotifyInfo')" role="button">have 
+                        a spotify account</a>.
+                </p>
 
-            <div class="textDiv" style="padding-top: 0;" id="introductionText" algin="justify">
-                But first, you have to <a href="https://www.spotify.com" onclick="toggleBox('spotifyInfo')" role="button">have a spotify account</a>.
+            </div>
+        </section>
 
+        <section>
+            <div id="blankspace">
+                <p> </p>
+            </div>
+
+            <div id="dicking_around">
+                <p>In the meantime. Do you want to know who your <b><i>soulmate</i></b> is? Click below to find out:</p>
+                <a href="https://www.linkedin.com/in/shelton-carr">
+                    <img src="https://thegraphicsfairy.com/wp-content/uploads/2013/02/Royalty-Free-Images-Anatomy-Heart-GraphicsFairy-red1.jpg"
+                    style="width:200px;height:200px;border:20px">
+                </a>
             </div>
         </section>
 
     </main>
 
-    <footer>
+    <footer id="footer">
+        <!-- Copyright Section -->
+        <div class="copyright">
+            <p>© All rights reserved | ReltoTrevCodes</p>
+ 
+        </div>
 
     </footer>
 </body>

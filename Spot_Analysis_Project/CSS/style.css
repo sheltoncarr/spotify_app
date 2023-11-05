@@ -43,8 +43,9 @@ header{
 
 #top-header{
 	background: #445f76;
-	text-align: center;
 	height: 100px;
+	width: 100%;
+	text-align: center;
 
 }
 
@@ -52,7 +53,6 @@ header{
 	float: left;
 	padding: none;
 	margin: none;
-    width: 40%;
 }
 
 #logo img{
@@ -61,8 +61,10 @@ header{
 
 
 #main-header{
-    text-align: left;
-    padding-top: 10px;
+	overflow: hidden;
+	margin: auto;
+    text-align: justify;
+    padding-top: 25px;
     font-size: 35px;
     font-family: Cambria;
     color: white;
@@ -90,6 +92,7 @@ header{
 	
 #menu li a, #menu li span{
 	display: inline-block;
+	vertical-align: middle;
 	padding: none;
 	text-decoration: none;
 	font-weight: 60;
@@ -105,4 +108,73 @@ header{
 #menu li:hover a, #menu li span{
 	color: #b12414;
 	text-decoration: none;
+}
+
+#intro {
+	overflow:hidden;
+	width: 1000px;
+	margin: 0px auto;
+}
+
+#intro .title{
+	margin-top: 20px;
+	padding: 20px;
+	text-align: center;
+}
+
+#intro p{
+	margin-bottom: 0px;
+	text-align: center;
+}
+
+#blankspace{
+	padding: 20px; 
+}
+
+#blankspace p{
+	position: absolute; 
+}
+
+#dicking_around{
+	overflow:hidden;
+	width: 1000px;
+	margin: 0px auto;
+}
+
+
+#dicking_around p{
+	margin-bottom: 0px;
+	text-align: center;
+}
+
+#dicking_around img{
+	display: block;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	width: 50%;
+}
+
+
+#footer{
+    overflow: hidden;
+    text-align: center;
+	width: 100%;
+    margin-top: 50px;
+	position: absolute;
+	bottom: 0px;
+}
+
+#footer .copyright{
+    overflow: hidden;
+    padding: 3em 0em;
+    border-top: 20px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    background: #445f76;
+}
+
+#footer .copyright p
+{
+    letter-spacing: 1px;
+    font-size: 0.90em;
+    color: rgba(255, 255, 255, 0.6);
 }
