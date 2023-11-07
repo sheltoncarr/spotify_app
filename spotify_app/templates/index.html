@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main>
+        <section>
+            <div id="intro">
+                <!-- Display heading content -->
+                <h1 class="title">
+                    Welcome to Relto and Trev's website for Spotify Analysis!
+                </h1>
+
+                <!-- Used to display paragraph content -->
+                <p>We are gonna beef this bad boy out. 
+                </p>
+
+            </div>
+        </section>
+
+        <section>
+            <div id="welcome">
+                <h3>Hi user_name</h3>
+                <a href="/sign_out">[sign out]<a/>
+                <a href="/playlists">my playlists</a>
+                <a href="/currently_playing">currently playing</a>
+                <a href="/current_user">me</a>
+                <p></p>
+            </div>
+
+        </section>
+
+        <section>
+            <div id="table">
+                {% for table in tables %}
+                        {{titles[loop.index]}}
+                        {{ table|safe }}
+                {% endfor %}
+            </div>
+
+        </section>
+
+    </main>
+{% endblock %}
