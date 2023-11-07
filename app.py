@@ -26,7 +26,7 @@ Run app.py
 """
 
 import os
-from flask import Flask, session, request, redirect
+from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
 from dotenv import load_dotenv
@@ -67,11 +67,12 @@ def index():
 
     # Step 3. Signed in, display data
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return f'<h2>Hi {spotify.me()["display_name"]}, ' \
-           f'<small><a href="/sign_out">[sign out]<a/></small></h2>' \
-           f'<a href="/playlists">my playlists</a> | ' \
-           f'<a href="/currently_playing">currently playing</a> | ' \
-        f'<a href="/current_user">me</a>' \
+    return render_template('index.html')
+    # return f'<h2>Hi {spotify.me()["display_name"]}, ' \
+    #        f'<small><a href="/sign_out">[sign out]<a/></small></h2>' \
+    #        f'<a href="/playlists">my playlists</a> | ' \
+    #        f'<a href="/currently_playing">currently playing</a> | ' \
+    #        f'<a href="/current_user">me</a>' \
 
 
 
@@ -113,6 +114,7 @@ def current_user():
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     return spotify.current_user()
+
 
 
 '''
