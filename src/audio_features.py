@@ -4,7 +4,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
 import os
 from dotenv import load_dotenv
-from app import top_tracks
+from src import top_tracks
 
 load_dotenv()
 

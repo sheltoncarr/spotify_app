@@ -8,7 +8,7 @@ spotify_venv
 *.ipynb
 
 # __pycache__
-app/__pycache__
+__pycache__/
 
 # Notes
 notes
@@ -18,3 +18,9 @@ notes
 
 # DS_Store
 **/.DS_Store
+
+# Node Modules
+node_modules
+
+# Flask session
+/*_session/
