@@ -32,9 +32,9 @@ ol, ul{
 .container{ 
 	/* Set width of container to 
 		1200px and align center */
-	margin: 200px;
-	width: 1800px;
-	height: 135px;
+	text-align: center;
+	width: 100%;
+	margin-top: 50px;
 }
 
 header{
@@ -111,13 +111,75 @@ header{
 	text-decoration: none;
 }
 
-#container {
-	overflow:hidden;
+#intro {
+	margin: auto;
+	overflow: hidden;
 	width: 100%;
-	margin: 0px auto;
+	align-items: center;
+}
+
+#intro p{
+	overflow: hidden;
+	width: 50%;
+	text-align: center;
+	padding-top: 20px;
+	margin-left: 25%;
+}
+
+#welcome {
+	width: auto;
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.tab {
+	overflow: hidden;
+	width: 40%;
+	margin-left: 30%;
+	border: 3px solid #ccc;
+	color: white;
+	background-color: #445f76;
+  }
+  
+.tab button {
+	background-color: inherit;
+	color: #FFF;
+	text-align: center;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+}
+  
+.tab button:hover {
+	color: #b12414;
+	text-decoration: none;
+}
+  
+
+.tab button.active {
+	background-color: #ccc;
+}
+
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+  }
+
+#table {
+	width: 80%;
+	margin-left: 10%;
+	align-items: center;
 	text-align: center;
 }
 
+#table h3{
+	padding: 10px;
+	text-align: left;
+}
 
 #footer{
     overflow: hidden;
