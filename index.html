@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main>
+        <section>
+            <div id="intro">
+                <!-- Display heading content -->
+                <h1 class="title">
+                    Welcome to Relto and Trev's website for Spotify Analysis!
+                </h1>
+
+                <!-- Used to display paragraph content -->
+                <p>Relto and Trev have spent countless hours working away at
+                    deciphering stackoverflow queries to bring <i>you</i> this 
+                    wonderful website. Please browse the various buttons to
+                    find out more about your music taste! 
+                </p>
+
+            </div>
+        </section>
+
+        <section>
+            <div id="welcome">
+                <h3>Hi {{user_name}}!</h3>
+            </div>
+
+            <div class="tab">
+                <button><a href="/top_artists" target="_self" rel="follow">Artists</a></button>
+                <button><a href="/top_tracks" target="_self" rel="follow">Tracks</a></button>
+                <!-- <button><a href="/features" target="_self" rel="follow">Features</a></button> -->
+                <button><a href="/recommendations" target="_self" rel="follow">Recommendations</a></button>
+            </div>
+
+
+        </section>
+
+        <section>
+            <div id="table">
+                <h3>{{dataEvent}}</h3>
+                {% for table in tables %}
+                        {{titles[loop.index]}}
+                        {{ table|safe }}
+                {% endfor %}
+            </div>
+
+        </section>
+
+    </main>
+{% endblock %}

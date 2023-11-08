@@ -29,7 +29,12 @@ import os
 from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
+import pandas as pd
 from dotenv import load_dotenv
+from src import top_artists
+from src import top_tracks
+from src import audio_features
+from src import recommendations
 
 load_dotenv()
 
@@ -63,16 +68,13 @@ def index():
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         # Step 1. Display sign in link when no token
         auth_url = auth_manager.get_authorize_url()
-        return f'<h2><a href="{auth_url}">Sign in</a></h2>'
+        return f'<h2 style="font-size:80px; text-align:center;"><a href="{auth_url}">Sign in</a> </h2>'
 
     # Step 3. Signed in, display data
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return render_template('index.html')
-    # return f'<h2>Hi {spotify.me()["display_name"]}, ' \
-    #        f'<small><a href="/sign_out">[sign out]<a/></small></h2>' \
-    #        f'<a href="/playlists">my playlists</a> | ' \
-    #        f'<a href="/currently_playing">currently playing</a> | ' \
-    #        f'<a href="/current_user">me</a>' \
+    global user_name
+    user_name = spotify.me()["display_name"]
+    return render_template('index.html',user_name=user_name)
 
 
 
@@ -115,6 +117,65 @@ def current_user():
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     return spotify.current_user()
 
+@app.route('/top_artists')
+def get_top_artists():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+
+    df1 = top_artists.get_top_artists_short_term_df()
+    df2 = top_artists.get_top_artists_medium_term_df()
+    df3 = top_artists.get_top_artists_long_term_df()
+    title = 'Your top artists:'
+    
+
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
+                                                df3.to_html(classes='data',justify='center')],titles=['','Short term','Medium Term','Long Term'],
+                                                user_name=user_name,dataEvent=title)
+
+@app.route('/top_tracks')
+def get_top_tracks():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+
+    df1 = top_tracks.get_top_tracks_short_term_df()
+    df2 = top_tracks.get_top_tracks_medium_term_df()
+    df3 = top_tracks.get_top_tracks_long_term_df()
+    title = 'Your top tracks:'
+
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
+                                                df3.to_html(classes='data',justify='center')],titles=['','Short term','Medium Term','Long Term'],
+                                                user_name=user_name,dataEvent=title)
+
+# @app.route('/features')
+# def get_features():
+#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+#     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
+#         return redirect('/')
+
+#     df = audio_features.get_audio_features_short_term()
+
+#     return render_template('index.html',tables=[df.to_html(classes='data')],titles=df.columns.values)
+
+@app.route('/recommendations')
+def get_recommendations():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+
+    df1 = recommendations.get_short_term_track_recs()
+    df2 = recommendations.get_medium_term_track_recs()
+    df3 = recommendations.get_long_term_track_recs()
+    title = 'Your top recommendations:'
+
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
+                                                df3.to_html(classes='data',justify='center')],titles=['','Short term','Medium Term','Long Term'],
+                                                user_name=user_name,dataEvent=title)
 
 
 '''
