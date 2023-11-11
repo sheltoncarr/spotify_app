@@ -44,7 +44,7 @@ from src import recommendations
 
 # load_dotenv()
 
-# SPOTIPY_REDIRECT_URL = os.getenv("SPOTIPY_REDIRECT_URL")
+# SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
 # print(SPOTIPY_REDIRECT_URL)
 # ^ why is this pulling https?
 SPOTIPY_REDIRECT_URI = 'http://localhost:8888'
@@ -198,6 +198,10 @@ def get_recommendations():
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
                                                 df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
                                                 user_name=user_name,dataEvent=title)
+
+@app.route('/about_us')
+def about_us():
+    return render_template('about.html')
 
 
 '''

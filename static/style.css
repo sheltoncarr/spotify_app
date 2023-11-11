@@ -185,12 +185,38 @@ header{
 	text-align: left;
 }
 
+#about_us{
+	margin: auto;
+	overflow: hidden;
+	width: 80%;
+	align-items: center;
+	columns: 2;
+}
+
+
+.column img {
+	margin-top: 8px;
+	vertical-align: middle;
+	width: 200px;
+	height: 280px;
+	border: 3px solid black;
+	border-radius: 10%;
+	border-color: #404040;
+}
+
+.column p{
+	text-align: justify;
+	width: 80%;
+	padding-left: 10%;
+}
+
+
 #footer{
     overflow: hidden;
     text-align: center;
 	width: 100%;
     margin-top: 50px;
-	position: relative;
+	position:static;
 	bottom: 0px;
 }
 
