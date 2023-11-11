@@ -28,65 +28,65 @@ def main():
     print('='*150,'\n')
 
     print('Top Artists - Short Term (Last 4 Weeks)\n')
-    print(top_artists.get_top_artists_short_term_df(),'\n')
+    print(top_artists.get_top_artists_short_term_df(sp),'\n')
 
     print('Top Artists - Medium Term (Last 6 Months)\n')
-    print(top_artists.get_top_artists_medium_term_df(),'\n')
+    print(top_artists.get_top_artists_medium_term_df(sp),'\n')
 
     print('Top Artists - Long Term (Last Several Years)\n')
-    print(top_artists.get_top_artists_long_term_df(),'\n')
+    print(top_artists.get_top_artists_long_term_df(sp),'\n')
 
     # Top Tracks
 
     print('='*150,'\n')
 
     print('Top Tracks - Short Term (Last 4 Weeks)\n')
-    print(top_tracks.get_top_tracks_short_term_df(),'\n')
+    print(top_tracks.get_top_tracks_short_term_df(sp),'\n')
 
     print('Top Tracks - Medium Term (Last 6 Months)\n')
-    print(top_tracks.get_top_tracks_medium_term_df(),'\n')
+    print(top_tracks.get_top_tracks_medium_term_df(sp),'\n')
 
     print('Top Tracks - Long Term (Last Several Years)\n')
-    print(top_tracks.get_top_tracks_long_term_df(),'\n')
+    print(top_tracks.get_top_tracks_long_term_df(sp),'\n')
 
     # Audio Feature Analysis of Top Tracks
 
     print('='*150,'\n')
 
     print('Audio Feature Analysis of Top Tracks (Short Term)\n')
-    print(audio_features.get_audio_features_short_term(),'\n')
+    print(audio_features.get_audio_features_short_term(sp),'\n')
 
     print('Audio Feature Analysis of Top Tracks (Medium Term)\n')
-    print(audio_features.get_audio_features_medium_term(),'\n')
+    print(audio_features.get_audio_features_medium_term(sp),'\n')
 
     print('Audio Feature Analysis of Top Tracks (Long Term)\n')
-    print(audio_features.get_audio_features_long_term(),'\n')
+    print(audio_features.get_audio_features_long_term(sp),'\n')
 
     # Song Recommendations (Artist)
 
     print('='*150,'\n')
 
     print('Song Recommendations Based on Top Artists (Short Term)\n')
-    print(recommendations.get_short_term_artist_recs(),'\n')
+    print(recommendations.get_short_term_artist_recs(sp),'\n')
 
     print('Song Recommendations Based on Top Artists (Medium Term)\n')
-    print(recommendations.get_medium_term_artist_recs(),'\n')
+    print(recommendations.get_medium_term_artist_recs(sp),'\n')
 
     print('Song Recommendations Based on Top Artists (Long Term)\n')
-    print(recommendations.get_long_term_artist_recs(),'\n')
+    print(recommendations.get_long_term_artist_recs(sp),'\n')
 
     # Song Recommendations (Tracks)
 
     print('='*150,'\n')
 
     print('Song Recommendations Based on Top Tracks (Short Term)\n')
-    print(recommendations.get_short_term_track_recs(),'\n')
+    print(recommendations.get_short_term_track_recs(sp),'\n')
 
     print('Song Recommendations Based on Top Tracks (Medium Term)\n')
-    print(recommendations.get_medium_term_track_recs(),'\n')
+    print(recommendations.get_medium_term_track_recs(sp),'\n')
 
     print('Song Recommendations Based on Top Tracks (Long Term)\n')
-    print(recommendations.get_long_term_track_recs(),'\n')
+    print(recommendations.get_long_term_track_recs(sp),'\n')
 
 if __name__ == '__main__':
     main()

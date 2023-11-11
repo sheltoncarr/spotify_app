@@ -12,9 +12,9 @@ Prerequisites
     pip3 install spotipy Flask Flask-Session
 
     // from your [app settings](https://developer.spotify.com/dashboard/applications)
-    export SPOTIPY_CLIENT_ID='d729d3cd9e5e474bab0a2a37466eabf7'
-    export SPOTIPY_CLIENT_SECRET='a4a2400f4e264e49b595fb5431ddc829'
-    export SPOTIPY_REDIRECT_URL='http://localhost:8888/callback' // must contain a port
+    export SPOTIPY_CLIENT_ID='*****'
+    export SPOTIPY_CLIENT_SECRET='*****'
+    export SPOTIPY_REDIRECT_URL='*****' // must contain a port
     // SPOTIPY_REDIRECT_URL must be added to your [app settings](https://developer.spotify.com/dashboard/applications)
     OPTIONAL
     // in development environment for debug output
@@ -193,10 +193,16 @@ def get_recommendations():
     df1 = recommendations.get_short_term_track_recs(spotify)
     df2 = recommendations.get_medium_term_track_recs(spotify)
     df3 = recommendations.get_long_term_track_recs(spotify)
+    df4 = recommendations.get_short_term_artist_recs(spotify)
+    df5 = recommendations.get_medium_term_artist_recs(spotify)
+    df6 = recommendations.get_long_term_artist_recs(spotify)
     title = 'Your Top Recommendations:'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center'),df4.to_html(classes='data',justify='center'),
+                                                df5.to_html(classes='data',justify='center'),df6.to_html(classes='data',justify='center')],
+                                                titles=['','Based on Top Tracks (Short Term)','Based on Top Tracks (Medium Term)','Based on Top Tracks (Long Term)',
+                                                        'Based on Top Artists (Short Term)','Based on Top Artists (Medium Term)','Based on Top Artists (Long Term)'],
                                                 user_name=user_name,dataEvent=title)
 
 @app.route('/about_us')

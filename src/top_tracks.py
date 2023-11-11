@@ -15,31 +15,24 @@ import pandas as pd
 
 # sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URL))
 
-
+# Potentially better code:
 
 def get_top_tracks_short_term_df(spotify, limit=50, time_range='short_term'):
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
 
-    track_list = []
-    artist_list = []
-    artist_list_total = []
-    genre_list = []
-    audio_sample_list = []
+    track_list = [item['name'] for item in results['items']]
+    artist_list_total = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+    artist_id = [item['artists'][0]['id'] for item in results['items']]
+    artist_info = spotify.artists(artist_id)['artists']
+    genre_list = [', '.join(artist['genres']).title() for artist in artist_info]
+    audio_sample_list = [item['preview_url'] for item in results['items']]
 
-    for idx, item in enumerate(results['items']):
-        track_list.append(item['name'])
-        for artist in item['artists']:
-            artist_list.append(artist['name'])
-        artist_list_total.append(', '.join(artist_list))
-        artist_list = []
-        genre_list.append(', '.join(spotify.artist(item['artists'][0]["external_urls"]["spotify"])['genres']).title())
-        audio_sample_list.append(item['preview_url'])
-
-
-    df = pd.DataFrame({'Track':track_list,
-                       'Artist':artist_list_total,
-                       'Genre':genre_list,
-                       'Audio Sample':audio_sample_list})
+    df = pd.DataFrame({
+        'Track': track_list,
+        'Artist': artist_list_total,
+        'Genre': genre_list,
+        'Audio Sample': audio_sample_list
+    })
 
     df.index += 1
     return df
@@ -49,26 +42,19 @@ def get_top_tracks_short_term_df(spotify, limit=50, time_range='short_term'):
 def get_top_tracks_medium_term_df(spotify, limit=50, time_range='medium_term'):
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
 
-    track_list = []
-    artist_list = []
-    artist_list_total = []
-    genre_list = []
-    audio_sample_list = []
+    track_list = [item['name'] for item in results['items']]
+    artist_list_total = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+    artist_id = [item['artists'][0]['id'] for item in results['items']]
+    artist_info = spotify.artists(artist_id)['artists']
+    genre_list = [', '.join(artist['genres']).title() for artist in artist_info]
+    audio_sample_list = [item['preview_url'] for item in results['items']]
 
-    for idx, item in enumerate(results['items']):
-        track_list.append(item['name'])
-        for artist in item['artists']:
-            artist_list.append(artist['name'])
-        artist_list_total.append(', '.join(artist_list))
-        artist_list = []
-        genre_list.append(', '.join(spotify.artist(item['artists'][0]["external_urls"]["spotify"])['genres']).title())
-        audio_sample_list.append(item['preview_url'])
-
-
-    df = pd.DataFrame({'Track':track_list,
-                       'Artist':artist_list_total,
-                       'Genre':genre_list,
-                       'Audio Sample':audio_sample_list})
+    df = pd.DataFrame({
+        'Track': track_list,
+        'Artist': artist_list_total,
+        'Genre': genre_list,
+        'Audio Sample': audio_sample_list
+    })
 
     df.index += 1
     return df
@@ -78,26 +64,19 @@ def get_top_tracks_medium_term_df(spotify, limit=50, time_range='medium_term'):
 def get_top_tracks_long_term_df(spotify, limit=50, time_range='long_term'):
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
 
-    track_list = []
-    artist_list = []
-    artist_list_total = []
-    genre_list = []
-    audio_sample_list = []
+    track_list = [item['name'] for item in results['items']]
+    artist_list_total = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+    artist_id = [item['artists'][0]['id'] for item in results['items']]
+    artist_info = spotify.artists(artist_id)['artists']
+    genre_list = [', '.join(artist['genres']).title() for artist in artist_info]
+    audio_sample_list = [item['preview_url'] for item in results['items']]
 
-    for idx, item in enumerate(results['items']):
-        track_list.append(item['name'])
-        for artist in item['artists']:
-            artist_list.append(artist['name'])
-        artist_list_total.append(', '.join(artist_list))
-        artist_list = []
-        genre_list.append(', '.join(spotify.artist(item['artists'][0]["external_urls"]["spotify"])['genres']).title())
-        audio_sample_list.append(item['preview_url'])
-
-
-    df = pd.DataFrame({'Track':track_list,
-                       'Artist':artist_list_total,
-                       'Genre':genre_list,
-                       'Audio Sample':audio_sample_list})
+    df = pd.DataFrame({
+        'Track': track_list,
+        'Artist': artist_list_total,
+        'Genre': genre_list,
+        'Audio Sample': audio_sample_list
+    })
 
     df.index += 1
     return df

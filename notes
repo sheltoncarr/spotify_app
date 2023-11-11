@@ -1,0 +1,29 @@
+Ideas:
+
+- Add a button/hyperlink instead of the raw URL to the play the song preview
+- Add a section that explains what the audio features mean (just add the descriptions from the spotofy developer website). Also change the title for the Audio Analysis section to specify that we're taking the average value
+- Maybe add a niche artist section? Cross reference someone's top artists with artists that have low popularity / low monthly listeners count
+- Add a button that will create a playlist with recommended songs for the user
+- Add a button that will add a certain recommended song to a user's music library
+- Add a "top genres" section
+- For tracks, only show first 1-3 genres, and show album and release date
+- "Loading" sign when processing 
+- Add space between tables and make table titles larger
+- more space between the "home", "about us",... tabs 
+- Add "currently playing" feature
+- change src files so thet don't need client_id and client_secret
+- add documentations to each function
+- Make visuals for audio analysis section
+- Look into batch API calls for effieciency --> still need to fix audio_features eficiency
+- Probably will need to remove Spotify logo when we push live
+- Apply for Extended Quota Mode
+
+Resources:
+
+authorization examples from spotipy: https://github.com/spotify/web-api-examples
+deploying flask app on Elastic Beanstalk (AWS): https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html
+stack overflow - How can I make my application using Spotify API accessible to other users?: https://stackoverflow.com/questions/62311284/how-can-i-make-my-application-using-spotify-api-accessible-to-other-users
+flask oauth2 example: https://github.com/spotipy-dev/spotipy/blob/master/examples/app.py
+spotipy documentation: https://spotipy.readthedocs.io/en/2.22.1/
+spotipy github: https://github.com/spotipy-dev/spotipy#with-user-authentication
+
