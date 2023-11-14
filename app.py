@@ -41,6 +41,8 @@ from src import top_artists
 from src import top_tracks
 from src import audio_features
 from src import recommendations
+from src import current_track
+from src import recently_played_tracks
 
 # load_dotenv()
 
@@ -89,28 +91,15 @@ def sign_out():
     return redirect('/')
 
 
-@app.route('/playlists')
-def playlists():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
+# @app.route('/playlists')
+# def playlists():
+#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+#     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
+#         return redirect('/')
 
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return spotify.current_user_playlists()
-
-
-@app.route('/currently_playing')
-def currently_playing():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    track = spotify.current_user_playing_track()
-    if not track is None:
-        return track
-    return "No track currently playing."
+#     spotify = spotipy.Spotify(auth_manager=auth_manager)
+#     return spotify.current_user_playlists()
 
 
 @app.route('/current_user')
@@ -121,6 +110,41 @@ def current_user():
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     return spotify.current_user()
+
+
+@app.route('/currently_playing')
+def get_currently_playing():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+    
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    track = spotify.current_user_playing_track()
+
+    if not track is None:
+        df = current_track.get_current_track(spotify)
+        title = 'Currently Playing'
+        return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['','Currently Playing'],
+                                                user_name=user_name,dataEvent=title)
+    return "No track currently playing."
+
+
+@app.route('/most_recent_tracks')
+def get_most_recent_tracks():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+    
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    df = recently_played_tracks.most_recently_played_tracks(spotify)
+    title = 'Most Recent Tracks:'
+    
+    return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['','Most Recent Tracks'],
+                                                user_name=user_name,dataEvent=title)
 
 
 @app.route('/top_artists')

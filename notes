@@ -6,11 +6,10 @@ Ideas:
 - Add a button that will create a playlist with recommended songs for the user
 - Add a button that will add a certain recommended song to a user's music library
 - Add a "top genres" section
-- For tracks, only show first 1-3 genres, and show album and release date
+- Show release date
 - "Loading" sign when processing 
 - Add space between tables and make table titles larger
 - more space between the "home", "about us",... tabs 
-- Add "currently playing" feature
 - change src files so thet don't need client_id and client_secret
 - add documentations to each function
 - Make visuals for audio analysis section
