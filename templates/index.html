@@ -6,7 +6,7 @@
             <div id="intro">
                 <!-- Display heading content -->
                 <h1 class="title">
-                    Welcome to Relto and Trev's website for Spotify Analysis!
+                   Hi {{user_name}}! Welcome to Relto and Trev's website for Spotify Analysis!
                 </h1>
 
                 <!-- Used to display paragraph content -->
@@ -20,18 +20,13 @@
         </section>
 
         <section>
-            <div id="welcome">
-                <h3>Hi {{user_name}}!</h3>
-            </div>
             <nav>
                 <div id="tabs">
                     <ul>
-                        <li><a href="/current_user" target="_self" rel="follow">Current User</a></li>
-                        <li><a href="/currently_playing" target="_self" rel="follow">Currently Playing</a></li>
-                        <li><a href="/most_recent_tracks" target="_self" rel="follow">Most Recent Tracks</a></li>
                         <li><a href="/top_artists" target="_self" rel="follow">Top Artists</a></li>
                         <li><a href="/top_tracks" target="_self" rel="follow">Top Tracks</a></li>
                         <li><a href="/top_genres" target="_self" rel="follow">Top Genres</a></li>
+                        <li><a href="/most_recent_tracks" target="_self" rel="follow">Most Recent Tracks</a></li>
                         <li><a href="/audio_features" target="_self" rel="follow">Audio Features</a></li>
                         <li><a href="/recommendations" target="_self" rel="follow">Recommendations</a></li>
                         <li><a href="/popularity" target="_self" rel="follow">Popularity</a></li>
@@ -43,12 +38,12 @@
         </section>
 
         <section>
-            <div id="table">
+            <div id="data">
                 <h3>{{dataEvent}}</h3>
-                {% for table in tables %}
-                        {{titles[loop.index]}}
-                        {{ table|safe }}
-                {% endfor %}
+                    {% for table in tables %}
+                            <p>{{titles[loop.index-1]}}</p>
+                            <div id="table">{{ table|safe }}</div>
+                    {% endfor %}
             </div>
 
         </section>

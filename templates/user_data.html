@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main>
+        <section >
+            <h1 class="title" style="font-size: 30px;">
+                About You
+            </h1>
+            <p style="text-align: center; padding-top: 15px;">
+                Hi {{user_name}}! Here are some stats about your music library:
+            </p>
+            <div id="user_data">
+                <ul>
+                    <li> <b>Number of accounts you follow:</b> {{follower_count}}</li>
+                    <li> <b>Number of accounts following you:</b> {{hold}}</li>
+                    <li> <b>Number of playlists:</b> {{playlist_count}}</li>
+                    <li> <b>Number of collaborative playlists:</b> {{collaborative_playlists}}</li>
+                    <li> <b>Number of playlists you created:</b> {{owned_playlists}}</li>
+                    <li> <b>Currently playing:</b> {{current_song}}</li>
+                </ul>
+
+            </div>
+        </section>
+
+    </main>
+{% endblock %}

@@ -66,26 +66,38 @@ def index():
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read',
                                                cache_handler=cache_handler,
-                                               show_dialog=True,
-                                               redirect_uri=SPOTIPY_REDIRECT_URI)
+                                               show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI)
+
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        # Step 1. Display sign in link when no token
+        auth_url = auth_manager.get_authorize_url()
+        return render_template('sign_in.html',url=auth_url)
+    
+    global user_name
 
     if request.args.get("code"):
         # Step 2. Being redirected from Spotify auth page
         auth_manager.get_access_token(request.args.get("code"))
         return redirect('/')
 
+    if type(auth_manager) == spotipy.oauth2.SpotifyOAuth:
+        # Step 3. Signed in, display data
+        spotify = spotipy.Spotify(auth_manager=auth_manager)
+        user_name = spotify.me()["display_name"]
+        return render_template('index.html',user_name=user_name,dataEvent='Your data:')
+    
 
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        # Step 1. Display sign in link when no token
-        auth_url = auth_manager.get_authorize_url()
-        return f'<h2 style="font-size:80px; text-align:center;"><a href="{auth_url}">Sign in</a> </h2>'
-
-    # Step 3. Signed in, display data
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    global user_name
-    user_name = spotify.me()["display_name"]
-    return render_template('index.html',user_name=user_name)
-
+@app.route('/guest')
+def guest_index():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read',
+                                               cache_handler=cache_handler,
+                                               show_dialog=True,
+                                               client_id='2a6e6899e82044f1bb9acf08fac203fc',
+                                               client_secret='ec72902fa776481281cb845235aaf3e4',
+                                               redirect_uri=SPOTIPY_REDIRECT_URI)
+    user_name = 'Guest'
+    return render_template('index.html',user_name=user_name,dataEvent='')
 
 @app.route('/sign_out')
 def sign_out():
@@ -93,44 +105,33 @@ def sign_out():
     return redirect('/')
 
 
-# @app.route('/playlists')
-# def playlists():
+# @app.route('/current_user')
+# def current_user():
 #     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
 #     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
 #     if not auth_manager.validate_token(cache_handler.get_cached_token()):
 #         return redirect('/')
-
 #     spotify = spotipy.Spotify(auth_manager=auth_manager)
-#     return spotify.current_user_playlists()
+#     return spotify.current_user()
 
 
-@app.route('/current_user')
-def current_user():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return spotify.current_user()
-
-
-@app.route('/currently_playing')
-def get_currently_playing():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
+# @app.route('/currently_playing')
+# def get_currently_playing():
+#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+#     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
+#         return redirect('/')
     
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
+#     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
-    track = spotify.current_user_playing_track()
+#     track = spotify.current_user_playing_track()
 
-    if not track is None:
-        df = current_track.get_current_track(spotify)
-        title = 'Currently Playing'
-        return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['','Currently Playing'],
-                                                user_name=user_name,dataEvent=title)
-    return "No track currently playing."
+#     if not track is None:
+#         df = current_track.get_current_track(spotify)
+#         title = 'Currently Playing'
+#         return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['Currently Playing'],
+#                                                 user_name=user_name,dataEvent=title)
+#     return "No track currently playing."
 
 
 @app.route('/most_recent_tracks')
@@ -145,7 +146,7 @@ def get_most_recent_tracks():
     df = recently_played_tracks.most_recently_played_tracks(spotify)
     title = 'Most Recent Tracks:'
     
-    return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['','Most Recent Tracks'],
+    return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['Most Recent Tracks'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -155,7 +156,7 @@ def get_top_artists():
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return redirect('/')
-    
+    print(request.url_rule)
     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df1 = top_artists.get_top_artists_short_term_df(spotify)
@@ -165,7 +166,7 @@ def get_top_artists():
     
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -184,7 +185,7 @@ def get_top_tracks():
     title = 'Your Top Tracks:'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -203,7 +204,7 @@ def get_top_genres():
     title = 'Your Top Genres:'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -222,7 +223,7 @@ def get_features():
     title = 'Your Audio Features:'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -246,7 +247,7 @@ def get_recommendations():
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
                                                 df3.to_html(classes='data',justify='center'),df4.to_html(classes='data',justify='center'),
                                                 df5.to_html(classes='data',justify='center'),df6.to_html(classes='data',justify='center')],
-                                                titles=['','Based on Top Tracks (Short Term)','Based on Top Tracks (Medium Term)','Based on Top Tracks (Long Term)',
+                                                titles=['Based on Top Tracks (Short Term)','Based on Top Tracks (Medium Term)','Based on Top Tracks (Long Term)',
                                                         'Based on Top Artists (Short Term)','Based on Top Artists (Medium Term)','Based on Top Artists (Long Term)'],
                                                 user_name=user_name,dataEvent=title)
 
@@ -266,13 +267,59 @@ def get_popularity():
     title = 'Popularity of Your Top Artists (Sorted by Popularity):'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
                                                 user_name=user_name,dataEvent=title)
 
 
 @app.route('/about_us')
 def about_us():
     return render_template('about.html')
+
+@app.route('/your_data')
+def user_data():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+    # user name
+    user_name = spotify.me()["display_name"]
+
+    # follower count
+    follower_count = spotify.me()["followers"]["total"]
+
+    list_of_playlists = spotify.current_user_playlists()["items"]
+    # total number of playlists
+    playlists = len(list_of_playlists)
+
+    # number of collaborative playlists
+    collaborative_playlists = 0
+    for idx in range(len(list_of_playlists)):
+        if not list_of_playlists[idx]["collaborative"] is False:
+            collaborative_playlists += 1
+    
+    # number of playlists owned by the user
+    owned_playlists = 0
+    for idx in range(len(list_of_playlists)):
+        if list_of_playlists[idx]["owner"]["display_name"] == user_name:
+            owned_playlists += 1
+
+    hold = "It's coming"
+
+    # currently playing
+    track = spotify.current_user_playing_track()
+    if not track is None:
+        result = spotify.current_user_playing_track()
+        track_title = result['item']['name']
+        artist_list = ', '.join(artist['name'] for artist in result['item']['artists'])
+        current_song = track_title + ' by ' + artist_list
+    if track is None:
+        current_song = 'No song is playing'
+
+    return render_template('user_data.html',user_name=user_name,follower_count=follower_count,
+                           playlist_count=playlists,collaborative_playlists=collaborative_playlists,
+                           owned_playlists=owned_playlists,hold=hold,current_song=current_song)
+
 
 
 '''
