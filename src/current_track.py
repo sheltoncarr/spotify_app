@@ -9,14 +9,14 @@ def get_current_track(spotify):
     artist_id = result['item']['artists'][0]['id']
     artist_info = spotify.artist(artist_id)
     genre_list = ', '.join(artist_info['genres'][:3]).title()
-    audio_sample_list = result['item']['preview_url']
+    audio_sample = result['item']['preview_url']
 
     df = pd.DataFrame({
         'Track': [track],
         'Album': [album],
         'Artist': [artist_list],
         'Genre': [genre_list],
-        'Audio Sample': [audio_sample_list]
+        'Audio Sample': [audio_sample]
     })
 
     df.index += 1
