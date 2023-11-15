@@ -10,6 +10,8 @@ from src import audio_features
 from src import recommendations
 from src import current_track
 from src import recently_played_tracks
+from src import popularity
+from src import top_genres
 
 def main():
 
@@ -71,6 +73,19 @@ def main():
     print('Top Tracks - Long Term (Last Several Years)\n')
     print(top_tracks.get_top_tracks_long_term_df(spotify),'\n')
 
+    # Top Genres
+
+    print('='*150,'\n')
+
+    print('Top Genres - Short Term (Last 4 Weeks)\n')
+    print(top_genres.get_top_genres_short_term_df(spotify),'\n')
+
+    print('Top Genres - Medium Term (Last 6 Months)\n')
+    print(top_genres.get_top_genres_medium_term_df(spotify),'\n')
+
+    print('Top Genres - Long Term (Last Several Years)\n')
+    print(top_genres.get_top_genres_long_term_df(spotify),'\n')
+
     # Audio Feature Analysis of Top Tracks
 
     print('='*150,'\n')
@@ -109,6 +124,20 @@ def main():
 
     print('Song Recommendations Based on Top Tracks (Long Term)\n')
     print(recommendations.get_long_term_track_recs(spotify),'\n')
+
+    # Popularity
+
+    print('='*150,'\n')
+
+    print('Popularity of Your Top Artists (Short Term)\n')
+    print(popularity.get_top_artists_short_term_popularity_df(spotify),'\n')
+
+    print('Popularity of Your Top Artists (Medium Term)\n')
+    print(popularity.get_top_artists_medium_term_popularity_df(spotify),'\n')
+
+    print('Popularity of Your Top Artists (Long Term)\n')
+    print(popularity.get_top_artists_long_term_popularity_df(spotify),'\n')
+
 
 if __name__ == '__main__':
     main()

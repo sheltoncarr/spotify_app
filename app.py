@@ -43,6 +43,8 @@ from src import audio_features
 from src import recommendations
 from src import current_track
 from src import recently_played_tracks
+from src import popularity
+from src import top_genres
 
 # load_dotenv()
 
@@ -186,6 +188,25 @@ def get_top_tracks():
                                                 user_name=user_name,dataEvent=title)
 
 
+@app.route('/top_genres')
+def get_top_genres():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+    
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    df1 = top_genres.get_top_genres_short_term_df(spotify)
+    df2 = top_genres.get_top_genres_medium_term_df(spotify)
+    df3 = top_genres.get_top_genres_long_term_df(spotify)
+    title = 'Your Top Genres:'
+
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
+                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                user_name=user_name,dataEvent=title)
+
+
 @app.route('/audio_features')
 def get_features():
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
@@ -228,6 +249,26 @@ def get_recommendations():
                                                 titles=['','Based on Top Tracks (Short Term)','Based on Top Tracks (Medium Term)','Based on Top Tracks (Long Term)',
                                                         'Based on Top Artists (Short Term)','Based on Top Artists (Medium Term)','Based on Top Artists (Long Term)'],
                                                 user_name=user_name,dataEvent=title)
+
+
+@app.route('/popularity')
+def get_popularity():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+    
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    df1 = popularity.get_top_artists_short_term_popularity_df(spotify)
+    df2 = popularity.get_top_artists_medium_term_popularity_df(spotify)
+    df3 = popularity.get_top_artists_long_term_popularity_df(spotify)
+    title = 'Popularity of Your Top Artists (Sorted by Popularity):'
+
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
+                                                df3.to_html(classes='data',justify='center')],titles=['','Short Term','Medium Term','Long Term'],
+                                                user_name=user_name,dataEvent=title)
+
 
 @app.route('/about_us')
 def about_us():
