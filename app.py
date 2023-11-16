@@ -68,23 +68,27 @@ def index():
                                                cache_handler=cache_handler,
                                                show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI)
 
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        # Step 1. Display sign in link when no token
-        auth_url = auth_manager.get_authorize_url()
-        return render_template('sign_in.html',url=auth_url)
-    
-    global user_name
-
     if request.args.get("code"):
         # Step 2. Being redirected from Spotify auth page
         auth_manager.get_access_token(request.args.get("code"))
+        print('in auth section')
         return redirect('/')
+    
 
-    if type(auth_manager) == spotipy.oauth2.SpotifyOAuth:
-        # Step 3. Signed in, display data
-        spotify = spotipy.Spotify(auth_manager=auth_manager)
-        user_name = spotify.me()["display_name"]
-        return render_template('index.html',user_name=user_name,dataEvent='Your data:')
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        # Step 1. Display sign in link when no token
+        auth_url = auth_manager.get_authorize_url()
+        print("We're in the sign in section")
+        return render_template('sign_in.html',url=auth_url)
+
+
+
+    # Step 3. Signed in, display data
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+    global user_name
+    user_name = spotify.me()["display_name"]
+    print('Got here to render seciton')
+    return render_template('index.html',user_name=user_name,dataEvent='Your data:')
     
 
 @app.route('/guest')
@@ -93,11 +97,9 @@ def guest_index():
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read',
                                                cache_handler=cache_handler,
                                                show_dialog=True,
-                                               client_id='2a6e6899e82044f1bb9acf08fac203fc',
-                                               client_secret='ec72902fa776481281cb845235aaf3e4',
                                                redirect_uri=SPOTIPY_REDIRECT_URI)
     user_name = 'Guest'
-    return render_template('index.html',user_name=user_name,dataEvent='')
+    return render_template('index.html',user_name=user_name)
 
 @app.route('/sign_out')
 def sign_out():
@@ -320,6 +322,10 @@ def user_data():
                            playlist_count=playlists,collaborative_playlists=collaborative_playlists,
                            owned_playlists=owned_playlists,hold=hold,current_song=current_song)
 
+
+@app.route('/contact_us')
+def contact_us():
+    return render_template('contact.html')
 
 
 '''

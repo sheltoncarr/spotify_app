@@ -53,17 +53,6 @@ header{
 
 }
 
-#logo{
-	float: left;
-	padding: none;
-	margin: none;
-}
-
-#logo img{
-	float: left;
-} 
-
-
 #main-header{
 	overflow: hidden;
 	margin: auto;
@@ -72,6 +61,7 @@ header{
     font-size: 35px;
     font-family: Cambria;
     color: white;
+	padding-left: 40px;
 }
 
 #menu{
@@ -97,8 +87,10 @@ header{
 #menu li a, #menu li span{
 	display: inline-block;
 	vertical-align: middle;
-	padding: none;
+	padding-right: 8px;
+	padding-left: 6px;
 	text-decoration: none;
+	border-right: 2px solid #FFF;
 	font-weight: 60;
 	text-transform: uppercase;
 	line-height: 10px;
@@ -243,6 +235,60 @@ header{
 	padding-left: 10%;
 }
 
+#form{
+	width: 50%;
+	margin: auto;
+}
+
+label{
+	width: 50%;
+	margin-left: 25%;
+	padding-bottom: 5px;
+	float: left;
+	text-align-last: left;
+	color: bold #40474e;
+	font-size: 20px;
+}
+
+input[type=text]{
+	width: 50%;
+	padding: 12px; 
+	border: 3px solid #aeaeae; 
+	border-radius: 4px; 
+	box-sizing: border-box;
+	margin-top: 6px; 
+	margin-bottom: 16px; 
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 14px;
+  }
+
+textarea{
+	width: 50%;
+	padding: 12px; 
+	border: 3px solid #aeaeae; 
+	border-radius: 4px; 
+	box-sizing: border-box;
+	margin-top: 6px; 
+	margin-bottom: 16px; 
+	resize: vertical;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: 14px;
+  }
+  
+input[type=submit] {
+	background-color: #445f76;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-bottom: 50px;
+  }
+  
+input[type=submit]:hover {
+	background-color: #5f6870;
+  }
+  
 #footer{
     overflow: hidden;
     text-align: center;

@@ -8,11 +8,9 @@ Ideas:
 - Show release date
 - "Loading" sign when processing 
 - Add space between tables and make table titles larger
-- more space between the "home", "about us",... tabs 
 - add documentations to each function
 - Make visuals for audio analysis section
 - Look into batch API calls for effieciency --> still need to fix audio_features eficiency
-- Probably will need to remove Spotify logo when we push live
 - Apply for Extended Quota Mode
 - Change color scheme to green and black
 
