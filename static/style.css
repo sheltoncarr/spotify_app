@@ -9,7 +9,7 @@ body{
 	margin: 0px;
 	padding: 0px;
 	background: #91aac3;
-	font-family: 'Roboto';
+	font-family: 'Roboto', sans-serif;
 	font-size: 12pt;
 }
 		
@@ -59,7 +59,7 @@ header{
     text-align: justify;
     padding-top: 25px;
     font-size: 35px;
-    font-family: Cambria;
+    font-family: Cambria, sans-serif;
     color: white;
 	padding-left: 40px;
 }
@@ -258,7 +258,7 @@ input[type=text]{
 	box-sizing: border-box;
 	margin-top: 6px; 
 	margin-bottom: 16px; 
-	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-family: Georgia, sans-serif 'Times New Roman', Times, serif;
 	font-size: 14px;
   }
 
@@ -271,7 +271,7 @@ textarea{
 	margin-top: 6px; 
 	margin-bottom: 16px; 
 	resize: vertical;
-	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-family: Georgia, sans-serif, 'Times New Roman', Times, serif;
 	font-size: 14px;
   }
   

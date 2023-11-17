@@ -219,13 +219,14 @@ def get_features():
     
     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
+    df = audio_features.audio_feature_meaning()
     df1 = audio_features.get_audio_features_short_term(spotify)
     df2 = audio_features.get_audio_features_medium_term(spotify)
     df3 = audio_features.get_audio_features_long_term(spotify)
     title = 'Your Audio Features:'
 
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
+    return render_template('index.html',tables=[df.to_html(classes='data',justify='center'),df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
+                                                df3.to_html(classes='data',justify='center')],titles=['Audio Feature Definitions','Short Term','Medium Term','Long Term'],
                                                 user_name=user_name,dataEvent=title)
 
 

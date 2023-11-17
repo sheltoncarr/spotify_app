@@ -1,7 +1,6 @@
 Ideas:
 
 - Add a button/hyperlink instead of the raw URL to the play the song preview
-- Add a section that explains what the audio features mean (just add the descriptions from the spotofy developer website).
   Also change the title for the Audio Analysis section to specify that we're taking the average value
 - Add a button that will create a playlist with recommended songs for the user
 - Add a button that will add a certain recommended song to a user's music library
@@ -12,6 +11,7 @@ Ideas:
 - Make visuals for audio analysis section
 - Apply for Extended Quota Mode
 - Change color scheme to green and black
+- For audio features, include loudness, bpm, and duration
 
 Resources:
 
