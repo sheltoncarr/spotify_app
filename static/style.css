@@ -8,7 +8,7 @@ html, body{
 body{
 	margin: 0px;
 	padding: 0px;
-	background: #91aac3;
+	background: #181818;
 	font-family: 'Roboto', sans-serif;
 	font-size: 12pt;
 }
@@ -16,11 +16,12 @@ body{
 h1, h2, h3{
 	margin: 0;
 	padding: 0;
-	color: #404040;
+	color: #ccc;
 }
 	
 p, ol, ul{
 	margin-top: 0;
+	color: #ccc;
 }
 
 p {
@@ -46,7 +47,7 @@ header{
 }
 
 #top-header{
-	background: #445f76;
+	background: #000000;
 	height: 100px;
 	width: 100%;
 	text-align: center;
@@ -60,7 +61,7 @@ header{
     padding-top: 25px;
     font-size: 35px;
     font-family: Cambria, sans-serif;
-    color: white;
+    color: green;
 	padding-left: 40px;
 }
 
@@ -90,7 +91,7 @@ header{
 	padding-right: 8px;
 	padding-left: 6px;
 	text-decoration: none;
-	border-right: 2px solid #FFF;
+	border-right: 2px solid green;
 	font-weight: 60;
 	text-transform: uppercase;
 	line-height: 10px;
@@ -98,11 +99,11 @@ header{
 	
 #menu li a{
 		
-	color: #FFF;
+	color: #ccc;
 }
 	
 #menu li:hover a, #menu li span{
-	color: #b12414;
+	color: green;
 	text-decoration: none;
 }
 
@@ -119,11 +120,12 @@ header{
 	text-align: center;
 	padding-top: 20px;
 	margin-left: 25%;
+	color: #ccc;
 }
 
 #tabs{
-	border: 3px solid #ccc;
-	background-color: #445f76;
+	border: 3px solid green;
+	background-color: #000;
 	width: 60%;
 	margin-left: 20%;
 	height: 100%;
@@ -154,11 +156,11 @@ header{
 	
 #tabs li a{
 		
-	color: #FFF;
+	color: #ccc;
 }
 	
 #tabs li:hover a, #tabs li span{
-	color: #b12414;
+	color: green;
 	text-decoration: none;
 }
 
@@ -172,10 +174,10 @@ header{
 	padding: 10px;
 	text-align: left;
 	font-size: 20px;
-	color: white;
-	background-color: #445f76;
+	color: #ccc;
+	background-color: #000;
 	width:fit-content;
-	border: 3px solid #ccc;
+	border: 3px solid green;
 	border-bottom: none;
 }
 
@@ -183,9 +185,9 @@ header{
 	padding: 10px;
 	text-align: center;
 	font-size: 20px;
-	color: white;
-	background-color: #445f76;
-	border: 3px solid #ccc;
+	color: #ccc;
+	background-color: #000;
+	border: 3px solid green;
 	text-transform: uppercase;
 	font-style: bold;
 }
@@ -194,17 +196,9 @@ header{
 	display:table;
 	margin-left: auto;
 	margin-right: auto;
-	padding-bottom: 18px;
+	padding-bottom: 100px;
 	width: auto;
-}
-
-
-#about_us{
-	margin: auto;
-	overflow: hidden;
-	width: 80%;
-	align-items: center;
-	columns: 2;
+	color: #ccc;
 }
 
 #user_data{
@@ -214,25 +208,40 @@ header{
 	padding-top: 10px;
 }
 
+
 #user_data ul{
 	text-align: left;
 	margin: none;
+	color: #ccc;
+}
+
+#about_us{
+	margin: auto;
+	overflow: hidden;
+	width: 80%;
+	align-items: center;
+	columns: 2;
 }
 
 .column img {
 	margin-top: 8px;
 	vertical-align: middle;
-	width: 200px;
-	height: 240px;
-	border: 3px solid black;
+	width: 250px;
+	height: 250px;
+	border: 3px solid green;
 	border-radius: 10%;
-	border-color: #404040;
 }
 
 .column p{
 	text-align: justify;
 	width: 80%;
 	padding-left: 10%;
+	padding-top: 40px;
+	padding-bottom: 20px;
+}
+
+.column a{
+	padding-bottom: 20px;
 }
 
 #form{
@@ -246,38 +255,39 @@ label{
 	padding-bottom: 5px;
 	float: left;
 	text-align-last: left;
-	color: bold #40474e;
 	font-size: 20px;
+	color: #ccc;
 }
 
 input[type=text]{
 	width: 50%;
 	padding: 12px; 
-	border: 3px solid #aeaeae; 
+	border: 3px solid green; 
+	color: bold #ccc;
 	border-radius: 4px; 
 	box-sizing: border-box;
 	margin-top: 6px; 
 	margin-bottom: 16px; 
-	font-family: Georgia, sans-serif 'Times New Roman', Times, serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
   }
 
 textarea{
 	width: 50%;
 	padding: 12px; 
-	border: 3px solid #aeaeae; 
+	border: 3px solid green; 
 	border-radius: 4px; 
 	box-sizing: border-box;
 	margin-top: 6px; 
 	margin-bottom: 16px; 
 	resize: vertical;
-	font-family: Georgia, sans-serif, 'Times New Roman', Times, serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
   }
   
 input[type=submit] {
-	background-color: #445f76;
-	color: white;
+	background-color: green;
+	color: #ccc;
 	padding: 12px 20px;
 	border: none;
 	border-radius: 4px;
@@ -286,7 +296,7 @@ input[type=submit] {
   }
   
 input[type=submit]:hover {
-	background-color: #5f6870;
+	background-color: rgb(1, 51, 1);
   }
   
 #footer{
@@ -300,14 +310,13 @@ input[type=submit]:hover {
 #footer .copyright{
     overflow: hidden;
     padding: 3em 0em;
-    border-top: 20px solid rgba(255, 255, 255, 0.08);
     text-align: center;
-    background: #445f76;
+    background: #000;
 }
 
 #footer .copyright p
 {
     letter-spacing: 1px;
     font-size: 0.90em;
-    color: rgba(255, 255, 255, 0.6);
+    color: green;
 }
