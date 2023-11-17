@@ -1,8 +1,8 @@
 Ideas:
 
 - Add a button/hyperlink instead of the raw URL to the play the song preview
-- Add a section that explains what the audio features mean (just add the descriptions from the spotofy developer website). Also change the title for the Audio Analysis section to specify that we're taking the average value
-- Maybe add a niche artist section? Cross reference someone's top artists with artists that have low popularity / low monthly listeners count
+- Add a section that explains what the audio features mean (just add the descriptions from the spotofy developer website).
+  Also change the title for the Audio Analysis section to specify that we're taking the average value
 - Add a button that will create a playlist with recommended songs for the user
 - Add a button that will add a certain recommended song to a user's music library
 - Show release date
@@ -10,7 +10,6 @@ Ideas:
 - Add space between tables and make table titles larger
 - add documentations to each function
 - Make visuals for audio analysis section
-- Look into batch API calls for effieciency --> still need to fix audio_features eficiency
 - Apply for Extended Quota Mode
 - Change color scheme to green and black
 
@@ -22,4 +21,6 @@ stack overflow - How can I make my application using Spotify API accessible to o
 flask oauth2 example: https://github.com/spotipy-dev/spotipy/blob/master/examples/app.py
 spotipy documentation: https://spotipy.readthedocs.io/en/2.22.1/
 spotipy github: https://github.com/spotipy-dev/spotipy#with-user-authentication
+spotify design guide: https://developer.spotify.com/documentation/design
+
 

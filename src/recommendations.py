@@ -22,18 +22,9 @@ import pandas as pd
 
 def get_short_term_track_recs(spotify, limit=5, time_range='short_term'):
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
-    tracks = [item['name'] for item in results['items']]
-    artists = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+    track_uri_list = [item['id'] for item in results['items']]
 
-    track_uri = []
-
-    for i in range(limit):
-        search_results = spotify.search(q='track:{track} artist:{artist}'.format(track=tracks[i],artist=artists[i]), type='track')
-        if search_results['tracks']['items'] == []:
-            continue
-        track_uri.append(search_results['tracks']['items'][0]['uri'])
-
-    rec_results = spotify.recommendations(seed_tracks=track_uri, limit=10)['tracks']
+    rec_results = spotify.recommendations(seed_tracks=track_uri_list, limit=10)['tracks']
 
     track_list = [tracks['name'] for tracks in rec_results]
     album_list = [item['album']['name'] for item in rec_results]
@@ -52,22 +43,14 @@ def get_short_term_track_recs(spotify, limit=5, time_range='short_term'):
     })
     df.index += 1
     return df
+
 
 
 def get_medium_term_track_recs(spotify, limit=5, time_range='medium_term'):
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
-    tracks = [item['name'] for item in results['items']]
-    artists = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+    track_uri_list = [item['id'] for item in results['items']]
 
-    track_uri = []
-
-    for i in range(limit):
-        search_results = spotify.search(q='track:{track} artist:{artist}'.format(track=tracks[i],artist=artists[i]), type='track')
-        if search_results['tracks']['items'] == []:
-            continue
-        track_uri.append(search_results['tracks']['items'][0]['uri'])
-
-    rec_results = spotify.recommendations(seed_tracks=track_uri, limit=10)['tracks']
+    rec_results = spotify.recommendations(seed_tracks=track_uri_list, limit=10)['tracks']
 
     track_list = [tracks['name'] for tracks in rec_results]
     album_list = [item['album']['name'] for item in rec_results]
@@ -86,22 +69,14 @@ def get_medium_term_track_recs(spotify, limit=5, time_range='medium_term'):
     })
     df.index += 1
     return df
+
 
 
 def get_long_term_track_recs(spotify, limit=5, time_range='long_term'):
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
-    tracks = [item['name'] for item in results['items']]
-    artists = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+    track_uri_list = [item['id'] for item in results['items']]
 
-    track_uri = []
-
-    for i in range(limit):
-        search_results = spotify.search(q='track:{track} artist:{artist}'.format(track=tracks[i],artist=artists[i]), type='track')
-        if search_results['tracks']['items'] == []:
-            continue
-        track_uri.append(search_results['tracks']['items'][0]['uri'])
-
-    rec_results = spotify.recommendations(seed_tracks=track_uri, limit=10)['tracks']
+    rec_results = spotify.recommendations(seed_tracks=track_uri_list, limit=10)['tracks']
 
     track_list = [tracks['name'] for tracks in rec_results]
     album_list = [item['album']['name'] for item in rec_results]
@@ -122,17 +97,12 @@ def get_long_term_track_recs(spotify, limit=5, time_range='long_term'):
     return df
 
 
+
 def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
-    artists = [item['name'] for item in results['items']]
-    
-    artist_uri = []
+    artist_uri_list = [item['id'] for item in results['items']]
 
-    for i in range(limit):
-        search_results = spotify.search(q='artist:{artist}'.format(artist=artists[i]), type='artist')
-        artist_uri.append(search_results['artists']['items'][0]['uri'])
-
-    rec_results = spotify.recommendations(seed_artists=artist_uri, limit=10)['tracks']
+    rec_results = spotify.recommendations(seed_artists=artist_uri_list, limit=10)['tracks']
 
     track_list = [tracks['name'] for tracks in rec_results]
     album_list = [item['album']['name'] for item in rec_results]
@@ -149,19 +119,14 @@ def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
                        'Audio Sample': audio_sample_list})
     df.index += 1
     return df
+
 
 
 def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
-    artists = [item['name'] for item in results['items']]
-    
-    artist_uri = []
+    artist_uri_list = [item['id'] for item in results['items']]
 
-    for i in range(limit):
-        search_results = spotify.search(q='artist:{artist}'.format(artist=artists[i]), type='artist')
-        artist_uri.append(search_results['artists']['items'][0]['uri'])
-
-    rec_results = spotify.recommendations(seed_artists=artist_uri, limit=10)['tracks']
+    rec_results = spotify.recommendations(seed_artists=artist_uri_list, limit=10)['tracks']
 
     track_list = [tracks['name'] for tracks in rec_results]
     album_list = [item['album']['name'] for item in rec_results]
@@ -178,19 +143,14 @@ def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
                        'Audio Sample': audio_sample_list})
     df.index += 1
     return df
+
 
 
 def get_long_term_artist_recs(spotify, limit=5, time_range='long_term'):
     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
-    artists = [item['name'] for item in results['items']]
-    
-    artist_uri = []
+    artist_uri_list = [item['id'] for item in results['items']]
 
-    for i in range(limit):
-        search_results = spotify.search(q='artist:{artist}'.format(artist=artists[i]), type='artist')
-        artist_uri.append(search_results['artists']['items'][0]['uri'])
-
-    rec_results = spotify.recommendations(seed_artists=artist_uri, limit=10)['tracks']
+    rec_results = spotify.recommendations(seed_artists=artist_uri_list, limit=10)['tracks']
 
     track_list = [tracks['name'] for tracks in rec_results]
     album_list = [item['album']['name'] for item in rec_results]
@@ -207,6 +167,196 @@ def get_long_term_artist_recs(spotify, limit=5, time_range='long_term'):
                        'Audio Sample': audio_sample_list})
     df.index += 1
     return df
+
+#====================================================================================
+
+# def get_short_term_track_recs(spotify, limit=5, time_range='short_term'):
+#     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
+#     tracks = [item['name'] for item in results['items']]
+#     artists = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+
+#     track_uri = []
+
+#     for i in range(limit):
+#         search_results = spotify.search(q='track:{track} artist:{artist}'.format(track=tracks[i],artist=artists[i]), type='track')
+#         if search_results['tracks']['items'] == []:
+#             continue
+#         track_uri.append(search_results['tracks']['items'][0]['uri'])
+
+#     rec_results = spotify.recommendations(seed_tracks=track_uri, limit=10)['tracks']
+
+#     track_list = [tracks['name'] for tracks in rec_results]
+#     album_list = [item['album']['name'] for item in rec_results]
+#     artist_list = [', '.join(artist['name'] for artist in tracks['artists']) for tracks in rec_results]
+#     artist_id = [item['artists'][0]['id'] for item in rec_results]
+#     artist_info = spotify.artists(artist_id)['artists']
+#     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
+#     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+
+#     df = pd.DataFrame({
+#         'Track': track_list,
+#         'Album': album_list,
+#         'Artist': artist_list,
+#         'Genre': genre_list,
+#         'Audio Sample': audio_sample_list
+#     })
+#     df.index += 1
+#     return df
+
+
+# def get_medium_term_track_recs(spotify, limit=5, time_range='medium_term'):
+#     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
+#     tracks = [item['name'] for item in results['items']]
+#     artists = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+
+#     track_uri = []
+
+#     for i in range(limit):
+#         search_results = spotify.search(q='track:{track} artist:{artist}'.format(track=tracks[i],artist=artists[i]), type='track')
+#         if search_results['tracks']['items'] == []:
+#             continue
+#         track_uri.append(search_results['tracks']['items'][0]['uri'])
+
+#     rec_results = spotify.recommendations(seed_tracks=track_uri, limit=10)['tracks']
+
+#     track_list = [tracks['name'] for tracks in rec_results]
+#     album_list = [item['album']['name'] for item in rec_results]
+#     artist_list = [', '.join(artist['name'] for artist in tracks['artists']) for tracks in rec_results]
+#     artist_id = [item['artists'][0]['id'] for item in rec_results]
+#     artist_info = spotify.artists(artist_id)['artists']
+#     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
+#     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+
+#     df = pd.DataFrame({
+#         'Track': track_list,
+#         'Album': album_list,
+#         'Artist': artist_list,
+#         'Genre': genre_list,
+#         'Audio Sample': audio_sample_list
+#     })
+#     df.index += 1
+#     return df
+
+
+# def get_long_term_track_recs(spotify, limit=5, time_range='long_term'):
+#     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
+#     tracks = [item['name'] for item in results['items']]
+#     artists = [', '.join(artist['name'] for artist in item['artists']) for item in results['items']]
+
+#     track_uri = []
+
+#     for i in range(limit):
+#         search_results = spotify.search(q='track:{track} artist:{artist}'.format(track=tracks[i],artist=artists[i]), type='track')
+#         if search_results['tracks']['items'] == []:
+#             continue
+#         track_uri.append(search_results['tracks']['items'][0]['uri'])
+
+#     rec_results = spotify.recommendations(seed_tracks=track_uri, limit=10)['tracks']
+
+#     track_list = [tracks['name'] for tracks in rec_results]
+#     album_list = [item['album']['name'] for item in rec_results]
+#     artist_list = [', '.join(artist['name'] for artist in tracks['artists']) for tracks in rec_results]
+#     artist_id = [item['artists'][0]['id'] for item in rec_results]
+#     artist_info = spotify.artists(artist_id)['artists']
+#     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
+#     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+
+#     df = pd.DataFrame({
+#         'Track': track_list,
+#         'Album': album_list,
+#         'Artist': artist_list,
+#         'Genre': genre_list,
+#         'Audio Sample': audio_sample_list
+#     })
+#     df.index += 1
+#     return df
+
+
+# def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
+#     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
+#     artists = [item['name'] for item in results['items']]
+    
+#     artist_uri = []
+
+#     for i in range(limit):
+#         search_results = spotify.search(q='artist:{artist}'.format(artist=artists[i]), type='artist')
+#         artist_uri.append(search_results['artists']['items'][0]['uri'])
+
+#     rec_results = spotify.recommendations(seed_artists=artist_uri, limit=10)['tracks']
+
+#     track_list = [tracks['name'] for tracks in rec_results]
+#     album_list = [item['album']['name'] for item in rec_results]
+#     artist_list = [', '.join(artist['name'] for artist in tracks['artists']) for tracks in rec_results]
+#     artist_id = [item['artists'][0]['id'] for item in rec_results]
+#     artist_info = spotify.artists(artist_id)['artists']
+#     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
+#     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+
+#     df = pd.DataFrame({'Track': track_list,
+#                        'Album': album_list,
+#                        'Artist': artist_list,
+#                        'Genre': genre_list,
+#                        'Audio Sample': audio_sample_list})
+#     df.index += 1
+#     return df
+
+
+# def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
+#     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
+#     artists = [item['name'] for item in results['items']]
+    
+#     artist_uri = []
+
+#     for i in range(limit):
+#         search_results = spotify.search(q='artist:{artist}'.format(artist=artists[i]), type='artist')
+#         artist_uri.append(search_results['artists']['items'][0]['uri'])
+
+#     rec_results = spotify.recommendations(seed_artists=artist_uri, limit=10)['tracks']
+
+#     track_list = [tracks['name'] for tracks in rec_results]
+#     album_list = [item['album']['name'] for item in rec_results]
+#     artist_list = [', '.join(artist['name'] for artist in tracks['artists']) for tracks in rec_results]
+#     artist_id = [item['artists'][0]['id'] for item in rec_results]
+#     artist_info = spotify.artists(artist_id)['artists']
+#     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
+#     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+
+#     df = pd.DataFrame({'Track': track_list,
+#                        'Album': album_list,
+#                        'Artist': artist_list,
+#                        'Genre': genre_list,
+#                        'Audio Sample': audio_sample_list})
+#     df.index += 1
+#     return df
+
+
+# def get_long_term_artist_recs(spotify, limit=5, time_range='long_term'):
+#     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
+#     artists = [item['name'] for item in results['items']]
+    
+#     artist_uri = []
+
+#     for i in range(limit):
+#         search_results = spotify.search(q='artist:{artist}'.format(artist=artists[i]), type='artist')
+#         artist_uri.append(search_results['artists']['items'][0]['uri'])
+
+#     rec_results = spotify.recommendations(seed_artists=artist_uri, limit=10)['tracks']
+
+#     track_list = [tracks['name'] for tracks in rec_results]
+#     album_list = [item['album']['name'] for item in rec_results]
+#     artist_list = [', '.join(artist['name'] for artist in tracks['artists']) for tracks in rec_results]
+#     artist_id = [item['artists'][0]['id'] for item in rec_results]
+#     artist_info = spotify.artists(artist_id)['artists']
+#     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
+#     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+
+#     df = pd.DataFrame({'Track': track_list,
+#                        'Album': album_list,
+#                        'Artist': artist_list,
+#                        'Genre': genre_list,
+#                        'Audio Sample': audio_sample_list})
+#     df.index += 1
+#     return df
 
 # ==================================================================================================
 
