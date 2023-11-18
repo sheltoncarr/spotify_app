@@ -136,7 +136,7 @@ def get_top_artists():
     
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -155,7 +155,7 @@ def get_top_tracks():
     title = 'Your Top Tracks:'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -174,7 +174,7 @@ def get_top_genres():
     title = 'Your Top Genres:'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -194,7 +194,7 @@ def get_features():
     title = 'Your Audio Features:'
 
     return render_template('index.html',tables=[df.to_html(classes='data',justify='center'),df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Audio Feature Definitions','Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Audio Feature Definitions','Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -238,7 +238,7 @@ def get_popularity():
     title = 'Popularity of Your Top Artists (Sorted by Popularity):'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term','Medium Term','Long Term'],
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
                                                 user_name=user_name,dataEvent=title)
 
 

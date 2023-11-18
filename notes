@@ -4,13 +4,16 @@ Ideas:
   Also change the title for the Audio Analysis section to specify that we're taking the average value
 - Add a button that will create a playlist with recommended songs for the user
 - Add a button that will add a certain recommended song to a user's music library
-- Show release date
+- Show song release date
 - "Loading" sign when processing 
-- Add space between tables and make table titles larger
 - add documentations to each function
 - Make visuals for audio analysis section
 - Apply for Extended Quota Mode
 - For audio features, include loudness, bpm, and duration
+- add favicon
+- Edege case for currently playing while spotify dj is on
+- fix contact us page
+- figure out your data page (playists)
 
 Resources:
 
