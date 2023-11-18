@@ -5,7 +5,7 @@ html, body{
 body{
 	margin: 0px;
 	padding: 0px;
-	background: #e4ebf2;
+	background: black;
 	font-family: 'Roboto', sans-serif;
 	font-size: 21pt;
 }
@@ -16,7 +16,17 @@ body{
 	padding: 20px;
     margin: auto;
 	margin-top: 20%;
-    border: 3px solid rgb(182, 175, 175);
+    border: 3px solid green;
 	border-radius: 2%;
     border-width: 10px;
+	color: #ccc
 }
+
+a { color: green } /* Globally */
+
+/* Each state */
+
+a:visited { text-decoration: none; color:green; }
+a:hover { text-decoration: none; color:green; }
+a:focus { text-decoration: none; color:green; }
+a:hover, a:active { text-decoration: none; color:green }

@@ -19,8 +19,8 @@ def get_top_genres_short_term_df(spotify, limit=50, time_range='short_term'):
 
     genre_count = Counter(genre_list)
 
-    df = pd.DataFrame(list(genre_count.items()), columns=['Genre', 'Count'])
-    df.sort_values(by=['Count'], inplace=True, ascending=False)
+    df = pd.DataFrame(list(genre_count.items()), columns=['Genre', 'Count of Top Artists/Tracks'])
+    df.sort_values(by=['Count of Top Artists/Tracks'], inplace=True, ascending=False)
     df.reset_index(drop=True, inplace=True)
     df.index += 1
     return df
@@ -43,8 +43,8 @@ def get_top_genres_medium_term_df(spotify, limit=50, time_range='medium_term'):
 
     genre_count = Counter(genre_list)
 
-    df = pd.DataFrame(list(genre_count.items()), columns=['Genre', 'Count'])
-    df.sort_values(by=['Count'], inplace=True, ascending=False)
+    df = pd.DataFrame(list(genre_count.items()), columns=['Genre', 'Count of Top Artists/Tracks'])
+    df.sort_values(by=['Count of Top Artists/Tracks'], inplace=True, ascending=False)
     df.reset_index(drop=True, inplace=True)
     df.index += 1
     return df
@@ -67,8 +67,8 @@ def get_top_genres_long_term_df(spotify, limit=50, time_range='long_term'):
 
     genre_count = Counter(genre_list)
 
-    df = pd.DataFrame(list(genre_count.items()), columns=['Genre', 'Count'])
-    df.sort_values(by=['Count'], inplace=True, ascending=False)
+    df = pd.DataFrame(list(genre_count.items()), columns=['Genre', 'Count of Top Artists/Tracks'])
+    df.sort_values(by=['Count of Top Artists/Tracks'], inplace=True, ascending=False)
     df.reset_index(drop=True, inplace=True)
     df.index += 1
     return df
