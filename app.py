@@ -71,14 +71,12 @@ def index():
     if request.args.get("code"):
         # Step 2. Being redirected from Spotify auth page
         auth_manager.get_access_token(request.args.get("code"))
-        print('in auth section')
         return redirect('/')
     
 
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         # Step 1. Display sign in link when no token
         auth_url = auth_manager.get_authorize_url()
-        print("We're in the sign in section")
         return render_template('sign_in.html',url=auth_url)
 
 
@@ -87,8 +85,7 @@ def index():
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     global user_name
     user_name = spotify.me()["display_name"]
-    print('Got here to render seciton')
-    return render_template('index.html',user_name=user_name,dataEvent='Your data:')
+    return render_template('index.html',user_name=user_name)
     
 
 @app.route('/guest')
@@ -105,35 +102,6 @@ def guest_index():
 def sign_out():
     session.pop("token_info", None)
     return redirect('/')
-
-
-# @app.route('/current_user')
-# def current_user():
-#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-#     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
-#         return redirect('/')
-#     spotify = spotipy.Spotify(auth_manager=auth_manager)
-#     return spotify.current_user()
-
-
-# @app.route('/currently_playing')
-# def get_currently_playing():
-#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-#     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
-#         return redirect('/')
-    
-#     spotify = spotipy.Spotify(auth_manager=auth_manager)
-
-#     track = spotify.current_user_playing_track()
-
-#     if not track is None:
-#         df = current_track.get_current_track(spotify)
-#         title = 'Currently Playing'
-#         return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['Currently Playing'],
-#                                                 user_name=user_name,dataEvent=title)
-#     return "No track currently playing."
 
 
 @app.route('/most_recent_tracks')
