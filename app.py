@@ -116,7 +116,7 @@ def get_most_recent_tracks():
     df = recently_played_tracks.most_recently_played_tracks(spotify)
     title = 'Most Recent Tracks:'
     
-    return render_template('index.html',tables=[df.to_html(classes='data',justify='center')],titles=['Most Recent Tracks'],
+    return render_template('index.html',tables=[df.to_html(classes='data',justify='center',render_links=True)],titles=['Most Recent Tracks'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -154,8 +154,8 @@ def get_top_tracks():
     df3 = top_tracks.get_top_tracks_long_term_df(spotify)
     title = 'Your Top Tracks:'
 
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center',render_links=True),df2.to_html(classes='data',justify='center',render_links=True),
+                                                df3.to_html(classes='data',justify='center',render_links=True)],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
                                                 user_name=user_name,dataEvent=title)
 
 
@@ -215,9 +215,9 @@ def get_recommendations():
     df6 = recommendations.get_long_term_artist_recs(spotify)
     title = 'Your Top Recommendations:'
 
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center'),df4.to_html(classes='data',justify='center'),
-                                                df5.to_html(classes='data',justify='center'),df6.to_html(classes='data',justify='center')],
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center',render_links=True),df2.to_html(classes='data',justify='center',render_links=True),
+                                                df3.to_html(classes='data',justify='center',render_links=True),df4.to_html(classes='data',justify='center',render_links=True),
+                                                df5.to_html(classes='data',justify='center',render_links=True),df6.to_html(classes='data',justify='center',render_links=True)],
                                                 titles=['Based on Top Tracks (Short Term)','Based on Top Tracks (Medium Term)','Based on Top Tracks (Long Term)',
                                                         'Based on Top Artists (Short Term)','Based on Top Artists (Medium Term)','Based on Top Artists (Long Term)'],
                                                 user_name=user_name,dataEvent=title)

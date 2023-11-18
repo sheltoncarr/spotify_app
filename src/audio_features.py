@@ -45,7 +45,8 @@ def get_audio_features_short_term(spotify, limit=50, time_range='short_term'):
     drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
     df = df.drop(columns=drop_columns)
     df = df.mean(axis=0)
-    df = pd.DataFrame({'Feature':df.index, 'Value':df.values})
+    df = pd.DataFrame({'Audio Feature':df.index, 'Average Value':df.values})
+    df['Audio Feature'] = df['Audio Feature'].str.title()
     df.index += 1
     return df
 
@@ -58,7 +59,8 @@ def get_audio_features_medium_term(spotify, limit=50, time_range='medium_term'):
     drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
     df = df.drop(columns=drop_columns)
     df = df.mean(axis=0)
-    df = pd.DataFrame({'Feature':df.index, 'Value':df.values})
+    df = pd.DataFrame({'Audio Feature':df.index, 'Average Value':df.values})
+    df['Audio Feature'] = df['Audio Feature'].str.title()
     df.index += 1
     return df
 
@@ -71,7 +73,8 @@ def get_audio_features_long_term(spotify, limit=50, time_range='long_term'):
     drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
     df = df.drop(columns=drop_columns)
     df = df.mean(axis=0)
-    df = pd.DataFrame({'Feature':df.index, 'Value':df.values})
+    df = pd.DataFrame({'Audio Feature':df.index, 'Average Value':df.values})
+    df['Audio Feature'] = df['Audio Feature'].str.title()
     df.index += 1
     return df
 
