@@ -170,7 +170,11 @@ header{
 	margin-top: 20px;
 }
 
-#data h3{
+#data:has(h3:empty){
+	display: none;
+}
+
+#data h3 {
 	padding: 10px;
 	text-align: left;
 	font-size: 20px;
