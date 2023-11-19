@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () {
 
         document.getElementById('loading-spinner').style.display = 'none';
-    }, 8000);
+    }, 30000);
     
 });document.addEventListener('DOMContentLoaded', function () {
     // Show loading spinner
@@ -29,3 +29,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 50); // Adjust the delay as needed
     });
 });
+
+
+var currentlyPlayingAudio = null;
+
+function playAudio(url) {
+    // Stop the currently playing audio, if any
+    if (currentlyPlayingAudio !== null) {
+        currentlyPlayingAudio.pause();
+    }
+
+    // Create a new audio element and play the audio
+    var audio = new Audio(url);
+    audio.play();
+
+    // Update the currently playing audio
+    currentlyPlayingAudio = audio;
+}

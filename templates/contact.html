@@ -5,6 +5,7 @@
         <h1 class="title" style="font-size: 30px;">
             Contact Us
         </h1>
+        <form action='/handler' method="post">
         <form action='handler.php' method="post">
             <label for="fname">First Name</label><br>
             <input type="text" id="fname" name="firstname">
@@ -25,5 +26,7 @@
 
         </form>
 
+
+        <h1>{{errors}}</h1>
     </main>
 {% endblock %}

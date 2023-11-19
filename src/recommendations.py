@@ -13,14 +13,16 @@ def get_short_term_track_recs(spotify, limit=5, time_range='short_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
 
     df = pd.DataFrame({
         'Track': track_list,
         'Album': album_list,
         'Artist': artist_list,
         'Genre': genre_list,
-        'Audio Sample': audio_sample_list
+        'Audio Sample': play_button
     })
+
     df.index += 1
     return df
 
@@ -39,14 +41,16 @@ def get_medium_term_track_recs(spotify, limit=5, time_range='medium_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
 
     df = pd.DataFrame({
         'Track': track_list,
         'Album': album_list,
         'Artist': artist_list,
         'Genre': genre_list,
-        'Audio Sample': audio_sample_list
+        'Audio Sample': play_button
     })
+
     df.index += 1
     return df
 
@@ -65,17 +69,18 @@ def get_long_term_track_recs(spotify, limit=5, time_range='long_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
 
     df = pd.DataFrame({
         'Track': track_list,
         'Album': album_list,
         'Artist': artist_list,
         'Genre': genre_list,
-        'Audio Sample': audio_sample_list
+        'Audio Sample': play_button
     })
+
     df.index += 1
     return df
-
 
 
 def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
@@ -91,15 +96,18 @@ def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
 
-    df = pd.DataFrame({'Track': track_list,
-                       'Album': album_list,
-                       'Artist': artist_list,
-                       'Genre': genre_list,
-                       'Audio Sample': audio_sample_list})
+    df = pd.DataFrame({
+        'Track': track_list,
+        'Album': album_list,
+        'Artist': artist_list,
+        'Genre': genre_list,
+        'Audio Sample': play_button
+    })
+
     df.index += 1
     return df
-
 
 
 def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
@@ -115,12 +123,16 @@ def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
 
-    df = pd.DataFrame({'Track': track_list,
-                       'Album': album_list,
-                       'Artist': artist_list,
-                       'Genre': genre_list,
-                       'Audio Sample': audio_sample_list})
+    df = pd.DataFrame({
+        'Track': track_list,
+        'Album': album_list,
+        'Artist': artist_list,
+        'Genre': genre_list,
+        'Audio Sample': play_button
+    })
+
     df.index += 1
     return df
 
@@ -139,11 +151,15 @@ def get_long_term_artist_recs(spotify, limit=5, time_range='long_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [tracks['preview_url'] for tracks in rec_results]
+    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
 
-    df = pd.DataFrame({'Track': track_list,
-                       'Album': album_list,
-                       'Artist': artist_list,
-                       'Genre': genre_list,
-                       'Audio Sample': audio_sample_list})
+    df = pd.DataFrame({
+        'Track': track_list,
+        'Album': album_list,
+        'Artist': artist_list,
+        'Genre': genre_list,
+        'Audio Sample': play_button
+    })
+
     df.index += 1
     return df
