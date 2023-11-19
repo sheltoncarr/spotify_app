@@ -41,6 +41,24 @@ ol, ul{
 	margin-top: 50px;
 }
 
+/* Loading Spinner Styles */
+#loading-spinner {
+    display: none;
+    position: fixed;
+    left: 45%;
+    padding: 5px;
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999; /* Set a high z-index to bring it to the front */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 header{
 	
 	overflow: hidden;
@@ -247,15 +265,6 @@ header{
 .column a{
 	padding-bottom: 20px;
 }
-
-a { color:#ccc } /* Globally */
-
-/* Each state */
-
-a:visited { text-decoration: none; color:#ccc; }
-a:hover { text-decoration: none; color:#ccc; }
-a:focus { text-decoration: none; color:#ccc; }
-a:hover, a:active { text-decoration: none; color:#ccc }
 
 #form{
 	width: 50%;
