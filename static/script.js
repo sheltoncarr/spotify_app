@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+
 var currentlyPlayingAudio = null;
 
 function playAudio(url) {
@@ -39,10 +41,42 @@ function playAudio(url) {
         currentlyPlayingAudio.pause();
     }
 
-    // Create a new audio element and play the audio
-    var audio = new Audio(url);
+    // Create or use the existing audio element
+    var audio = document.getElementById('audioPlayer');
+    if (!audio) {
+        audio = document.createElement('audio');
+        audio.id = 'audioPlayer';
+        document.body.appendChild(audio);
+    }
+
+    // Set the audio source and play
+    audio.src = url;
     audio.play();
 
     // Update the currently playing audio
     currentlyPlayingAudio = audio;
+
+    // Change the play icon to pause when audio starts playing
+    var icon = document.getElementById('playPauseIcon');
+    if (icon) {
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+    }
+}
+
+function togglePlayPauseIcon(icon) {
+    icon.classList.toggle('fa-play');
+    icon.classList.toggle('fa-pause');
+}
+
+function togglePlayPause(button, url) {
+    var icon = button.querySelector('.play-pause-icon');
+
+    if (currentlyPlayingAudio && !currentlyPlayingAudio.paused) {
+        currentlyPlayingAudio.pause();
+        togglePlayPauseIcon(icon);
+    } else {
+        playAudio(url);
+        togglePlayPauseIcon(icon);
+    }
 }

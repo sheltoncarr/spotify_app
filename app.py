@@ -154,10 +154,6 @@ def get_top_tracks():
     df3 = top_tracks.get_top_tracks_long_term_df(spotify)
     title = 'Your Top Tracks:'
 
-    # return render_template('index.html',tables=[df1.to_html(classes='data',justify='center',render_links=True),df2.to_html(classes='data',justify='center',render_links=True),
-    #                                             df3.to_html(classes='data',justify='center',render_links=True)],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
-    #                                             user_name=user_name,dataEvent=title)
-                                            
     return render_template('index.html', tables=[df1.to_html(classes='data', justify='center', render_links=True, escape=False),
                                                 df2.to_html(classes='data', justify='center', render_links=True, escape=False),
                                                 df3.to_html(classes='data', justify='center', render_links=True, escape=False)

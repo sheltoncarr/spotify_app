@@ -10,7 +10,12 @@ def get_top_tracks_short_term_df(spotify, limit=50, time_range='short_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [item['preview_url'] for item in results['items']]
-    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
+    play_button = [
+        f'<button class="play-button" onclick="togglePlayPause(this, \'{url}\')">'
+        f'<i class="play-pause-icon fas fa-play"></i></button>'
+        if url else 'N/A' for url in audio_sample_list
+    ]
+
 
     df = pd.DataFrame({
         'Track': track_list,
@@ -35,7 +40,12 @@ def get_top_tracks_medium_term_df(spotify, limit=50, time_range='medium_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [item['preview_url'] for item in results['items']]
-    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
+    play_button = [
+        f'<button class="play-button" onclick="togglePlayPause(this, \'{url}\')">'
+        f'<i class="play-pause-icon fas fa-play"></i></button>'
+        if url else 'N/A' for url in audio_sample_list
+    ]
+
 
     df = pd.DataFrame({
         'Track': track_list,
@@ -60,7 +70,11 @@ def get_top_tracks_long_term_df(spotify, limit=50, time_range='long_term'):
     artist_info = spotify.artists(artist_id)['artists']
     genre_list = [', '.join(artist['genres'][:3]).title() for artist in artist_info]
     audio_sample_list = [item['preview_url'] for item in results['items']]
-    play_button = ['<button class="play-button" onclick="playAudio(\'' + url + '\')">Play</button>' if url else '' for url in audio_sample_list]
+    play_button = [
+        f'<button class="play-button" onclick="togglePlayPause(this, \'{url}\')">'
+        f'<i class="play-pause-icon fas fa-play"></i></button>'
+        if url else 'N/A' for url in audio_sample_list
+    ]
 
     df = pd.DataFrame({
         'Track': track_list,
