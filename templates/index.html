@@ -27,7 +27,6 @@
                         <li><a href="/top_artists" target="_self" rel="follow">Top Artists</a></li>
                         <li><a href="/top_tracks" target="_self" rel="follow">Top Tracks</a></li>
                         <li><a href="/top_genres" target="_self" rel="follow">Top Genres</a></li>
-                        <li><a href="/top_years" target="_self" rel="follow">Top Years</a></li>
                         <li><a href="/most_recent_tracks" target="_self" rel="follow">Most Recent Tracks</a></li>
                         <li><a href="/audio_features" target="_self" rel="follow">Audio Features</a></li>
                         <li><a href="/recommendations" target="_self" rel="follow">Recommendations</a></li>
@@ -40,14 +39,24 @@
         </section>
 
         <section>
+            
             <div id="data">
                 <h3>{{dataEvent}}</h3>
-                    {% for table in tables %}
-                            <p>{{titles[loop.index-1]}}</p>
-                            <div id="table">{{ table|safe }}</div>
-                    {% endfor %}
+                {% for table in tables %}
+                    <div class="table-container" data-table="{{ table['id'] }}">
+                        <p>{{ table['title'] }}</p>
+                        <label for="row-dropdown">Show rows:</label>
+                        <select class="row-dropdown" onchange="updateTable(this)">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                        <div class="table">{{ table['data'].to_html(classes='data table-row', justify='center', render_links=True, escape=False)|safe }}</div>
+                    </div>
+                {% endfor %}
             </div>
-
         </section>
 
     </main>

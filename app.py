@@ -42,11 +42,9 @@ from src import top_artists
 from src import top_tracks
 from src import audio_features
 from src import recommendations
-from src import current_track
 from src import recently_played_tracks
 from src import popularity
 from src import top_genres
-from src import top_years
 
 # load_dotenv()
 
@@ -115,11 +113,14 @@ def get_most_recent_tracks():
     
     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
-    df = recently_played_tracks.most_recently_played_tracks(spotify)
+    df1 = recently_played_tracks.most_recently_played_tracks(spotify)
     title = 'Most Recent Tracks:'
     
-    return render_template('index.html',tables=[df.to_html(classes='data',justify='center',render_links=True,escape=False)],
-                                                titles=['Most Recent Tracks'],user_name=user_name,dataEvent=title)
+    tables = [
+        {'title': 'Most Recent Tracks', 'data': df1, 'id':'table1'}
+    ]
+
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/top_artists')
@@ -134,11 +135,14 @@ def get_top_artists():
     df2 = top_artists.get_top_artists_medium_term_df(spotify)
     df3 = top_artists.get_top_artists_long_term_df(spotify)
     title = 'Your Top Artists:'
-    
 
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
-                                                user_name=user_name,dataEvent=title)
+    tables = [
+        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
+        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table2'},
+        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
+    ]
+
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/top_tracks')
@@ -155,12 +159,13 @@ def get_top_tracks():
     df3 = top_tracks.get_top_tracks_long_term_df(spotify)
     title = 'Your Top Tracks:'
 
-    return render_template('index.html', tables=[df1.to_html(classes='data', justify='center', render_links=True, escape=False),
-                                                df2.to_html(classes='data', justify='center', render_links=True, escape=False),
-                                                df3.to_html(classes='data', justify='center', render_links=True, escape=False)
-                                            ],
-                                            titles=['Short Term (Last 4 Weeks)', 'Medium Term (Last 6 Months)', 'Long Term (Last Several Years)'],
-                                            user_name=user_name, dataEvent=title)
+    tables = [
+        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
+        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table2'},
+        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
+    ]
+
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/top_genres')
@@ -177,28 +182,13 @@ def get_top_genres():
     df3 = top_genres.get_top_genres_long_term_df(spotify)
     title = 'Your Top Genres:'
 
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
-                                                user_name=user_name,dataEvent=title)
+    tables = [
+        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
+        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table2'},
+        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
+    ]
 
-
-@app.route('/top_years')
-def get_top_years():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-
-    df1 = top_years.get_top_years_short_term_df(spotify)
-    df2 = top_years.get_top_years_medium_term_df(spotify)
-    df3 = top_years.get_top_years_long_term_df(spotify)
-    title = 'Your Top Years:'
-
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
-                                                user_name=user_name,dataEvent=title)
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/audio_features')
@@ -238,15 +228,16 @@ def get_recommendations():
     df6 = recommendations.get_long_term_artist_recs(spotify)
     title = 'Your Top Recommendations:'
 
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center',render_links=True,escape=False),
-                                                df2.to_html(classes='data',justify='center',render_links=True,escape=False),
-                                                df3.to_html(classes='data',justify='center',render_links=True,escape=False),
-                                                df4.to_html(classes='data',justify='center',render_links=True,escape=False),
-                                                df5.to_html(classes='data',justify='center',render_links=True,escape=False),
-                                                df6.to_html(classes='data',justify='center',render_links=True,escape=False)],
-                                                titles=['Based on Top Tracks (Short Term)','Based on Top Tracks (Medium Term)','Based on Top Tracks (Long Term)',
-                                                        'Based on Top Artists (Short Term)','Based on Top Artists (Medium Term)','Based on Top Artists (Long Term)'],
-                                                user_name=user_name,dataEvent=title)
+    tables = [
+        {'title': 'Based on Top Tracks (Short Term)', 'data': df1, 'id':'table1'},
+        {'title': 'Based on Top Tracks (Medium Term)', 'data': df2,'id':'table2'},
+        {'title': 'Based on Top Tracks (Long Term)', 'data': df3,'id':'table3'},
+        {'title': 'Based on Top Artists (Short Term)', 'data': df4, 'id':'table4'},
+        {'title': 'Based on Top Artists (Medium Term)', 'data': df5,'id':'table5'},
+        {'title': 'Based on Top Artists (Long Term)', 'data': df6,'id':'table6'},
+    ]
+
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/popularity')
@@ -263,9 +254,16 @@ def get_popularity():
     df3 = popularity.get_top_artists_long_term_popularity_df(spotify)
     title = 'Popularity of Your Top Artists (Sorted by Popularity):'
 
-    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
-                                                user_name=user_name,dataEvent=title)
+
+    tables = [
+        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
+        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table2'},
+        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
+    ]
+
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
+
+
 
 
 @app.route('/about_us')
@@ -306,8 +304,9 @@ def user_data():
     # currently playing
     track = spotify.current_user_playing_track()
     if not track is None:
-        track_title = track['item']['name']
-        artist_list = ', '.join(artist['name'] for artist in track['item']['artists'])
+        result = spotify.current_user_playing_track()
+        track_title = result['item']['name']
+        artist_list = ', '.join(artist['name'] for artist in result['item']['artists'])
         current_song = track_title + ' by ' + artist_list
     if track is None:
         current_song = 'No song is playing'
