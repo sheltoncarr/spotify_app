@@ -286,9 +286,8 @@ def user_data():
     # currently playing
     track = spotify.current_user_playing_track()
     if not track is None:
-        result = spotify.current_user_playing_track()
-        track_title = result['item']['name']
-        artist_list = ', '.join(artist['name'] for artist in result['item']['artists'])
+        track_title = track['item']['name']
+        artist_list = ', '.join(artist['name'] for artist in track['item']['artists'])
         current_song = track_title + ' by ' + artist_list
     if track is None:
         current_song = 'No song is playing'

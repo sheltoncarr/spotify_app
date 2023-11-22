@@ -1,9 +1,8 @@
 Ideas:
 
-- Add a button instead of the hyperlink to the play the song preview, or convert the URL to "Click Here" or something
+- fix audio sample button bugs
 - Add a button that will add a certain recommended song to a user's music library
-- Show song release date --> could then analyze what year had a user's favorite music?
-- "Loading" sign when processing 
+- Analyze what year had a user's favorite music (Top Year section)?
 - add documentations to each function
 - Make visuals for audio analysis section
 - Apply for Extended Quota Mode
