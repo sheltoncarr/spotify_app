@@ -2,10 +2,10 @@ Ideas:
 
 - fix audio sample button bugs
 - Add a button that will add a certain recommended song to a user's music library
-- Analyze what year had a user's favorite music (Top Year section)?
 - add documentations to each function
-- Make visuals for audio analysis section
+- Make visuals for audio analysis section (and maybe top genres/top years sections?)
 - Apply for Extended Quota Mode
+- Your Data vs About You
 - For audio features, include loudness, bpm, and duration
 - Edege case for currently playing while spotify dj is on
 - fix contact us page

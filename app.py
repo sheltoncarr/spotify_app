@@ -46,6 +46,7 @@ from src import current_track
 from src import recently_played_tracks
 from src import popularity
 from src import top_genres
+from src import top_years
 
 # load_dotenv()
 
@@ -175,6 +176,25 @@ def get_top_genres():
     df2 = top_genres.get_top_genres_medium_term_df(spotify)
     df3 = top_genres.get_top_genres_long_term_df(spotify)
     title = 'Your Top Genres:'
+
+    return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
+                                                df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
+                                                user_name=user_name,dataEvent=title)
+
+
+@app.route('/top_years')
+def get_top_years():
+    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect('/')
+    
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    df1 = top_years.get_top_years_short_term_df(spotify)
+    df2 = top_years.get_top_years_medium_term_df(spotify)
+    df3 = top_years.get_top_years_long_term_df(spotify)
+    title = 'Your Top Years:'
 
     return render_template('index.html',tables=[df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
                                                 df3.to_html(classes='data',justify='center')],titles=['Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],

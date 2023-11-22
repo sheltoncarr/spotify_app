@@ -12,6 +12,7 @@ from src import current_track
 from src import recently_played_tracks
 from src import popularity
 from src import top_genres
+from src import top_years
 
 def main():
 
@@ -85,6 +86,19 @@ def main():
 
     print('Top Genres - Long Term (Last Several Years)\n')
     print(top_genres.get_top_genres_long_term_df(spotify),'\n')
+
+    # Top Years
+
+    print('='*150,'\n')
+
+    print('Top Years - Short Term (Last 4 Weeks)\n')
+    print(top_years.get_top_years_short_term_df(spotify),'\n')
+
+    print('Top Years - Medium Term (Last 6 Months)\n')
+    print(top_years.get_top_years_medium_term_df(spotify),'\n')
+
+    print('Top Years - Long Term (Last Several Years)\n')
+    print(top_years.get_top_years_long_term_df(spotify),'\n')
 
     # Audio Feature Analysis of Top Tracks
 
