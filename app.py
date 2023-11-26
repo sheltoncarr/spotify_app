@@ -45,6 +45,7 @@ from src import recommendations
 from src import recently_played_tracks
 from src import popularity
 from src import top_genres
+from src import top_years
 
 # load_dotenv()
 
@@ -160,6 +161,23 @@ def get_top_genres():
     df2 = top_genres.get_top_genres_medium_term_df(spotify)
     df3 = top_genres.get_top_genres_long_term_df(spotify)
     title = 'Your Top Genres:'
+
+    tables = [
+        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
+        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table2'},
+        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
+    ]
+
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
+
+
+@app.route('/top_years')
+def get_top_years():
+
+    df1 = top_years.get_top_years_short_term_df(spotify)
+    df2 = top_years.get_top_years_medium_term_df(spotify)
+    df3 = top_years.get_top_years_long_term_df(spotify)
+    title = 'Your Top Years:'
 
     tables = [
         {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
