@@ -62,7 +62,8 @@ Session(app)
 
 @app.route('/')
 def index():
-
+    global cache_handler
+    global auth_manager
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read',
                                                cache_handler=cache_handler,
@@ -82,6 +83,7 @@ def index():
 
 
     # Step 3. Signed in, display data
+    global spotify
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     global user_name
     user_name = spotify.me()["display_name"]
@@ -106,12 +108,6 @@ def sign_out():
 
 @app.route('/most_recent_tracks')
 def get_most_recent_tracks():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df1 = recently_played_tracks.most_recently_played_tracks(spotify)
     title = 'Most Recent Tracks:'
@@ -125,11 +121,6 @@ def get_most_recent_tracks():
 
 @app.route('/top_artists')
 def get_top_artists():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df1 = top_artists.get_top_artists_short_term_df(spotify)
     df2 = top_artists.get_top_artists_medium_term_df(spotify)
@@ -147,12 +138,6 @@ def get_top_artists():
 
 @app.route('/top_tracks')
 def get_top_tracks():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df1 = top_tracks.get_top_tracks_short_term_df(spotify)
     df2 = top_tracks.get_top_tracks_medium_term_df(spotify)
@@ -170,12 +155,6 @@ def get_top_tracks():
 
 @app.route('/top_genres')
 def get_top_genres():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df1 = top_genres.get_top_genres_short_term_df(spotify)
     df2 = top_genres.get_top_genres_medium_term_df(spotify)
@@ -193,12 +172,6 @@ def get_top_genres():
 
 @app.route('/audio_features')
 def get_features():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df = audio_features.audio_feature_meaning()
     df1 = audio_features.get_audio_features_short_term(spotify)
@@ -206,19 +179,18 @@ def get_features():
     df3 = audio_features.get_audio_features_long_term(spotify)
     title = 'Your Audio Features:'
 
-    return render_template('index.html',tables=[df.to_html(classes='data',justify='center'),df1.to_html(classes='data',justify='center'),df2.to_html(classes='data',justify='center'),
-                                                df3.to_html(classes='data',justify='center')],titles=['Audio Feature Definitions','Short Term (Last 4 Weeks)','Medium Term (Last 6 Months)','Long Term (Last Several Years)'],
-                                                user_name=user_name,dataEvent=title)
+    tables = [
+        {'title': 'Audio Feature Definitions', 'data': df, 'id':'table1'},
+        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table2'},
+        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table3'},
+        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table4'},
+    ]
+
+    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/recommendations')
 def get_recommendations():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df1 = recommendations.get_short_term_track_recs(spotify)
     df2 = recommendations.get_medium_term_track_recs(spotify)
@@ -242,12 +214,6 @@ def get_recommendations():
 
 @app.route('/popularity')
 def get_popularity():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     df1 = popularity.get_top_artists_short_term_popularity_df(spotify)
     df2 = popularity.get_top_artists_medium_term_popularity_df(spotify)
@@ -272,12 +238,7 @@ def about_us():
 
 @app.route('/your_data')
 def user_data():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler, redirect_uri=SPOTIPY_REDIRECT_URI)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    # user name
+    
     user_name = spotify.me()["display_name"]
 
     # follower count
