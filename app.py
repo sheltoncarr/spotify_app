@@ -316,48 +316,6 @@ def user_data():
                            owned_playlists=owned_playlists,hold=hold,current_song=current_song)
 
 
-@app.route('/contact_us')
-def contact_us():
-    return render_template('contact.html')
-
-# Configure Flask Mail
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'muuscodes@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Pls*5God98dont1forget6?'
-app.config['MAIL_DEFAULT_SENDER'] = 'muuscodes@gmail.com'
-
-mail = Mail(app)
-
-@app.route('/handler', methods=['POST'])
-def form_handler():
-    errors = []
-    fname = request.form.get('firstname')
-    lname = request.form.get('lastname')
-    country = request.form.get('country')
-    email = request.form.get('email')
-    submission = request.form.get('message')
-
-    if not fname:
-        errors.append('First name is empty')
-
-    # Repeat similar checks for other form fields
-
-    if errors:
-        return render_template('contact.html', errors=errors)
-    else:
-        subject = 'New email from your contact form'
-        body = f"Name: {fname} {lname}\nEmail: {email}\nCountry: {country}\n\nMessage:\n{submission}"
-
-        # Send the email
-        message = Message(subject, recipients=['muuscodes@gmail.com'], body=body)
-        mail.send(message)
-
-        return 'Form submitted successfully'
-
-
 '''
 Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)

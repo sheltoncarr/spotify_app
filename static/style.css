@@ -41,11 +41,10 @@ ol, ul{
 	margin-top: 50px;
 }
 
-/* Loading Spinner Styles */
 #loading-spinner {
     display: none;
     position: fixed;
-    left: 45%;
+    left: 47%;
     padding: 5px;
     color: green;
     font-size: 18px;
@@ -221,10 +220,9 @@ header{
 }
 
 .table{
-	display: table;
+	display: inline-block;
 	margin: 0 auto;
 	padding-bottom: 100px;
-	width: 80%;
 	color: #ccc;
 }
 

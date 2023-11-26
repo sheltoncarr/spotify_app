@@ -3,6 +3,7 @@
 
 # Virtual Environment
 spotify_venv
+env_spot
 
 # Jupyter Notebooks
 *.ipynb
