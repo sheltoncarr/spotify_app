@@ -34,9 +34,9 @@ Run app.py
 import os
 from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
-from flask_mail import Mail, Message
 import spotipy
 import pandas as pd
+import statistics as stats
 # from dotenv import load_dotenv
 from src import top_artists
 from src import top_tracks
@@ -262,23 +262,36 @@ def user_data():
     # follower count
     follower_count = spotify.me()["followers"]["total"]
 
-    list_of_playlists = spotify.current_user_playlists()["items"]
-    # total number of playlists
-    playlists = len(list_of_playlists)
+    response = spotify.current_user_playlists()
+    list_of_playlists = response["items"]
 
-    # number of collaborative playlists
-    collaborative_playlists = 0
-    for idx in range(len(list_of_playlists)):
-        if not list_of_playlists[idx]["collaborative"] is False:
-            collaborative_playlists += 1
+
+    while response["next"]:
+        response = spotify.next(response)
+        list_of_playlists.extend(response["items"])
+
+    # total number of playlists
+    playlists_num = len(list_of_playlists)
     
     # number of playlists owned by the user
     owned_playlists = 0
-    for idx in range(len(list_of_playlists)):
+    for idx in range(playlists_num):
         if list_of_playlists[idx]["owner"]["display_name"] == user_name:
             owned_playlists += 1
 
-    hold = "It's coming"
+    # number of playlists owned by spotify
+    spot_playlists = 0
+    for idx in range(playlists_num):
+        if list_of_playlists[idx]["owner"]["display_name"] == 'Spotify':
+            spot_playlists += 1
+
+    # number of public playlists
+    public_playlists = 0
+    for idx in range(playlists_num):
+        if list_of_playlists[idx]["public"] == True:
+            public_playlists += 1
+
+    percent = int((public_playlists/playlists_num)*100)
 
     # currently playing
     track = spotify.current_user_playing_track()
@@ -290,9 +303,31 @@ def user_data():
     if track is None:
         current_song = 'No song is playing'
 
-    return render_template('user_data.html',user_name=user_name,follower_count=follower_count,
-                           playlist_count=playlists,collaborative_playlists=collaborative_playlists,
-                           owned_playlists=owned_playlists,hold=hold,current_song=current_song)
+    # avg number of songs per playlist
+    track_counts = []
+    for idx in range(playlists_num):
+        track_counts.append(list_of_playlists[idx]["tracks"]["total"])
+    avg_track_count = int(stats.fmean(track_counts))
+
+    # longest playlist
+    track_counts.sort()
+    long_playlist = track_counts[len(track_counts)-1]
+
+    # shortest playlist
+    short_playlist = track_counts[0]
+
+
+    return render_template('user_data.html',user_name=user_name,
+                           follower_count=follower_count,
+                           playlist_count=playlists_num,
+                           owned_playlists=owned_playlists,
+                           spot_playlists=spot_playlists,
+                           current_song=current_song,
+                           public_playlists=public_playlists,
+                           percent=percent,
+                           avg_track_count=avg_track_count,
+                           long_playlist=long_playlist,
+                           short_playlist=short_playlist)
 
 
 '''
