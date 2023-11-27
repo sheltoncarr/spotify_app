@@ -231,6 +231,7 @@ label {
     border: 3px solid green;
     text-transform: uppercase;
     font-style: bold;
+	position:sticky;
 }
 
 
@@ -253,18 +254,17 @@ label {
 }
 
 #user_data ul {
-	/* list-style: url('images/favicon.png') outside; */
     text-align: left;
     margin: 0;
     padding-bottom: 10px;
 }
 
 #user_data ul li {
-
     padding-left: 10px; 
 	padding-bottom: 10px;
     margin-bottom: 10px; 
     color: #ccc;
+	vertical-align: middle;
 }
 
 #user_data ul li::before {

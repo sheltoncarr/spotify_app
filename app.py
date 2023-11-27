@@ -178,6 +178,7 @@ def get_top_years():
     df2 = top_years.get_top_years_medium_term_df(spotify)
     df3 = top_years.get_top_years_long_term_df(spotify)
     title = 'Your Top Years:'
+    length = df1.size
 
     tables = [
         {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
@@ -185,7 +186,10 @@ def get_top_years():
         {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
     ]
 
-    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
+    if length > 10:
+        return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
+    else:
+        return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/audio_features')
@@ -204,7 +208,7 @@ def get_features():
         {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table4'},
     ]
 
-    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
+    return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/recommendations')
@@ -227,7 +231,7 @@ def get_recommendations():
         {'title': 'Based on Top Artists (Long Term)', 'data': df6,'id':'table6'},
     ]
 
-    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
+    return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/popularity')
