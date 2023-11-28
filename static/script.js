@@ -89,6 +89,8 @@ function togglePlayPause(button, url) {
     }
 }
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
     // Initial table load with default number of rows for each table
     var dropdowns = document.querySelectorAll('.row-dropdown');

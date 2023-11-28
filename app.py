@@ -66,7 +66,7 @@ def index():
     global cache_handler
     global auth_manager
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read',
+    auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
                                                cache_handler=cache_handler,
                                                show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI)
 
@@ -289,6 +289,19 @@ def user_data():
         if list_of_playlists[idx]["owner"]["display_name"] == 'Spotify':
             spot_playlists += 1
 
+        # number of playlists owned by spotify
+    other_user_playlists = 0
+    for idx in range(playlists_num):
+        if list_of_playlists[idx]["owner"]["display_name"] != 'Spotify':
+            if list_of_playlists[idx]["owner"]["display_name"] != user_name:
+                other_user_playlists += 1
+    
+    # number of collaborative playlists
+    collaborative_playlists = 0
+    for idx in range(playlists_num):
+        if list_of_playlists[idx]["collaborative"] != False:
+            collaborative_playlists += 1
+
     # number of public playlists
     public_playlists = 0
     for idx in range(playlists_num):
@@ -326,6 +339,8 @@ def user_data():
                            playlist_count=playlists_num,
                            owned_playlists=owned_playlists,
                            spot_playlists=spot_playlists,
+                           collaborative_playlists=collaborative_playlists,
+                           other_user_playlists=other_user_playlists,
                            current_song=current_song,
                            public_playlists=public_playlists,
                            percent=percent,
