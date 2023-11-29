@@ -261,14 +261,15 @@ def about_us():
 @app.route('/your_data')
 def user_data():
     
-    user_name = spotify.me()["display_name"]
+    user_info = spotify.me()
+    user_name = user_info["display_name"]
+    profile_pic = user_info['images'][1]['url']
 
     # follower count
-    follower_count = spotify.me()["followers"]["total"]
+    follower_count = user_info["followers"]["total"]
 
     response = spotify.current_user_playlists()
     list_of_playlists = response["items"]
-
 
     while response["next"]:
         response = spotify.next(response)
@@ -313,9 +314,8 @@ def user_data():
     # currently playing
     track = spotify.current_user_playing_track()
     if not track is None:
-        result = spotify.current_user_playing_track()
-        track_title = result['item']['name']
-        artist_list = ', '.join(artist['name'] for artist in result['item']['artists'])
+        track_title = track['item']['name']
+        artist_list = ', '.join(artist['name'] for artist in track['item']['artists'])
         current_song = track_title + ' by ' + artist_list
     if track is None:
         current_song = 'No song is playing'
@@ -335,6 +335,7 @@ def user_data():
 
 
     return render_template('user_data.html',user_name=user_name,
+                           profile_pic=profile_pic,
                            follower_count=follower_count,
                            playlist_count=playlists_num,
                            owned_playlists=owned_playlists,
