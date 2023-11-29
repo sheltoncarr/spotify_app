@@ -46,6 +46,7 @@ from src import recently_played_tracks
 from src import popularity
 from src import top_genres
 from src import top_years
+from src import audio_features_trend
 
 # load_dotenv()
 
@@ -209,6 +210,18 @@ def get_features():
     ]
 
     return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
+
+
+@app.route('/audio_features_trend')
+def audio_features_trend_visual():
+    audio_features_trend.audio_features_trend(spotify)
+    df = audio_features.audio_feature_meaning()
+    title = 'Your Audio Features:'
+
+    tables = [
+        {'title': 'Audio Feature Definitions', 'data': df, 'id':'table1'}
+    ]
+    return render_template("audio_features_trend.html", tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/recommendations')

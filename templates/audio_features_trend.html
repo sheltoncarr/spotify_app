@@ -41,27 +41,37 @@
         </section>
 
         <section>
-            
+            <!-- <h3>{{dataEvent}}</h3> -->
+
+
             <div id="data">
                 <h3>{{dataEvent}}</h3>
+                <body>
+                    <img src="static/images/audio_feature_trend.png" alt="Image Placeholder" height=800 width=750 style="padding: 20px;">
+                </body>
                 {% for table in tables %}
                     <div class="table-container" data-table="{{ table['id'] }}">
                         <p>{{ table['title'] }}</p>
-                        <div class="label-container">
-                            <label for="row-dropdown">Show rows:</label>
-                            <select class="row-dropdown" onchange="updateTable(this)">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="40">40</option>
-                                <option value="50">50</option>
-                            </select>
-                        </div>
                         <div class="table">{{ table['data'].to_html(classes='data table-row', justify='center', render_links=True, escape=False)|safe }}</div>
                     </div>
                 {% endfor %}
             </div>
+            
         </section>
 
     </main>
 {% endblock %}
+
+
+
+
+
+<html>
+  <head>
+    <title>Title</title>
+  </head>
+  <body>
+    <img src="static/images/foo.png" alt="Image Placeholder" height="600" width="600">
+    
+  </body>
+</html>
