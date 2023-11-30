@@ -276,7 +276,10 @@ def user_data():
     
     user_info = spotify.me()
     user_name = user_info["display_name"]
-    profile_pic = user_info['images'][1]['url']
+    if len(user_info['images'])>0:
+        profile_pic = user_info['images'][1]['url']
+    else: 
+        profile_pic = ''
 
     # follower count
     follower_count = user_info["followers"]["total"]

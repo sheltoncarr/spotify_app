@@ -45,10 +45,10 @@
             <div id="data">
                 <h3>{{dataEvent}}</h3>
                 {% for table in tables %}
+                    <p>{{ table['title'] }}</p>
                     <div class="table-container" data-table="{{ table['id'] }}">
-                        <p>{{ table['title'] }}</p>
                         <div class="label-container">
-                            <label for="row-dropdown">Show rows:</label>
+                            <label for="row-dropdown">Show rows: </label>
                             <select class="row-dropdown" onchange="updateTable(this)">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
