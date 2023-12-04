@@ -187,10 +187,7 @@ def get_top_years():
         {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
     ]
 
-    if length > 10:
-        return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
-    else:
-        return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
+    return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/audio_features')
@@ -299,19 +296,22 @@ def user_data():
     for idx in range(playlists_num):
         if list_of_playlists[idx]["owner"]["display_name"] == user_name:
             owned_playlists += 1
+    per_user_owned = int((owned_playlists/playlists_num)*100)
 
     # number of playlists owned by spotify
     spot_playlists = 0
     for idx in range(playlists_num):
         if list_of_playlists[idx]["owner"]["display_name"] == 'Spotify':
             spot_playlists += 1
+    per_spot_owned = int((spot_playlists/playlists_num)*100)
 
-        # number of playlists owned by spotify
+    # number of playlists owned by other users
     other_user_playlists = 0
     for idx in range(playlists_num):
         if list_of_playlists[idx]["owner"]["display_name"] != 'Spotify':
             if list_of_playlists[idx]["owner"]["display_name"] != user_name:
                 other_user_playlists += 1
+    per_other_user_owned = int((other_user_playlists/playlists_num)*100)
     
     # number of collaborative playlists
     collaborative_playlists = 0
@@ -324,8 +324,7 @@ def user_data():
     for idx in range(playlists_num):
         if list_of_playlists[idx]["public"] == True:
             public_playlists += 1
-
-    percent = int((public_playlists/playlists_num)*100)
+    per_public = int((public_playlists/playlists_num)*100)
 
     # currently playing
     track = spotify.current_user_playing_track()
@@ -355,12 +354,15 @@ def user_data():
                            follower_count=follower_count,
                            playlist_count=playlists_num,
                            owned_playlists=owned_playlists,
+                           per_user_owned=per_user_owned,
                            spot_playlists=spot_playlists,
+                           per_spot_owned=per_spot_owned,
                            collaborative_playlists=collaborative_playlists,
                            other_user_playlists=other_user_playlists,
+                           per_other_user_owned=per_other_user_owned,
                            current_song=current_song,
                            public_playlists=public_playlists,
-                           percent=percent,
+                           per_public=per_public,
                            avg_track_count=avg_track_count,
                            long_playlist=long_playlist,
                            short_playlist=short_playlist)

@@ -29,7 +29,7 @@
                         <li><a href="/top_genres" target="_self" rel="follow">Top Genres</a></li>
                         <li><a href="/top_years" target="_self" rel="follow">Top Years</a></li>
                         <li><a href="/most_recent_tracks" target="_self" rel="follow">Most Recent Tracks</a></li>
-                        <li><a href="/audio_features" target="_self" rel="follow">Audio Features</a></li>
+                        <!-- <li><a href="/audio_features" target="_self" rel="follow">Audio Features</a></li> -->
                         <li><a href="/audio_features_trend" target="_self" rel="follow">Audio Features Trend</a></li>
                         <li><a href="/recommendations" target="_self" rel="follow">Recommendations</a></li>
                         <li><a href="/popularity" target="_self" rel="follow">Popularity</a></li>
@@ -45,8 +45,8 @@
             <div id="data">
                 <h3>{{dataEvent}}</h3>
                 {% for table in tables %}
+                <p>{{ table['title'] }}</p>
                     <div class="table-container" data-table="{{ table['id'] }}">
-                        <p>{{ table['title'] }}</p>
                         <div class="table">{{ table['data'].to_html(classes='data table-row', justify='center', render_links=True, escape=False)|safe }}</div>
                     </div>
                 {% endfor %}

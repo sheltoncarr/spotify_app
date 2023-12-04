@@ -1,11 +1,8 @@
 Ideas:
 
-- fix audio sample button bugs (bug when audio ends, the pause button stays pause, should turn back to play button. also there's a bug if you try to play songs from different tables)
-- the "Show Rows" should align together instead of being right aligned
-- Don't need the dropdowns for Recommendations since they only show top 10 rows
-- Tables are now out of alignment
 - Add a button that will add a certain recommended song to a user's music library (only if we have extra time)
 - add documentations to each function
+- Get guest account working
 - Make visuals for audio analysis, top genres, and top years sections
 - Apply for Extended Quota Mode
 - For audio features, include loudness, bpm, and duration
@@ -15,7 +12,6 @@ Ideas:
 - Clean up/update requirements.txt
 - getting this warning every time we run app.py: "DeprecationWarning: You're using 'as_dict = True'.get_access_token will return the token string directly in future versions. Please adjust your code accordingly, or use get_cached_token instead.
   auth_manager.get_access_token(request.args.get("code"))"
-- Fix dropdown menu formatting and remove dropdown menus for tabs that don't need it
 - Make github repo public once we push the website live
 - Summary page (You like {artists}, your favorite year for music is {year}, and your go-to genre is {genre}).
   Your most popular artist is {} and your most niche artist is {})

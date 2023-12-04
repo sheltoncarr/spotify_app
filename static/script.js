@@ -54,12 +54,24 @@ function playAudio(url) {
     currentlyPlayingAudio = audio;
     currentlyPlayingButton = document.querySelector('.play-button[onclick*="' + url + '"]');
     togglePlayPauseIcon(currentlyPlayingButton.querySelector('.play-pause-icon'));
+
+    // Add an event listener for the 'ended' event
+    audio.addEventListener('ended', function () {
+        // Update the play/pause icon of the button that triggered the playback
+        togglePlayPauseIcon(currentlyPlayingButton.querySelector('.play-pause-icon'));
+
+        // Reset currently playing references
+        currentlyPlayingAudio = null;
+        currentlyPlayingButton = null;
+    });
+        
 }
 
 function togglePlayPauseIcon(icon) {
     icon.classList.toggle('fa-play');
     icon.classList.toggle('fa-pause');
 }
+
 
 function togglePlayPause(button, url) {
     var icon = button.querySelector('.play-pause-icon');
