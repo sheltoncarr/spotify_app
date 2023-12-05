@@ -29,3 +29,5 @@ node_modules
 
 # Visuals
 static/images/audio_feature_trend.png
+static/images/top_years_bar_chart.png
+static/images/top_genres_bar_chart.png

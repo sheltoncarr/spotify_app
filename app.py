@@ -47,6 +47,8 @@ from src import popularity
 from src import top_genres
 from src import top_years
 from src import audio_features_trend
+from src import top_years_bar_chart
+from src import top_genres_bar_chart
 
 # load_dotenv()
 
@@ -172,6 +174,14 @@ def get_top_genres():
     return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
+@app.route('/top_genres_bar_chart')
+def top_genres_visual():
+    top_genres_bar_chart.top_genres_bar_chart(spotify)
+    title = 'Your Top Genres:'
+
+    return render_template("top_genres_bar_chart.html", user_name=user_name, dataEvent=title)
+
+
 @app.route('/top_years')
 def get_top_years():
 
@@ -188,6 +198,14 @@ def get_top_years():
     ]
 
     return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
+
+
+@app.route('/top_years_bar_chart')
+def top_years_visual():
+    top_years_bar_chart.top_years_bar_chart(spotify)
+    title = 'Your Top Years:'
+
+    return render_template("top_years_bar_chart.html", user_name=user_name, dataEvent=title)
 
 
 @app.route('/audio_features')

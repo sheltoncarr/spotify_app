@@ -49,14 +49,8 @@
             <div id="data">
                 <h3>{{dataEvent}}</h3>
                 <body>
-                    <img src="static/images/audio_feature_trend.png" alt="Image Placeholder" height=800 width=750 style="padding: 20px;">
+                    <img src="static/images/top_genres_bar_chart.png" alt="Image Placeholder" height=1600 width=800 style="padding: 20px;">
                 </body>
-                {% for table in tables %}
-                    <div class="table-container" data-table="{{ table['id'] }}">
-                        <p>{{ table['title'] }}</p>
-                        <div class="table">{{ table['data'].to_html(classes='data table-row', justify='center', render_links=True, escape=False)|safe }}</div>
-                    </div>
-                {% endfor %}
             </div>
             
         </section>
