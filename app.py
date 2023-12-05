@@ -37,7 +37,7 @@ from flask_session import Session
 import spotipy
 import pandas as pd
 import statistics as stats
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from src import top_artists
 from src import top_tracks
 from src import audio_features
@@ -50,11 +50,8 @@ from src import audio_features_trend
 from src import top_years_bar_chart
 from src import top_genres_bar_chart
 
-# load_dotenv()
+load_dotenv()
 
-# SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
-# print(SPOTIPY_REDIRECT_URL)
-# ^ why is this pulling https?
 SPOTIPY_REDIRECT_URI = 'http://localhost:8888'
 
 app = Flask(__name__)
@@ -62,6 +59,9 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 Session(app)
+
+SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 
 
 @app.route('/')
@@ -84,25 +84,74 @@ def index():
         auth_url = auth_manager.get_authorize_url()
         return render_template('sign_in.html',url=auth_url)
 
-
-
     # Step 3. Signed in, display data
     global spotify
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     global user_name
     user_name = spotify.me()["display_name"]
     return render_template('index.html',user_name=user_name)
-    
 
-@app.route('/guest')
-def guest_index():
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read',
-                                               cache_handler=cache_handler,
-                                               show_dialog=True,
-                                               redirect_uri=SPOTIPY_REDIRECT_URI)
-    user_name = 'Guest'
-    return render_template('index.html',user_name=user_name)
+
+# GUEST_USER = "guest_user"
+
+# # ... (existing code)
+
+# @app.route('/')
+# def index():
+#     global spotify
+#     global user_name
+
+#     # Check if the user is a guest user
+#     # Check if the user is a guest user
+#     if session.get("guest_user"):
+#         user_name = 'Guest'
+#         spotify = spotipy.Spotify(auth_manager=auth_manager)
+#         return render_template('index.html', user_name=user_name, user_type="guest_user")
+
+    
+#     else:
+#         session["user_type"] = "authenticated_user"
+#         # Set up cache_handler and auth_manager for the authenticated user
+#         cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+#         auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
+#                                                    cache_handler=cache_handler,
+#                                                    show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI)
+
+#     if request.args.get("code"):
+#         # Step 2. Being redirected from Spotify auth page
+#         auth_manager.get_access_token(request.args.get("code"))
+#         return redirect('/')
+
+#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
+#         # Step 1. Display sign-in link when no token
+#         auth_url = auth_manager.get_authorize_url()
+#         return render_template('sign_in.html', url=auth_url)
+
+#     # Step 3. Signed in, display data
+#     spotify = spotipy.Spotify(auth_manager=auth_manager)
+#     user_name = spotify.me()["display_name"]
+#     return render_template('index.html', user_name=user_name, user_type=session["user_type"])
+
+# @app.route('/authenticate_guest')
+# def authenticate_guest():
+#     global guest_user_auth_manager
+#     global guest_user_cache_handler
+
+#     # Set up cache_handler and auth_manager for the guest user
+#     guest_user_cache_handler = spotipy.cache_handler.MemoryCacheHandler()
+#     guest_user_auth_manager = spotipy.oauth2.SpotifyOAuth(
+#         scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
+#         cache_handler=guest_user_cache_handler,
+#         show_dialog=False,
+#         client_id=SPOTIPY_CLIENT_ID,
+#         client_secret=SPOTIPY_CLIENT_SECRET,
+#         redirect_uri=SPOTIPY_REDIRECT_URI)
+
+#     if not guest_user_auth_manager.validate_token(guest_user_cache_handler.get_cached_token()):
+#         # Authenticate the guest user without starting a local HTTP server
+#         guest_user_auth_manager.get_access_token()
+#         session["guest_user"] = True  # Mark the session as a guest user
+#         return redirect('/')
 
 @app.route('/sign_out')
 def sign_out():
@@ -325,11 +374,14 @@ def user_data():
 
     # number of playlists owned by other users
     other_user_playlists = 0
+    other_user_names = []
     for idx in range(playlists_num):
         if list_of_playlists[idx]["owner"]["display_name"] != 'Spotify':
             if list_of_playlists[idx]["owner"]["display_name"] != user_name:
                 other_user_playlists += 1
+                other_user_names.append(list_of_playlists[idx]["owner"]["display_name"])
     per_other_user_owned = int((other_user_playlists/playlists_num)*100)
+    other_user_followed = stats.mode(other_user_names)
     
     # number of collaborative playlists
     collaborative_playlists = 0
@@ -377,6 +429,7 @@ def user_data():
                            per_spot_owned=per_spot_owned,
                            collaborative_playlists=collaborative_playlists,
                            other_user_playlists=other_user_playlists,
+                           other_user_followed=other_user_followed,
                            per_other_user_owned=per_other_user_owned,
                            current_song=current_song,
                            public_playlists=public_playlists,
