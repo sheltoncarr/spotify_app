@@ -89,12 +89,8 @@ def index():
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     global user_name
     user_name = spotify.me()["display_name"]
-    return render_template('index.html',user_name=user_name)
-
-
-# GUEST_USER = "guest_user"
-
-# # ... (existing code)
+    # return render_template('index.html',user_name=user_name)
+    return redirect('/home')
 
 # @app.route('/')
 # def index():
@@ -102,20 +98,18 @@ def index():
 #     global user_name
 
 #     # Check if the user is a guest user
-#     # Check if the user is a guest user
-#     if session.get("guest_user"):
-#         user_name = 'Guest'
-#         spotify = spotipy.Spotify(auth_manager=auth_manager)
-#         return render_template('index.html', user_name=user_name, user_type="guest_user")
+#     if request.args.get("guest"):
+#         # Redirect guest user to the guest authentication route
+#         return redirect('/authenticate_guest')
 
-    
-#     else:
-#         session["user_type"] = "authenticated_user"
-#         # Set up cache_handler and auth_manager for the authenticated user
-#         cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-#         auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
-#                                                    cache_handler=cache_handler,
-#                                                    show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI)
+#     # If not a guest, proceed with the regular authentication process
+#     session["user_type"] = "authenticated_user"
+#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+#     auth_manager = spotipy.oauth2.SpotifyOAuth(
+#         scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
+#         cache_handler=cache_handler,
+#         show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI
+#     )
 
 #     if request.args.get("code"):
 #         # Step 2. Being redirected from Spotify auth page
@@ -132,10 +126,12 @@ def index():
 #     user_name = spotify.me()["display_name"]
 #     return render_template('index.html', user_name=user_name, user_type=session["user_type"])
 
+
 # @app.route('/authenticate_guest')
 # def authenticate_guest():
 #     global guest_user_auth_manager
 #     global guest_user_cache_handler
+#     session["user_type"] = "guest_user" 
 
 #     # Set up cache_handler and auth_manager for the guest user
 #     guest_user_cache_handler = spotipy.cache_handler.MemoryCacheHandler()
@@ -145,18 +141,64 @@ def index():
 #         show_dialog=False,
 #         client_id=SPOTIPY_CLIENT_ID,
 #         client_secret=SPOTIPY_CLIENT_SECRET,
-#         redirect_uri=SPOTIPY_REDIRECT_URI)
+#         redirect_uri=SPOTIPY_REDIRECT_URI
+#     )
 
 #     if not guest_user_auth_manager.validate_token(guest_user_cache_handler.get_cached_token()):
 #         # Authenticate the guest user without starting a local HTTP server
 #         guest_user_auth_manager.get_access_token()
-#         session["guest_user"] = True  # Mark the session as a guest user
-#         return redirect('/')
+#         spotify = spotipy.Spotify(auth_manager=guest_user_auth_manager)
+#         user_name = 'Guest'
+#         return render_template('index.html', user_name=user_name, user_type=session["user_type"])
+
 
 @app.route('/sign_out')
 def sign_out():
     session.pop("token_info", None)
     return redirect('/')
+
+@app.route('/home')
+def home_page():
+    top_artist_s = top_artists.get_top_artists_short_term_df(spotify).loc[1].iat[0]
+    top_artist_m = top_artists.get_top_artists_medium_term_df(spotify).loc[1].iat[0]
+    top_artist_l = top_artists.get_top_artists_long_term_df(spotify).loc[1].iat[0]
+    top_track_s = top_tracks.get_top_tracks_short_term_df(spotify).loc[1].iat[0]
+    top_track_m = top_tracks.get_top_tracks_medium_term_df(spotify).loc[1].iat[0]
+    top_track_l = top_tracks.get_top_tracks_long_term_df(spotify).loc[1].iat[0]
+    top_genre_s = top_genres.get_top_genres_short_term_df(spotify).loc[1].iat[0]
+    top_genre_m = top_genres.get_top_genres_medium_term_df(spotify).loc[1].iat[0]
+    top_genre_l = top_genres.get_top_genres_long_term_df(spotify).loc[1].iat[0]
+    top_year_s = top_years.get_top_years_short_term_df(spotify).loc[1].iat[0]
+    top_year_m  = top_years.get_top_years_medium_term_df(spotify).loc[1].iat[0]
+    top_year_l  = top_years.get_top_years_long_term_df(spotify).loc[1].iat[0]
+    top_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[1].iat[0]
+    top_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[1].iat[0]
+    top_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[1].iat[0]
+    niche_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[50].iat[0]
+    niche_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[50].iat[0]
+    niche_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[50].iat[0]
+    
+
+    return render_template('home.html', user_name=user_name, 
+                           top_artist_s=top_artist_s,
+                           top_artist_m=top_artist_m,
+                           top_artist_l=top_artist_l,
+                           top_track_s=top_track_s,
+                           top_track_m=top_track_m,
+                           top_track_l=top_track_l,
+                           top_genre_s=top_genre_s,
+                           top_genre_m=top_genre_m,
+                           top_genre_l=top_genre_l,
+                           top_year_s=top_year_s,
+                           top_year_m=top_year_m,
+                           top_year_l=top_year_l,
+                           top_popular_s=top_popular_s,
+                           top_popular_m=top_popular_m,
+                           top_popular_l=top_popular_l,
+                           niche_popular_s=niche_popular_s,
+                           niche_popular_m=niche_popular_m,
+                           niche_popular_l=niche_popular_l)
+
 
 
 @app.route('/most_recent_tracks')
@@ -444,5 +486,6 @@ Following lines allow application to be run more conveniently with
 `python app.py` (Make sure you're using python3)
 (Also includes directive to leverage pythons threading capacity.)
 '''
+
 if __name__ == '__main__':
     app.run(threaded=True, port=8888)

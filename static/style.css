@@ -50,7 +50,8 @@ ol, ul{
     font-size: 18px;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 9999; /* Set a high z-index to bring it to the front */
+    z-index: 9999; 
+	background-color: #000;
 }
 
 @keyframes spin {
@@ -180,6 +181,41 @@ header{
 	text-decoration: none;
 }
 
+#summary_header{
+	margin: auto;
+	overflow: hidden;
+	align-items: center;
+	text-align: center;
+	width: 60%;
+	padding: 20px;
+	inherits: false;
+}
+
+#summary_stats{
+	display: block;
+	width: 60%;
+	padding-top: 20px;
+	padding-left: 30%;
+	text-align: center;
+	padding-bottom: 50px;
+}
+
+#outer_list {
+    text-align: left;
+    margin: 0;
+	list-style-type: square;
+}
+
+#inner_list {
+    padding-left: 35px; 
+	padding-top: 10px;
+	padding-bottom: 10px;
+	list-style-type: circle;
+    color: #ccc;
+	vertical-align: middle;
+	text-align: left;
+}
+
 #data {
 	width: 100%;
 	overflow: hidden;
@@ -246,9 +282,10 @@ label {
 
 #user_data{
 	display: block;
-	width: fit-content;
+	width: 50%;
 	padding-left: 30%;
 	padding-top: 10px;
+	padding-bottom: 50px;
 }
 
 #user_pic:has(img:empty){

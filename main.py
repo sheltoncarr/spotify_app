@@ -61,96 +61,102 @@ def main():
     print('Top Artists - Long Term (Last Several Years)\n')
     print(top_artists.get_top_artists_long_term_df(spotify),'\n')
 
-    # Top Tracks
+    print()
+    print()
+    print()
+    print('The top artist long term\n')
+    print(top_artists.get_top_artists_long_term_df(spotify)[0],'\n')
 
-    print('='*150,'\n')
+    # # Top Tracks
 
-    print('Top Tracks - Short Term (Last 4 Weeks)\n')
-    print(top_tracks.get_top_tracks_short_term_df(spotify),'\n')
+    # print('='*150,'\n')
 
-    print('Top Tracks - Medium Term (Last 6 Months)\n')
-    print(top_tracks.get_top_tracks_medium_term_df(spotify),'\n')
+    # print('Top Tracks - Short Term (Last 4 Weeks)\n')
+    # print(top_tracks.get_top_tracks_short_term_df(spotify),'\n')
 
-    print('Top Tracks - Long Term (Last Several Years)\n')
-    print(top_tracks.get_top_tracks_long_term_df(spotify),'\n')
+    # print('Top Tracks - Medium Term (Last 6 Months)\n')
+    # print(top_tracks.get_top_tracks_medium_term_df(spotify),'\n')
 
-    # Top Genres
+    # print('Top Tracks - Long Term (Last Several Years)\n')
+    # print(top_tracks.get_top_tracks_long_term_df(spotify),'\n')
 
-    print('='*150,'\n')
+    # # Top Genres
 
-    print('Top Genres - Short Term (Last 4 Weeks)\n')
-    print(top_genres.get_top_genres_short_term_df(spotify),'\n')
+    # print('='*150,'\n')
 
-    print('Top Genres - Medium Term (Last 6 Months)\n')
-    print(top_genres.get_top_genres_medium_term_df(spotify),'\n')
+    # print('Top Genres - Short Term (Last 4 Weeks)\n')
+    # print(top_genres.get_top_genres_short_term_df(spotify),'\n')
 
-    print('Top Genres - Long Term (Last Several Years)\n')
-    print(top_genres.get_top_genres_long_term_df(spotify),'\n')
+    # print('Top Genres - Medium Term (Last 6 Months)\n')
+    # print(top_genres.get_top_genres_medium_term_df(spotify),'\n')
 
-    # Top Years
+    # print('Top Genres - Long Term (Last Several Years)\n')
+    # print(top_genres.get_top_genres_long_term_df(spotify),'\n')
 
-    print('='*150,'\n')
+    # # Top Years
 
-    print('Top Years - Short Term (Last 4 Weeks)\n')
-    print(top_years.get_top_years_short_term_df(spotify),'\n')
+    # print('='*150,'\n')
 
-    print('Top Years - Medium Term (Last 6 Months)\n')
-    print(top_years.get_top_years_medium_term_df(spotify),'\n')
+    # print('Top Years - Short Term (Last 4 Weeks)\n')
+    # print(top_years.get_top_years_short_term_df(spotify),'\n')
 
-    print('Top Years - Long Term (Last Several Years)\n')
-    print(top_years.get_top_years_long_term_df(spotify),'\n')
+    # print('Top Years - Medium Term (Last 6 Months)\n')
+    # print(top_years.get_top_years_medium_term_df(spotify),'\n')
 
-    # Audio Feature Analysis of Top Tracks
+    # print('Top Years - Long Term (Last Several Years)\n')
+    # print(top_years.get_top_years_long_term_df(spotify),'\n')
 
-    print('='*150,'\n')
+    # # Audio Feature Analysis of Top Tracks
 
-    print('Audio Feature Analysis of Top Tracks (Short Term)\n')
-    print(audio_features.get_audio_features_short_term(spotify),'\n')
+    # print('='*150,'\n')
 
-    print('Audio Feature Analysis of Top Tracks (Medium Term)\n')
-    print(audio_features.get_audio_features_medium_term(spotify),'\n')
+    # print('Audio Feature Analysis of Top Tracks (Short Term)\n')
+    # print(audio_features.get_audio_features_short_term(spotify),'\n')
 
-    print('Audio Feature Analysis of Top Tracks (Long Term)\n')
-    print(audio_features.get_audio_features_long_term(spotify),'\n')
+    # print('Audio Feature Analysis of Top Tracks (Medium Term)\n')
+    # print(audio_features.get_audio_features_medium_term(spotify),'\n')
 
-    # Song Recommendations (Artist)
+    # print('Audio Feature Analysis of Top Tracks (Long Term)\n')
+    # print(audio_features.get_audio_features_long_term(spotify),'\n')
 
-    print('='*150,'\n')
+    # # Song Recommendations (Artist)
 
-    print('Song Recommendations Based on Top Artists (Short Term)\n')
-    print(recommendations.get_short_term_artist_recs(spotify),'\n')
+    # print('='*150,'\n')
 
-    print('Song Recommendations Based on Top Artists (Medium Term)\n')
-    print(recommendations.get_medium_term_artist_recs(spotify),'\n')
+    # print('Song Recommendations Based on Top Artists (Short Term)\n')
+    # print(recommendations.get_short_term_artist_recs(spotify),'\n')
 
-    print('Song Recommendations Based on Top Artists (Long Term)\n')
-    print(recommendations.get_long_term_artist_recs(spotify),'\n')
+    # print('Song Recommendations Based on Top Artists (Medium Term)\n')
+    # print(recommendations.get_medium_term_artist_recs(spotify),'\n')
 
-    # Song Recommendations (Tracks)
+    # print('Song Recommendations Based on Top Artists (Long Term)\n')
+    # print(recommendations.get_long_term_artist_recs(spotify),'\n')
 
-    print('='*150,'\n')
+    # # Song Recommendations (Tracks)
 
-    print('Song Recommendations Based on Top Tracks (Short Term)\n')
-    print(recommendations.get_short_term_track_recs(spotify),'\n')
+    # print('='*150,'\n')
 
-    print('Song Recommendations Based on Top Tracks (Medium Term)\n')
-    print(recommendations.get_medium_term_track_recs(spotify),'\n')
+    # print('Song Recommendations Based on Top Tracks (Short Term)\n')
+    # print(recommendations.get_short_term_track_recs(spotify),'\n')
 
-    print('Song Recommendations Based on Top Tracks (Long Term)\n')
-    print(recommendations.get_long_term_track_recs(spotify),'\n')
+    # print('Song Recommendations Based on Top Tracks (Medium Term)\n')
+    # print(recommendations.get_medium_term_track_recs(spotify),'\n')
 
-    # Popularity
+    # print('Song Recommendations Based on Top Tracks (Long Term)\n')
+    # print(recommendations.get_long_term_track_recs(spotify),'\n')
 
-    print('='*150,'\n')
+    # # Popularity
 
-    print('Popularity of Your Top Artists (Short Term)\n')
-    print(popularity.get_top_artists_short_term_popularity_df(spotify),'\n')
+    # print('='*150,'\n')
 
-    print('Popularity of Your Top Artists (Medium Term)\n')
-    print(popularity.get_top_artists_medium_term_popularity_df(spotify),'\n')
+    # print('Popularity of Your Top Artists (Short Term)\n')
+    # print(popularity.get_top_artists_short_term_popularity_df(spotify),'\n')
 
-    print('Popularity of Your Top Artists (Long Term)\n')
-    print(popularity.get_top_artists_long_term_popularity_df(spotify),'\n')
+    # print('Popularity of Your Top Artists (Medium Term)\n')
+    # print(popularity.get_top_artists_medium_term_popularity_df(spotify),'\n')
+
+    # print('Popularity of Your Top Artists (Long Term)\n')
+    # print(popularity.get_top_artists_long_term_popularity_df(spotify),'\n')
 
 
 if __name__ == '__main__':

@@ -11,11 +11,11 @@
   </head>
   <body>
     <div class="container">
-        <div id="'text">
+        <div id="text">
             <p> 
                 This music analysis website uses <b>Spotify</b>. <br>
                 If you have a Spotify account, click <a style="text-decoration:none" href={{url}}>here</a>. <br> 
-                If not, click <a style="text-decoration:none" href="/" target="_self">here</a>.
+                If not, click <a style="text-decoration:none" href="{{ url_for('index', guest='true') }}" target="_self">here</a>.
             </p>
         </div>
     </div>
