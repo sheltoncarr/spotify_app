@@ -1,15 +1,15 @@
-import plotly.graph_objects as go
-import plotly.offline as pyo
+# import plotly.graph_objects as go
+# import plotly.offline as pyo
 import pandas as pd
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+# from spotipy.oauth2 import SpotifyOAuth
 import os
 from dotenv import load_dotenv
 # import audio_features
-import plotly.io as pio
+# import plotly.io as pio
 import matplotlib.pyplot as plt
-from io import BytesIO
-import base64
+# from io import BytesIO
+# import base64
 import matplotlib
 matplotlib.use('agg')
 
