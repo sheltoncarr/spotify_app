@@ -202,37 +202,38 @@ def sign_out():
 @app.route('/home')
 def summary_stats():
 
-    top_artist_s = top_artists.get_top_artists_short_term_df(spotify).loc[1].iat[0]
-    top_artist_m = top_artists.get_top_artists_medium_term_df(spotify).loc[1].iat[0]
-    top_artist_l = top_artists.get_top_artists_long_term_df(spotify).loc[1].iat[0]
-    top_track_s = top_tracks.get_top_tracks_short_term_df(spotify).loc[1].iat[0]
-    top_track_m = top_tracks.get_top_tracks_medium_term_df(spotify).loc[1].iat[0]
-    top_track_l = top_tracks.get_top_tracks_long_term_df(spotify).loc[1].iat[0]
-    top_genre_s = top_genres.get_top_genres_short_term_df(spotify).loc[1].iat[0]
-    top_genre_m = top_genres.get_top_genres_medium_term_df(spotify).loc[1].iat[0]
-    top_genre_l = top_genres.get_top_genres_long_term_df(spotify).loc[1].iat[0]
-    top_year_s = top_years.get_top_years_short_term_df(spotify).loc[1].iat[0]
-    top_year_m  = top_years.get_top_years_medium_term_df(spotify).loc[1].iat[0]
-    top_year_l  = top_years.get_top_years_long_term_df(spotify).loc[1].iat[0]
-    top_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[1].iat[0]
-    top_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[1].iat[0]
-    top_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[1].iat[0]
-    niche_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[50].iat[0]
-    niche_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[50].iat[0]
-    niche_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[50].iat[0]
+    # top_artist_s = top_artists.get_top_artists_short_term_df(spotify).loc[1].iat[0]
+    # top_artist_m = top_artists.get_top_artists_medium_term_df(spotify).loc[1].iat[0]
+    # top_artist_l = top_artists.get_top_artists_long_term_df(spotify).loc[1].iat[0]
+    # top_track_s = top_tracks.get_top_tracks_short_term_df(spotify).loc[1].iat[0]
+    # top_track_m = top_tracks.get_top_tracks_medium_term_df(spotify).loc[1].iat[0]
+    # top_track_l = top_tracks.get_top_tracks_long_term_df(spotify).loc[1].iat[0]
+    # top_genre_s = top_genres.get_top_genres_short_term_df(spotify).loc[1].iat[0]
+    # top_genre_m = top_genres.get_top_genres_medium_term_df(spotify).loc[1].iat[0]
+    # top_genre_l = top_genres.get_top_genres_long_term_df(spotify).loc[1].iat[0]
+    # top_year_s = top_years.get_top_years_short_term_df(spotify).loc[1].iat[0]
+    # top_year_m  = top_years.get_top_years_medium_term_df(spotify).loc[1].iat[0]
+    # top_year_l  = top_years.get_top_years_long_term_df(spotify).loc[1].iat[0]
+    # top_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[1].iat[0]
+    # top_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[1].iat[0]
+    # top_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[1].iat[0]
+    # niche_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[50].iat[0]
+    # niche_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[50].iat[0]
+    # niche_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[50].iat[0]
 
-    stat_list = ['Most listened to artists','Most listened to songs','Most listened to genres','Most popular artists','Most niche artists','Favorite music release year']
-    short_list = [top_artist_s,top_track_s,top_genre_s,top_popular_s,niche_popular_s,top_year_s]
-    med_list = [top_artist_m,top_track_m,top_genre_m,top_popular_m,niche_popular_m,top_year_m]
-    long_list = [top_artist_l,top_track_l,top_genre_l,top_popular_l,niche_popular_l,top_year_l]
-    df = pd.DataFrame({'Short Term (weeks)': short_list, 'Medium Term (months)': med_list, 'Long Term (years)': long_list}, index=stat_list)
-    title = 'Your Summary Statistics:'
+    # stat_list = ['Most listened to artists','Most listened to songs','Most listened to genres','Most popular artists','Most niche artists','Favorite music release year']
+    # short_list = [top_artist_s,top_track_s,top_genre_s,top_popular_s,niche_popular_s,top_year_s]
+    # med_list = [top_artist_m,top_track_m,top_genre_m,top_popular_m,niche_popular_m,top_year_m]
+    # long_list = [top_artist_l,top_track_l,top_genre_l,top_popular_l,niche_popular_l,top_year_l]
+    # df = pd.DataFrame({'Short Term (weeks)': short_list, 'Medium Term (months)': med_list, 'Long Term (years)': long_list}, index=stat_list)
+    # title = 'Your Summary Statistics:'
     
-    tables = [
-        {'title': 'Your Listening Profile', 'data': df, 'id':'table1'}
-    ]
+    # tables = [
+    #     {'title': 'Your Listening Profile', 'data': df, 'id':'table1'}
+    # ]
 
-    return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
+    # return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
+    return render_template('index.html', user_name=user_name)
 
 
 
