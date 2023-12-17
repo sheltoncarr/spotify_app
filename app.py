@@ -157,8 +157,51 @@ def sign_out():
     session.pop("token_info", None)
     return redirect('/')
 
+# @app.route('/home')
+# def home_page():
+#     top_artist_s = top_artists.get_top_artists_short_term_df(spotify).loc[1].iat[0]
+#     top_artist_m = top_artists.get_top_artists_medium_term_df(spotify).loc[1].iat[0]
+#     top_artist_l = top_artists.get_top_artists_long_term_df(spotify).loc[1].iat[0]
+#     top_track_s = top_tracks.get_top_tracks_short_term_df(spotify).loc[1].iat[0]
+#     top_track_m = top_tracks.get_top_tracks_medium_term_df(spotify).loc[1].iat[0]
+#     top_track_l = top_tracks.get_top_tracks_long_term_df(spotify).loc[1].iat[0]
+#     top_genre_s = top_genres.get_top_genres_short_term_df(spotify).loc[1].iat[0]
+#     top_genre_m = top_genres.get_top_genres_medium_term_df(spotify).loc[1].iat[0]
+#     top_genre_l = top_genres.get_top_genres_long_term_df(spotify).loc[1].iat[0]
+#     top_year_s = top_years.get_top_years_short_term_df(spotify).loc[1].iat[0]
+#     top_year_m  = top_years.get_top_years_medium_term_df(spotify).loc[1].iat[0]
+#     top_year_l  = top_years.get_top_years_long_term_df(spotify).loc[1].iat[0]
+#     top_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[1].iat[0]
+#     top_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[1].iat[0]
+#     top_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[1].iat[0]
+#     niche_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[50].iat[0]
+#     niche_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[50].iat[0]
+#     niche_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[50].iat[0]
+    
+
+#     return render_template('home.html', user_name=user_name, 
+#                            top_artist_s=top_artist_s,
+#                            top_artist_m=top_artist_m,
+#                            top_artist_l=top_artist_l,
+#                            top_track_s=top_track_s,
+#                            top_track_m=top_track_m,
+#                            top_track_l=top_track_l,
+#                            top_genre_s=top_genre_s,
+#                            top_genre_m=top_genre_m,
+#                            top_genre_l=top_genre_l,
+#                            top_year_s=top_year_s,
+#                            top_year_m=top_year_m,
+#                            top_year_l=top_year_l,
+#                            top_popular_s=top_popular_s,
+#                            top_popular_m=top_popular_m,
+#                            top_popular_l=top_popular_l,
+#                            niche_popular_s=niche_popular_s,
+#                            niche_popular_m=niche_popular_m,
+#                            niche_popular_l=niche_popular_l)
+
 @app.route('/home')
-def home_page():
+def summary_stats():
+
     top_artist_s = top_artists.get_top_artists_short_term_df(spotify).loc[1].iat[0]
     top_artist_m = top_artists.get_top_artists_medium_term_df(spotify).loc[1].iat[0]
     top_artist_l = top_artists.get_top_artists_long_term_df(spotify).loc[1].iat[0]
@@ -177,27 +220,19 @@ def home_page():
     niche_popular_s = popularity.get_top_artists_short_term_popularity_df(spotify).loc[50].iat[0]
     niche_popular_m = popularity.get_top_artists_medium_term_popularity_df(spotify).loc[50].iat[0]
     niche_popular_l = popularity.get_top_artists_long_term_popularity_df(spotify).loc[50].iat[0]
-    
 
-    return render_template('home.html', user_name=user_name, 
-                           top_artist_s=top_artist_s,
-                           top_artist_m=top_artist_m,
-                           top_artist_l=top_artist_l,
-                           top_track_s=top_track_s,
-                           top_track_m=top_track_m,
-                           top_track_l=top_track_l,
-                           top_genre_s=top_genre_s,
-                           top_genre_m=top_genre_m,
-                           top_genre_l=top_genre_l,
-                           top_year_s=top_year_s,
-                           top_year_m=top_year_m,
-                           top_year_l=top_year_l,
-                           top_popular_s=top_popular_s,
-                           top_popular_m=top_popular_m,
-                           top_popular_l=top_popular_l,
-                           niche_popular_s=niche_popular_s,
-                           niche_popular_m=niche_popular_m,
-                           niche_popular_l=niche_popular_l)
+    stat_list = ['Most listened to artists','Most listened to songs','Most listened to genres','Most popular artists','Most niche artists','Favorite music release year']
+    short_list = [top_artist_s,top_track_s,top_genre_s,top_popular_s,niche_popular_s,top_year_s]
+    med_list = [top_artist_m,top_track_m,top_genre_m,top_popular_m,niche_popular_m,top_year_m]
+    long_list = [top_artist_l,top_track_l,top_genre_l,top_popular_l,niche_popular_l,top_year_l]
+    df = pd.DataFrame({'Short Term (weeks)': short_list, 'Medium Term (months)': med_list, 'Long Term (years)': long_list}, index=stat_list)
+    title = 'Your Summary Statistics:'
+    
+    tables = [
+        {'title': 'Your Listening Profile', 'data': df, 'id':'table1'}
+    ]
+
+    return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 
@@ -294,7 +329,7 @@ def get_top_years():
 @app.route('/top_years_bar_chart')
 def top_years_visual():
     top_years_bar_chart.top_years_bar_chart(spotify)
-    title = 'Your Top Years:'
+    title = 'Your Top Years (based on release year):'
 
     return render_template("top_years_bar_chart.html", user_name=user_name, dataEvent=title)
 
@@ -436,7 +471,6 @@ def user_data():
     for idx in range(playlists_num):
         if list_of_playlists[idx]["public"] == True:
             public_playlists += 1
-    per_public = int((public_playlists/playlists_num)*100)
 
     # currently playing
     track = spotify.current_user_playing_track()
@@ -475,7 +509,6 @@ def user_data():
                            per_other_user_owned=per_other_user_owned,
                            current_song=current_song,
                            public_playlists=public_playlists,
-                           per_public=per_public,
                            avg_track_count=avg_track_count,
                            long_playlist=long_playlist,
                            short_playlist=short_playlist)
