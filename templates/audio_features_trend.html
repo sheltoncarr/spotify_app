@@ -54,7 +54,7 @@
                 {% for table in tables %}
                     <div class="table-container" data-table="{{ table['id'] }}">
                         <p>{{ table['title'] }}</p>
-                        <div class="table">{{ table['data'].to_html(classes='data table-row', justify='center', render_links=True, escape=False)|safe }}</div>
+                        <div class="table">{{ table['data'].to_html(classes='data table-row', justify='center', render_links=True, escape=False, index=False)|safe }}</div>
                     </div>
                 {% endfor %}
             </div>

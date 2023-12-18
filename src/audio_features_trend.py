@@ -31,9 +31,10 @@ def get_audio_features_short_term(spotify, limit=50, time_range='short_term'):
     df = pd.DataFrame(spotify.audio_features(tracks=track_uri_list))
     drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
     df = df.drop(columns=drop_columns)
-    df = df.mean(axis=0)
+    df = df.mean(axis=0)*100
     df = pd.DataFrame({'Audio Feature':df.index, 'Average Value':df.values})
     df['Audio Feature'] = df['Audio Feature'].str.title()
+    df['Average Value'] = df['Average Value'].astype(int)
     df.index += 1
     return df
 
@@ -45,9 +46,10 @@ def get_audio_features_medium_term(spotify, limit=50, time_range='medium_term'):
     df = pd.DataFrame(spotify.audio_features(tracks=track_uri_list))
     drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
     df = df.drop(columns=drop_columns)
-    df = df.mean(axis=0)
+    df = df.mean(axis=0)*100
     df = pd.DataFrame({'Audio Feature':df.index, 'Average Value':df.values})
     df['Audio Feature'] = df['Audio Feature'].str.title()
+    df['Average Value'] = df['Average Value'].astype(int)
     df.index += 1
     return df
 
@@ -59,9 +61,10 @@ def get_audio_features_long_term(spotify, limit=50, time_range='long_term'):
     df = pd.DataFrame(spotify.audio_features(tracks=track_uri_list))
     drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'duration_ms', 'time_signature', 'loudness']
     df = df.drop(columns=drop_columns)
-    df = df.mean(axis=0)
+    df = df.mean(axis=0)*100
     df = pd.DataFrame({'Audio Feature':df.index, 'Average Value':df.values})
     df['Audio Feature'] = df['Audio Feature'].str.title()
+    df['Average Value'] = df['Average Value'].astype(int)
     df.index += 1
     return df
 
@@ -104,7 +107,7 @@ def audio_features_trend(spotify):
 
         # Adding data labels
         for i, value in enumerate(values):
-            plt.annotate(f'{value:.2f}', (i, value), textcoords="offset points", xytext=(0,7), ha='center')
+            plt.annotate(f'{int(value)}', (i, value), textcoords="offset points", xytext=(0,7), ha='center')
 
 
     plt.title('Audio Feature Trends Over Time', fontsize=20, y=1.15)

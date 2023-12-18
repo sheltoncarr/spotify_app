@@ -6,7 +6,7 @@
             <h1 class="title" style="font-size: 30px;">
                 About You
             </h1>
-            <div id='user_pic'><img src={{profile_pic}} alt='Image placeholder' style="padding: 10px;"/></div>
+            <div id='user_pic'><img src={{profile_pic}} alt='Not Found' onerror="this.src='static/images/generic_user.png';" style="padding: 10px; width: 250px;"/></div>
             <p style="text-align: center; padding-top: 15px; color: #ccc">
                 Hi {{user_name}}! Here are some stats about your music library:
             </p>
@@ -20,7 +20,7 @@
                         <li> <b>Number of playlists Spotify created:</b> {{spot_playlists}} ({{per_spot_owned}}% of total playlist count)</li>
                         <li> <b>Number of playlists other users created:</b> {{other_user_playlists}} ({{per_other_user_owned}}% of total playlist count)</li>
                             <ul style="padding-left: 40px;">
-                                <li> <b>Your most followed playlist creator:</b> {{other_user_followed}}</li>
+                                <li> <b>Your favorite playlist creator:</b> {{other_user_followed}}</li>
                             </ul>
                     </ul>
                     <li> <b>Number of collaborative playlists:</b> {{collaborative_playlists}}</li>

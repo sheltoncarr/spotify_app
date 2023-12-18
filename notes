@@ -43,14 +43,9 @@ spotify design guide: https://developer.spotify.com/documentation/design
 
 
 Before we send live: 
--Make sure we like the spacing/formatting of the data tables
--Change the labels of the tabs (i.e. no "bar chart")
--Make the home page faster
--Chose all labels to be the simplest possible
--Remove indexing from audio features trend definition table
--Maybe make the audio feature trend out of 100 instead of 1? Easier on the eyes
--Specific for popularity that the indexing is based on your top artists (or just take out the indexing all together)
--Make sure the footer says what we want it to
--Maybe add how many playlists you follow from your most followed user
+-Make sure we like the spacing/formatting of the data tables (text aligned left, rest center aligned)
+-Change the labels of the tabs (i.e. no "bar chart") (wait till Relto does his interactive stuff)
+-Make sure the footer says what we want it to (Relto to name)
+-Make user profile display an image
 -Rewrite about us description (for Evan)
 -If time permits, add a button to add songs to any playlist in a user's library
