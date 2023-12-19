@@ -41,7 +41,12 @@ def get_short_term_track_recs(spotify, limit=5, time_range='short_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 
@@ -85,7 +90,12 @@ def get_medium_term_track_recs(spotify, limit=5, time_range='medium_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 
@@ -129,7 +139,12 @@ def get_long_term_track_recs(spotify, limit=5, time_range='long_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
@@ -172,7 +187,12 @@ def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
@@ -215,7 +235,12 @@ def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 
@@ -259,4 +284,9 @@ def get_long_term_artist_recs(spotify, limit=5, time_range='long_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler

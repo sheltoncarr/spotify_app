@@ -16,7 +16,11 @@ def audio_feature_meaning():
         'Audio Feature': audio_feature,
         'Description': description
     })
-    return df
+    dfStyler = (
+        df.style
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 def get_audio_features_short_term(spotify, limit=50, time_range='short_term'):

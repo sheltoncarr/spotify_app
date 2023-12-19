@@ -288,6 +288,16 @@ label {
 	padding-bottom: 50px;
 }
 
+#user_pic img {
+	margin-top: 8px;
+	vertical-align: middle;
+	object-fit: cover;
+	width: 250px;
+	height: 250px;
+	border: 3px solid green;
+	border-radius: 10%;
+}
+
 #user_data ul {
     text-align: left;
     margin: 0;
@@ -324,6 +334,7 @@ label {
 .column img {
 	margin-top: 8px;
 	vertical-align: middle;
+	object-fit: cover;
 	width: 250px;
 	height: 250px;
 	border: 3px solid green;

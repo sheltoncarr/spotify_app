@@ -36,6 +36,11 @@ def most_recently_played_tracks(spotify, limit=50):
         'Release Date': release_date_list,
         'Audio Sample': play_button
     })
-
     df.index += 1
-    return df
+
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler

@@ -9,7 +9,12 @@ def get_top_artists_short_term_popularity_df(spotify, limit=50, time_range='shor
     df.sort_values(by=["Popularity (Out of 100)"], inplace=True, ascending=False)
     df.reset_index(drop=True,inplace=True)
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Popularity (Out of 100)"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 def get_top_artists_medium_term_popularity_df(spotify, limit=50, time_range='medium_term'):
@@ -21,7 +26,12 @@ def get_top_artists_medium_term_popularity_df(spotify, limit=50, time_range='med
     df.sort_values(by=["Popularity (Out of 100)"], inplace=True, ascending=False)
     df.reset_index(drop=True,inplace=True)
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Popularity (Out of 100)"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 def get_top_artists_long_term_popularity_df(spotify, limit=50, time_range='long_term'):
@@ -33,4 +43,9 @@ def get_top_artists_long_term_popularity_df(spotify, limit=50, time_range='long_
     df.sort_values(by=["Popularity (Out of 100)"], inplace=True, ascending=False)
     df.reset_index(drop=True,inplace=True)
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Popularity (Out of 100)"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler

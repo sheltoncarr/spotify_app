@@ -39,7 +39,12 @@ def get_top_tracks_short_term_df(spotify, limit=50, time_range='short_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 
@@ -81,7 +86,12 @@ def get_top_tracks_medium_term_df(spotify, limit=50, time_range='medium_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler
 
 
 
@@ -122,4 +132,9 @@ def get_top_tracks_long_term_df(spotify, limit=50, time_range='long_term'):
     })
 
     df.index += 1
-    return df
+    dfStyler = (
+        df.style
+        .set_properties(subset=["Audio Sample"], **{'text-align': 'center'})
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
+    )
+    return dfStyler

@@ -36,6 +36,7 @@ from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
 import pandas as pd
+from datetime import timedelta
 import statistics as stats
 from dotenv import load_dotenv
 from src import top_artists
@@ -171,6 +172,14 @@ def home_page():
     track_results = spotify.current_user_top_tracks(limit=1, time_range='long_term')
     top_track = track_results['items'][0]['name']
     top_track_artist = track_results['items'][0]['artists'][0]['name']
+    track_uri_list = [item['id'] for item in track_results['items']]
+    df_dur = pd.DataFrame(spotify.audio_features(tracks=track_uri_list))
+    drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'time_signature', 'loudness']
+    df_dur = df_dur.drop(columns=drop_columns)
+    df_dur = df_dur.mean(axis=0)
+    df_dur = pd.DataFrame({'Audio Feature':df_dur.index, 'Average Value':df_dur.values})
+    minutes, seconds = divmod(int(df_dur.loc[8].iat[1]/1000), 60)
+    duration = str(minutes) + ' minutes and ' + str(seconds) + ' seconds'
     top_genre = top_genres.get_top_genres_long_term_df(spotify).loc[1].iat[0]
     top_year  = top_years.get_top_years_long_term_df(spotify).loc[1].iat[0]
     
@@ -179,6 +188,7 @@ def home_page():
                            top_artist=top_artist,
                            top_track=top_track,
                            top_track_artist=top_track_artist,
+                           duration=duration,
                            top_genre=top_genre,
                            top_year=top_year,
                            top_pop=top_pop,
@@ -190,7 +200,7 @@ def home_page():
 def get_most_recent_tracks():
 
     df1 = recently_played_tracks.most_recently_played_tracks(spotify)
-    title = 'Most Recent Tracks:'
+    title = 'Your Most Recent Tracks:'
     
     tables = [
         {'title': 'Most Recent Tracks', 'data': df1, 'id':'table1'}
@@ -324,7 +334,7 @@ def get_recommendations():
     df4 = recommendations.get_short_term_artist_recs(spotify)
     df5 = recommendations.get_medium_term_artist_recs(spotify)
     df6 = recommendations.get_long_term_artist_recs(spotify)
-    title = 'Your Top Recommendations:'
+    title = 'Your Recommendations:'
 
     tables = [
         {'title': 'Based on Top Tracks (Short Term)', 'data': df1, 'id':'table1'},
