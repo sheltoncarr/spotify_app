@@ -18,8 +18,8 @@ def audio_feature_meaning():
     })
     dfStyler = (
         df.style
-        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}])
-    )
+        .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}]
+    ).hide(axis="index"))
     return dfStyler
 
 
