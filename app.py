@@ -334,7 +334,7 @@ def get_recommendations():
     df4 = recommendations.get_short_term_artist_recs(spotify)
     df5 = recommendations.get_medium_term_artist_recs(spotify)
     df6 = recommendations.get_long_term_artist_recs(spotify)
-    title = 'Your Recommendations:'
+    title = 'Your Recommendations: (Refresh for new recs)'
 
     tables = [
         {'title': 'Based on Top Tracks (Short Term)', 'data': df1, 'id':'table1'},

@@ -75,7 +75,7 @@ def top_years_bar_chart(spotify):
 
         # Customize the plot if needed
         ax.set_title(f"Top Years - {title}", fontsize=15)
-        ax.set_xlabel("Year", fontsize=12)
+        ax.set_xlabel("Release Year", fontsize=12)
         ax.set_xticks(df["Year"])
         ax.tick_params(axis='x', rotation=30)
         ax.set_ylabel("Count of Top Tracks", fontsize=12)
