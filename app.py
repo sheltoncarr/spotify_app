@@ -53,7 +53,7 @@ from src import top_genres_bar_chart
 
 load_dotenv()
 
-SPOTIPY_REDIRECT_URI = 'http://localhost:8888'
+SPOTIPY_REDIRECT_URL = os.getenv("SPOTIPY_REDIRECT_URL")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(64)
@@ -72,7 +72,7 @@ def index():
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
                                                cache_handler=cache_handler,
-                                               show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI)
+                                               show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URL)
 
     if request.args.get("code"):
         # Step 2. Being redirected from Spotify auth page
