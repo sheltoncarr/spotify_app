@@ -2,12 +2,8 @@ Ideas:
 
 - Add a button that will add a certain recommended song to a user's music library (only if we have extra time)
 - add documentations to each function
-- Get guest account working
-- Make visuals for audio analysis, top genres, and top years sections (optimize the functions)
 - Apply for Extended Quota Mode
 - For audio features, include loudness, bpm, and duration
-- Edege case for currently playing while spotify dj is on
-- About You page is no longer showing profile pics
 - Clean up code + folders + old files
 - Clean up/update requirements.txt
 - getting this warning every time we run app.py: "DeprecationWarning: You're using 'as_dict = True'.get_access_token will return the token string directly in future versions. Please adjust your code accordingly, or use get_cached_token instead.
@@ -15,21 +11,9 @@ Ideas:
 - Make github repo public once we push the website live
 - Summary page (You like {artists}, your favorite year for music is {year}, and your go-to genre is {genre}).
   Your most popular artist is {} and your most niche artist is {})
-- Getting the following error after closing server with ^C:
-
-Exception ignored in: <function Spotify.__del__ at 0x10ff6bec0>
-Traceback (most recent call last):
-  File "/Users/SheltonCarr/Documents/spotify_app/spotify_venv/lib/python3.11/site-packages/spotipy/client.py", line 214, in __del__
-TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union
-Exception ignored in: <function SpotifyAuthBase.__del__ at 0x10ff8f600>
-Traceback (most recent call last):
-  File "/Users/SheltonCarr/Documents/spotify_app/spotify_venv/lib/python3.11/site-packages/spotipy/oauth2.py", line 156, in __del__
-TypeError: isinstance() arg 2 must be a type, a tuple of types, or a union
-
 
 If we have time: 
 - Add hover function over bar charts to display songs/artists represented in the bar
-
 
 Resources:
 
@@ -40,8 +24,3 @@ flask oauth2 example: https://github.com/spotipy-dev/spotipy/blob/master/example
 spotipy documentation: https://spotipy.readthedocs.io/en/2.22.1/
 spotipy github: https://github.com/spotipy-dev/spotipy#with-user-authentication
 spotify design guide: https://developer.spotify.com/documentation/design
-
-
-Before we send live: 
--Make sure the footer says what we want it to (Relto to name)
--If time permits, add a button to add songs to any playlist in a user's library
