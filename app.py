@@ -52,9 +52,6 @@ def index():
     # Step 3. Signed in, display data
     global spotify
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    global user_name
-    user_name = spotify.me()["display_name"]
-    # return render_template('index.html',user_name=user_name)
     return redirect('/home')
 
 
@@ -65,6 +62,8 @@ def sign_out():
 
 @app.route('/home')
 def home_page():
+    global user_name
+    user_name = spotify.me()["display_name"]
     artist_results = spotify.current_user_top_artists(limit=50, time_range='long_term')
     artist_list = [item['name'] for item in artist_results['items']]
     top_artist = artist_list[0]
