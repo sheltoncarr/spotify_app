@@ -147,23 +147,6 @@ def get_top_tracks():
     return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
-@app.route('/top_genres')
-def get_top_genres():
-
-    df1 = top_genres.get_top_genres_short_term_df(spotify)
-    df2 = top_genres.get_top_genres_medium_term_df(spotify)
-    df3 = top_genres.get_top_genres_long_term_df(spotify)
-    title = 'Your Top Genres:'
-
-    tables = [
-        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
-        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table2'},
-        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
-    ]
-
-    return render_template('index.html', tables=tables, user_name=user_name, dataEvent=title)
-
-
 @app.route('/top_genres_bar_chart')
 def top_genres_visual():
     top_genres_bar_chart.top_genres_bar_chart(spotify)
@@ -172,49 +155,12 @@ def top_genres_visual():
     return render_template("top_genres_bar_chart.html", user_name=user_name, dataEvent=title)
 
 
-@app.route('/top_years')
-def get_top_years():
-
-    df1 = top_years.get_top_years_short_term_df(spotify)
-    df2 = top_years.get_top_years_medium_term_df(spotify)
-    df3 = top_years.get_top_years_long_term_df(spotify)
-    title = 'Your Top Years:'
-    length = df1.size
-
-    tables = [
-        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table1'},
-        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table2'},
-        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table3'},
-    ]
-
-    return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
-
-
 @app.route('/top_years_bar_chart')
 def top_years_visual():
     top_years_bar_chart.top_years_bar_chart(spotify)
     title = 'Your Top Years (based on release year):'
 
     return render_template("top_years_bar_chart.html", user_name=user_name, dataEvent=title)
-
-
-@app.route('/audio_features')
-def get_features():
-
-    df = audio_features.audio_feature_meaning()
-    df1 = audio_features.get_audio_features_short_term(spotify)
-    df2 = audio_features.get_audio_features_medium_term(spotify)
-    df3 = audio_features.get_audio_features_long_term(spotify)
-    title = 'Your Audio Features:'
-
-    tables = [
-        {'title': 'Audio Feature Definitions', 'data': df, 'id':'table1'},
-        {'title': 'Short Term (Last 4 Weeks)', 'data': df1, 'id':'table2'},
-        {'title': 'Medium Term (Last 6 Months)', 'data': df2,'id':'table3'},
-        {'title': 'Long Term (Last Several Years)', 'data': df3,'id':'table4'},
-    ]
-
-    return render_template('graph_data.html', tables=tables, user_name=user_name, dataEvent=title)
 
 
 @app.route('/audio_features_trend')
