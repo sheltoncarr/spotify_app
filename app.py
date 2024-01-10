@@ -1,42 +1,8 @@
-# This file is an example for letting any user sign in through their Spotify account
-
-# https://community.spotify.com/t5/Spotify-for-Developers/403-User-not-approved-for-app/td-p/5214947
-
-# https://developer.spotify.com/blog/2021-05-27-improving-the-developer-and-user-experience-for-third-party-apps
-
-# https://developer.spotify.com/documentation/web-api/concepts/quota-modes
-
-"""
-Prerequisites
-
-    pip3 install spotipy Flask Flask-Session
-
-    // from your [app settings](https://developer.spotify.com/dashboard/applications)
-    export SPOTIPY_CLIENT_ID='*****'
-    export SPOTIPY_CLIENT_SECRET='*****'
-    export SPOTIPY_REDIRECT_URL='*****' // must contain a port
-    // SPOTIPY_REDIRECT_URL must be added to your [app settings](https://developer.spotify.com/dashboard/applications)
-    OPTIONAL
-    // in development environment for debug output
-    export FLASK_ENV=development
-    // so that you can invoke the app outside of the file's directory include
-    export FLASK_APP=/path/to/spotipy/examples/app.py
-
-    // on Windows, use `SET` instead of `export`
-
-Run app.py
-
-    python3 app.py OR python3 -m flask run
-    NOTE: If receiving "port already in use" error, try other ports: 5000, 8090, 8888, etc...
-        (will need to be updated in your Spotify app and SPOTIPY_REDIRECT_URL variable)
-"""
-
 import os
 from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
 import pandas as pd
-from datetime import timedelta
 import statistics as stats
 from dotenv import load_dotenv
 from src import top_artists
@@ -53,6 +19,8 @@ from src import top_genres_bar_chart
 
 load_dotenv()
 
+SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 SPOTIPY_REDIRECT_URL = os.getenv("SPOTIPY_REDIRECT_URL")
 
 app = Flask(__name__)
@@ -60,10 +28,6 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 Session(app)
-
-SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
-SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
-
 
 @app.route('/')
 def index():
@@ -92,65 +56,6 @@ def index():
     user_name = spotify.me()["display_name"]
     # return render_template('index.html',user_name=user_name)
     return redirect('/home')
-
-# @app.route('/')
-# def index():
-#     global spotify
-#     global user_name
-
-#     # Check if the user is a guest user
-#     if request.args.get("guest"):
-#         # Redirect guest user to the guest authentication route
-#         return redirect('/authenticate_guest')
-
-#     # If not a guest, proceed with the regular authentication process
-#     session["user_type"] = "authenticated_user"
-#     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-#     auth_manager = spotipy.oauth2.SpotifyOAuth(
-#         scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
-#         cache_handler=cache_handler,
-#         show_dialog=True, redirect_uri=SPOTIPY_REDIRECT_URI
-#     )
-
-#     if request.args.get("code"):
-#         # Step 2. Being redirected from Spotify auth page
-#         auth_manager.get_access_token(request.args.get("code"))
-#         return redirect('/')
-
-#     if not auth_manager.validate_token(cache_handler.get_cached_token()):
-#         # Step 1. Display sign-in link when no token
-#         auth_url = auth_manager.get_authorize_url()
-#         return render_template('sign_in.html', url=auth_url)
-
-#     # Step 3. Signed in, display data
-#     spotify = spotipy.Spotify(auth_manager=auth_manager)
-#     user_name = spotify.me()["display_name"]
-#     return render_template('index.html', user_name=user_name, user_type=session["user_type"])
-
-
-# @app.route('/authenticate_guest')
-# def authenticate_guest():
-#     global guest_user_auth_manager
-#     global guest_user_cache_handler
-#     session["user_type"] = "guest_user" 
-
-#     # Set up cache_handler and auth_manager for the guest user
-#     guest_user_cache_handler = spotipy.cache_handler.MemoryCacheHandler()
-#     guest_user_auth_manager = spotipy.oauth2.SpotifyOAuth(
-#         scope='user-read-currently-playing playlist-modify-private user-library-read user-read-recently-played user-top-read playlist-read-private playlist-read-collaborative',
-#         cache_handler=guest_user_cache_handler,
-#         show_dialog=False,
-#         client_id=SPOTIPY_CLIENT_ID,
-#         client_secret=SPOTIPY_CLIENT_SECRET,
-#         redirect_uri=SPOTIPY_REDIRECT_URI
-#     )
-
-#     if not guest_user_auth_manager.validate_token(guest_user_cache_handler.get_cached_token()):
-#         # Authenticate the guest user without starting a local HTTP server
-#         guest_user_auth_manager.get_access_token()
-#         spotify = spotipy.Spotify(auth_manager=guest_user_auth_manager)
-#         user_name = 'Guest'
-#         return render_template('index.html', user_name=user_name, user_type=session["user_type"])
 
 
 @app.route('/sign_out')
@@ -473,12 +378,6 @@ def user_data():
                            long_playlist=long_playlist,
                            short_playlist=short_playlist)
 
-
-'''
-Following lines allow application to be run more conveniently with
-`python app.py` (Make sure you're using python3)
-(Also includes directive to leverage pythons threading capacity.)
-'''
 
 if __name__ == '__main__':
     app.run(threaded=True, port=8888)
