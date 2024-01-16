@@ -1,13 +1,17 @@
 # Spotify Website
 
-An app using Spotipy and the Spotify API to display user's top songs and artists along with audio analysis and song recommendations.
+Welcome!  
 
-To use this app, you first need to make a Spotify Developer account (free) at https://developer.spotify.com/
+![alt text](https://github.com/sheltoncarr/spotify_app/blob/main/static/images/website_preview.png)  
 
-After setting up the account, you will need to collect your Client ID, Client Secret, and Redirect URL (I set my Redirect URL to be https://localhost:8888/callback) and put these in a .env file.
+This repository contains all the code for our [Spotify Music Analysis](https://spotify-app-2pjw8.ondigitalocean.app/) website.  
 
-Then you will need to create your virtual environment and install the requirements.txt packages.
+The purpose of this website is to provide Spotify users with an in-depth analysis of their music taste and listening habits.  
 
-Once this is done, navigate to the respository holding the main.py file in your terminal and execute the following command:
-`run main.py`
+To accomplish this, the website presents the user with their top artists, songs, genres, and years (by release year). It also provides recommendations based on the user's top artists and songs, as well as an audio feature analysis over time. Finally, it ranks the user's top artists by popularity and displays their most recenetly played tracks.  
 
+To use the website, you must be registered as a user. Please feel free to message us if you would like to explore the site (all we need is your name and email)! Note: the website does not store any user data.   
+
+We are currently working to get the website approved for [Extended Quota Mode](https://developer.spotify.com/documentation/web-api/concepts/quota-modes) in order to access a wider audience.   
+
+The website is hosted on [DigitalOcean](https://www.digitalocean.com/) and uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api) and the [Spotipy](https://spotipy.readthedocs.io/en/2.22.1/) Python library.  
