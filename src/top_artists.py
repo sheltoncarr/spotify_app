@@ -1,6 +1,18 @@
 import pandas as pd
 
 def get_top_artists_short_term_df(spotify, limit=50, time_range='short_term'):
+
+    """
+    Get user's top 50 artists in the short-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top artists to return
+        time_range: Over what time frame to pull user's top artists
+
+    Returns: A dataframe of artists and genres for the user's top 50 artists over the short-term
+    """
+
     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
     
     artist_list = [item['name'] for item in results['items']]
@@ -17,6 +29,18 @@ def get_top_artists_short_term_df(spotify, limit=50, time_range='short_term'):
 
 
 def get_top_artists_medium_term_df(spotify, limit=50, time_range='medium_term'):
+
+    """
+    Get user's top 50 artists in the medium-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top artists to return
+        time_range: Over what time frame to pull user's top artists
+
+    Returns: A dataframe of artists and genres for the user's top 50 artists over the medium-term
+    """
+
     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
     
     artist_list = [item['name'] for item in results['items']]
@@ -33,6 +57,18 @@ def get_top_artists_medium_term_df(spotify, limit=50, time_range='medium_term'):
 
 
 def get_top_artists_long_term_df(spotify, limit=50, time_range='long_term'):
+
+    """
+    Get user's top 50 artists in the long-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top artists to return
+        time_range: Over what time frame to pull user's top artists
+
+    Returns: A dataframe of artists and genres for the user's top 50 artists over the long-term
+    """
+
     results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
     
     artist_list = [item['name'] for item in results['items']]

@@ -2,6 +2,17 @@ import pandas as pd
 from datetime import datetime
 
 def most_recently_played_tracks(spotify, limit=50):
+
+    """
+    Get the most recently played tracks for a user
+    
+    Args:
+        spotify: User authorization
+        limit: Number of recent tracks to include
+
+    Returns: A dataframe of tracks, albums, artists, genres, release dates, and audio samples for the user's 50 most recently played tracks
+    """
+
     results = spotify.current_user_recently_played(limit=limit)
 
     track_list = [item['track']['name'] for item in results['items']]

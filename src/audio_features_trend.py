@@ -6,6 +6,18 @@ import matplotlib
 matplotlib.use('agg')
 
 def get_audio_features_short_term(spotify, limit=50, time_range='short_term'):
+
+    """
+    Get average audio feature values of user's top 50 songs in the short-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to include in calculation
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe of audio features and their average values for the user's top 50 songs over the short-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     track_uri_list = [item['id'] for item in results['items']]
 
@@ -21,6 +33,18 @@ def get_audio_features_short_term(spotify, limit=50, time_range='short_term'):
 
 
 def get_audio_features_medium_term(spotify, limit=50, time_range='medium_term'):
+
+    """
+    Get average audio feature values of user's top 50 songs in the medium-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to include in calculation
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe of audio features and their average values for the user's top 50 songs over the medium-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     track_uri_list = [item['id'] for item in results['items']]
 
@@ -36,6 +60,18 @@ def get_audio_features_medium_term(spotify, limit=50, time_range='medium_term'):
 
 
 def get_audio_features_long_term(spotify, limit=50, time_range='long_term'):
+
+    """
+    Get average audio feature values of user's top 50 songs in the long-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to include in calculation
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe of audio features and their average values for the user's top 50 songs over the long-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     track_uri_list = [item['id'] for item in results['items']]
 
@@ -51,6 +87,16 @@ def get_audio_features_long_term(spotify, limit=50, time_range='long_term'):
 
 
 def merge_audio_features_df(spotify):
+
+    """
+    Merge average audio feature values of user's top 50 songs over all time frames
+    
+    Args:
+        spotify: User authorization
+
+    Returns: A dataframe of audio features and their average values for the user's top 50 songs over all time frames
+    """
+
     short = get_audio_features_short_term(spotify)
     medium = get_audio_features_medium_term(spotify)
     long = get_audio_features_long_term(spotify)
@@ -60,6 +106,16 @@ def merge_audio_features_df(spotify):
 
 
 def audio_features_trend(spotify):
+
+    """
+    Visualize average audio feature values of user's top 50 songs over all time frames
+    
+    Args:
+        spotify: User authorization
+
+    Returns: A line chart of audio features and their average values for the user's top 50 songs over all time frames
+    """
+
     result = merge_audio_features_df(spotify)
 
     plt.figure(figsize=(7.5, 8), facecolor='#1ED760')
@@ -80,8 +136,6 @@ def audio_features_trend(spotify):
     plt.grid(axis='y', linewidth=0.25)
     plt.tight_layout()
 
-    # write image to static png
     plt.savefig('static/images/audio_feature_trend.png', bbox_inches='tight', dpi=300)
     
-    # plt.show()
     plt.close()

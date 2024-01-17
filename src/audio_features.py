@@ -1,6 +1,16 @@
 import pandas as pd
 
 def audio_feature_meaning():
+
+    """
+    Display the audio featues and their definitions in a table
+    
+    Args:
+        None
+
+    Returns: A dataframe displaying audio features and their definitions
+    """
+
     audio_feature = ['Danceability','Energy','Mode','Speechiness','Acousticness','Instrumentalness','Liveness','Valence']
     description = ['Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0 is least danceable and 100 is most danceable.',
                    'Energy is a measure from 0 to 100 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.',
@@ -16,6 +26,7 @@ def audio_feature_meaning():
         'Audio Feature': audio_feature,
         'Description': description
     })
+    
     dfStyler = (
         df.style
         .set_table_styles([{"selector": "td, th", "props": [("border", "1px solid grey !important")]}]

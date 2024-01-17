@@ -4,6 +4,18 @@ from collections import Counter
 
 
 def get_top_years_short_term_df(spotify, limit=50, time_range='short_term'):
+
+    """
+    Get user's top years based on release date of their top 50 songs in the short-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to include in calculation
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe containing a count of top tracks by release year based on the user's top 50 songs over the short-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     
     release_date_list = [item['album']['release_date'] for item in results['items']]
@@ -17,9 +29,22 @@ def get_top_years_short_term_df(spotify, limit=50, time_range='short_term'):
     df.reset_index(drop=True, inplace=True)
     df.index += 1
     return df
+
 
 
 def get_top_years_medium_term_df(spotify, limit=50, time_range='medium_term'):
+
+    """
+    Get user's top years based on release date of their top 50 songs in the medium-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to include in calculation
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe containing a count of top tracks by release year based on the user's top 50 songs over the medium-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     
     release_date_list = [item['album']['release_date'] for item in results['items']]
@@ -35,7 +60,20 @@ def get_top_years_medium_term_df(spotify, limit=50, time_range='medium_term'):
     return df
 
 
+
 def get_top_years_long_term_df(spotify, limit=50, time_range='long_term'):
+
+    """
+    Get user's top years based on release date of their top 50 songs in the long-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to include in calculation
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe containing a count of top tracks by release year based on the user's top 50 songs over the long-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     
     release_date_list = [item['album']['release_date'] for item in results['items']]
@@ -53,6 +91,15 @@ def get_top_years_long_term_df(spotify, limit=50, time_range='long_term'):
 
 
 def top_years_bar_chart(spotify):
+
+    """
+    Visualize user's top years over all time frames
+    
+    Args:
+        spotify: User authorization
+
+    Returns: A bar chart showing release year vs. count of top tracks based on the user's top 50 songs over all time frames
+    """
 
     df_short = get_top_years_short_term_df(spotify)[:10]
     df_medium = get_top_years_medium_term_df(spotify)[:10]
@@ -73,7 +120,6 @@ def top_years_bar_chart(spotify):
                     f'{bar.get_height():,.0f}',
                     ha='center', va='bottom', fontsize=10)
 
-        # Customize the plot if needed
         ax.set_title(f"Top Years - {title}", fontsize=15)
         ax.set_xlabel("Release Year", fontsize=12)
         ax.set_xticks(df["Year"])
@@ -83,8 +129,6 @@ def top_years_bar_chart(spotify):
 
     plt.tight_layout()
 
-    # write image to static png
     plt.savefig('static/images/top_years_bar_chart.png', bbox_inches='tight', dpi=300)
     
-    # plt.show()
     plt.close()

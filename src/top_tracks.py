@@ -2,6 +2,18 @@ import pandas as pd
 from datetime import datetime
 
 def get_top_tracks_short_term_df(spotify, limit=50, time_range='short_term'):
+
+    """
+    Get user's top 50 songs in the short-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to return
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe of tracks, albums, artists, genres, release dates, and audio samples for the user's top 50 songs over the short-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
 
     track_list = [item['name'] for item in results['items']]
@@ -49,6 +61,18 @@ def get_top_tracks_short_term_df(spotify, limit=50, time_range='short_term'):
 
 
 def get_top_tracks_medium_term_df(spotify, limit=50, time_range='medium_term'):
+
+    """
+    Get user's top 50 songs in the medium-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to return
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe of tracks, albums, artists, genres, release dates, and audio samples for the user's top 50 songs over the medium-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
 
     track_list = [item['name'] for item in results['items']]
@@ -96,6 +120,18 @@ def get_top_tracks_medium_term_df(spotify, limit=50, time_range='medium_term'):
 
 
 def get_top_tracks_long_term_df(spotify, limit=50, time_range='long_term'):
+
+    """
+    Get user's top 50 songs in the long-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs to return
+        time_range: Over what time frame to pull user's top songs
+
+    Returns: A dataframe of tracks, albums, artists, genres, release dates, and audio samples for the user's top 50 songs over the long-term
+    """
+
     results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
 
     track_list = [item['name'] for item in results['items']]

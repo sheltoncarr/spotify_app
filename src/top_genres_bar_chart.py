@@ -3,6 +3,18 @@ import pandas as pd
 from collections import Counter
 
 def get_top_genres_short_term_df(spotify, limit=50, time_range='short_term'):
+
+    """
+    Get user's top genres based on their top 50 songs and artists in the short-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs/artists to include in calculation
+        time_range: Over what time frame to pull user's top songs/artists
+
+    Returns: A dataframe containing a count of top tracks/artists by genre based on the user's top 50 songs/artists over the short-term
+    """
+
     artist_results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
     track_results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     
@@ -27,6 +39,18 @@ def get_top_genres_short_term_df(spotify, limit=50, time_range='short_term'):
 
 
 def get_top_genres_medium_term_df(spotify, limit=50, time_range='medium_term'):
+
+    """
+    Get user's top genres based on their top 50 songs and artists in the medium-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs/artists to include in calculation
+        time_range: Over what time frame to pull user's top songs/artists
+
+    Returns: A dataframe containing a count of top tracks/artists by genre based on the user's top 50 songs/artists over the medium-term
+    """
+
     artist_results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
     track_results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     
@@ -51,6 +75,18 @@ def get_top_genres_medium_term_df(spotify, limit=50, time_range='medium_term'):
 
 
 def get_top_genres_long_term_df(spotify, limit=50, time_range='long_term'):
+
+    """
+    Get user's top genres based on their top 50 songs and artists in the long-term
+    
+    Args:
+        spotify: User authorization
+        limit: Number of top songs/artists to include in calculation
+        time_range: Over what time frame to pull user's top songs/artists
+
+    Returns: A dataframe containing a count of top tracks/artists by genre based on the user's top 50 songs/artists over the long-term
+    """
+
     artist_results = spotify.current_user_top_artists(limit=limit, time_range=time_range)
     track_results = spotify.current_user_top_tracks(limit=limit, time_range=time_range)
     
@@ -77,6 +113,15 @@ def get_top_genres_long_term_df(spotify, limit=50, time_range='long_term'):
 
 def top_genres_bar_chart(spotify):
 
+    """
+    Visualize user's top genres over all time frames
+    
+    Args:
+        spotify: User authorization
+
+    Returns: A bar chart showing a count of top tracks/artists by genre based on the user's top 50 songs/artists over all time frames
+    """    
+
     df_short = get_top_genres_short_term_df(spotify)[:20]
     df_medium = get_top_genres_medium_term_df(spotify)[:20]
     df_long = get_top_genres_long_term_df(spotify)[:20]
@@ -100,7 +145,6 @@ def top_genres_bar_chart(spotify):
                     f'{bar.get_width():,.0f}', 
                     va='center', ha='left', fontsize=10)
 
-        # Customize the plot if needed
         ax.set_title(f"Top Genres - {title}", fontsize=15)
         ax.set_xlabel("Count of Top Artists/Tracks", fontsize=12)
         ax.set_ylabel("Genre", fontsize=12)
@@ -108,7 +152,6 @@ def top_genres_bar_chart(spotify):
 
     plt.tight_layout()
 
-    # write image to static png
     plt.savefig('static/images/top_genres_bar_chart.png', bbox_inches='tight', dpi=300)
 
     plt.close()
