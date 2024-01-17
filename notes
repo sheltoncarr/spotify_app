@@ -1,7 +1,6 @@
 Ideas:
 
 - Apply for Extended Quota Mode
-- For audio features, include loudness, bpm, and duration
 - Fix user name bug
 - Clean up/update requirements.txt
 - getting this warning every time we run app.py: "DeprecationWarning: You're using 'as_dict = True'.get_access_token will return the token string directly in future versions. Please adjust your code accordingly, or use get_cached_token instead.
@@ -12,15 +11,5 @@ Ideas:
 
 If we have time: 
 - Add hover function over bar charts to display songs/artists represented in the bar
+- For audio features, include loudness, bpm, and duration
 
-Resources:
-
-authorization examples from spotipy: https://github.com/spotify/web-api-examples
-deploying flask app on Elastic Beanstalk (AWS): https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html
-stack overflow - How can I make my application using Spotify API accessible to other users?: https://stackoverflow.com/questions/62311284/how-can-i-make-my-application-using-spotify-api-accessible-to-other-users
-flask oauth2 example: https://github.com/spotipy-dev/spotipy/blob/master/examples/app.py
-spotipy documentation: https://spotipy.readthedocs.io/en/2.22.1/
-spotipy github: https://github.com/spotipy-dev/spotipy#with-user-authentication
-spotify design guide: https://developer.spotify.com/documentation/design
-extended quota mode: https://developer.spotify.com/blog/2021-05-27-improving-the-developer-and-user-experience-for-third-party-apps
-extended quota mode: https://developer.spotify.com/documentation/web-api/concepts/quota-modes
