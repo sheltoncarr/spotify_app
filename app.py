@@ -2,6 +2,7 @@ import os
 from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
+import numpy as np
 import pandas as pd
 import statistics as stats
 from dotenv import load_dotenv
@@ -11,8 +12,6 @@ from src import audio_features
 from src import recommendations
 from src import recently_played_tracks
 from src import popularity
-from src import top_genres
-from src import top_years
 from src import audio_features_trend
 from src import top_years_bar_chart
 from src import top_genres_bar_chart
@@ -60,33 +59,45 @@ def sign_out():
     session.pop("token_info", None)
     return redirect('/')
 
+
 @app.route('/home')
 def home_page():
+
+# For Summary:
+
+    # User name:
     global user_name
     user_name = spotify.me()["display_name"]
-    artist_results = spotify.current_user_top_artists(limit=50, time_range='long_term')
-    artist_list = [item['name'] for item in artist_results['items']]
-    top_artist = artist_list[0]
-    popularity_list = [item['popularity'] for item in artist_results['items']]
-    df_artist = pd.DataFrame({'Artist': artist_list, "Popularity (Out of 100)": popularity_list})
-    df_artist.sort_values(by=["Popularity (Out of 100)"], inplace=True, ascending=False)
-    df_artist.reset_index(drop=True,inplace=True)
-    top_pop = df_artist.loc[0].iat[0]
-    top_niche = df_artist.loc[49].iat[0]
-    track_results = spotify.current_user_top_tracks(limit=1, time_range='long_term')
-    top_track = track_results['items'][0]['name']
-    top_track_artist = track_results['items'][0]['artists'][0]['name']
-    track_uri_list = [item['id'] for item in track_results['items']]
-    df_dur = pd.DataFrame(spotify.audio_features(tracks=track_uri_list))
-    drop_columns = ['type','id','uri','track_href','analysis_url', 'key', 'tempo', 'time_signature', 'loudness']
-    df_dur = df_dur.drop(columns=drop_columns)
-    df_dur = df_dur.mean(axis=0)
-    df_dur = pd.DataFrame({'Audio Feature':df_dur.index, 'Average Value':df_dur.values})
-    minutes, seconds = divmod(int(df_dur.loc[8].iat[1]/1000), 60)
+
+    # Top artist:
+    top_artists_result = spotify.current_user_top_artists(limit=50, time_range='long_term')
+    top_artist = top_artists_result['items'][0]['name']
+
+    # Top track:
+    top_tracks_result = spotify.current_user_top_tracks(limit=50, time_range='long_term')
+    top_track = top_tracks_result['items'][0]['name']
+    top_track_artist = top_tracks_result['items'][0]['artists'][0]['name']
+
+    # Top genre:
+    top_genre = top_genres_bar_chart.get_top_genres_long_term_df(spotify).loc[1].iat[0]
+
+    # Top year:
+    top_year  = top_years_bar_chart.get_top_years_long_term_df(spotify).loc[1].iat[0]
+
+    # Most popular/niche artist:
+    artist_list = [item['name'] for item in top_artists_result['items']]
+    popularity_list = [item['popularity'] for item in top_artists_result['items']]
+    df = pd.DataFrame({'Artist': artist_list, "Popularity": popularity_list})
+    df.sort_values(by=["Popularity"], inplace=True, ascending=False)
+    top_pop = df['Artist'].iloc[0]
+    top_niche = df['Artist'].iloc[-1]
+
+    # Average song duration:
+    duration_list = [item['duration_ms'] for item in top_tracks_result['items']]
+    duration_list = np.array(duration_list, dtype=int)
+    avg_duration = duration_list.mean(axis=0)
+    minutes, seconds = divmod(int(avg_duration/1000), 60)
     duration = str(minutes) + ' minutes and ' + str(seconds) + ' seconds'
-    top_genre = top_genres.get_top_genres_long_term_df(spotify).loc[1].iat[0]
-    top_year  = top_years.get_top_years_long_term_df(spotify).loc[1].iat[0]
-    
 
     return render_template('home.html', user_name=user_name, 
                            top_artist=top_artist,
@@ -97,7 +108,6 @@ def home_page():
                            top_year=top_year,
                            top_pop=top_pop,
                            top_niche=top_niche)
-
 
 
 @app.route('/most_recent_tracks')
