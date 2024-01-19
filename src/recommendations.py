@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+import re
 
 def get_short_term_track_recs(spotify, limit=5, time_range='short_term'):
 
@@ -28,11 +29,17 @@ def get_short_term_track_recs(spotify, limit=5, time_range='short_term'):
     release_date = [item['album']['release_date'] for item in rec_results]
     release_date_list = []
     for date in release_date:
-        if len(date) == 10: # if format is yyyy-mmm-dd
-            date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
+        if len(date) == 10: # if format is yyyy-mm-dd
+            if re.compile(r'\d{4}-05-\d{2}').search(date):
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b %-d, %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
             release_date_list.append(date)
         elif len(date) == 7: # if format is yyyy-mm
-            date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
+            if re.compile(r'\d{4}-05').search(date):
+                date = datetime.strptime(date, "%Y-%m").strftime("%b %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
             release_date_list.append(date)
         else: # if format is yyyy
             release_date_list.append(date)
@@ -89,11 +96,17 @@ def get_medium_term_track_recs(spotify, limit=5, time_range='medium_term'):
     release_date = [item['album']['release_date'] for item in rec_results]
     release_date_list = []
     for date in release_date:
-        if len(date) == 10: # if format is yyyy-mmm-dd
-            date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
+        if len(date) == 10: # if format is yyyy-mm-dd
+            if re.compile(r'\d{4}-05-\d{2}').search(date):
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b %-d, %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
             release_date_list.append(date)
         elif len(date) == 7: # if format is yyyy-mm
-            date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
+            if re.compile(r'\d{4}-05').search(date):
+                date = datetime.strptime(date, "%Y-%m").strftime("%b %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
             release_date_list.append(date)
         else: # if format is yyyy
             release_date_list.append(date)
@@ -150,11 +163,17 @@ def get_long_term_track_recs(spotify, limit=5, time_range='long_term'):
     release_date = [item['album']['release_date'] for item in rec_results]
     release_date_list = []
     for date in release_date:
-        if len(date) == 10: # if format is yyyy-mmm-dd
-            date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
+        if len(date) == 10: # if format is yyyy-mm-dd
+            if re.compile(r'\d{4}-05-\d{2}').search(date):
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b %-d, %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
             release_date_list.append(date)
         elif len(date) == 7: # if format is yyyy-mm
-            date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
+            if re.compile(r'\d{4}-05').search(date):
+                date = datetime.strptime(date, "%Y-%m").strftime("%b %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
             release_date_list.append(date)
         else: # if format is yyyy
             release_date_list.append(date)
@@ -210,11 +229,17 @@ def get_short_term_artist_recs(spotify, limit=5, time_range='short_term'):
     release_date = [item['album']['release_date'] for item in rec_results]
     release_date_list = []
     for date in release_date:
-        if len(date) == 10: # if format is yyyy-mmm-dd
-            date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
+        if len(date) == 10: # if format is yyyy-mm-dd
+            if re.compile(r'\d{4}-05-\d{2}').search(date):
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b %-d, %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
             release_date_list.append(date)
         elif len(date) == 7: # if format is yyyy-mm
-            date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
+            if re.compile(r'\d{4}-05').search(date):
+                date = datetime.strptime(date, "%Y-%m").strftime("%b %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
             release_date_list.append(date)
         else: # if format is yyyy
             release_date_list.append(date)
@@ -270,11 +295,17 @@ def get_medium_term_artist_recs(spotify, limit=5, time_range='medium_term'):
     release_date = [item['album']['release_date'] for item in rec_results]
     release_date_list = []
     for date in release_date:
-        if len(date) == 10: # if format is yyyy-mmm-dd
-            date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
+        if len(date) == 10: # if format is yyyy-mm-dd
+            if re.compile(r'\d{4}-05-\d{2}').search(date):
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b %-d, %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
             release_date_list.append(date)
         elif len(date) == 7: # if format is yyyy-mm
-            date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
+            if re.compile(r'\d{4}-05').search(date):
+                date = datetime.strptime(date, "%Y-%m").strftime("%b %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
             release_date_list.append(date)
         else: # if format is yyyy
             release_date_list.append(date)
@@ -331,11 +362,17 @@ def get_long_term_artist_recs(spotify, limit=5, time_range='long_term'):
     release_date = [item['album']['release_date'] for item in rec_results]
     release_date_list = []
     for date in release_date:
-        if len(date) == 10: # if format is yyyy-mmm-dd
-            date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
+        if len(date) == 10: # if format is yyyy-mm-dd
+            if re.compile(r'\d{4}-05-\d{2}').search(date):
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b %-d, %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m-%d").strftime("%b. %-d, %Y")
             release_date_list.append(date)
         elif len(date) == 7: # if format is yyyy-mm
-            date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
+            if re.compile(r'\d{4}-05').search(date):
+                date = datetime.strptime(date, "%Y-%m").strftime("%b %Y")
+            else:
+                date = datetime.strptime(date, "%Y-%m").strftime("%b. %Y")
             release_date_list.append(date)
         else: # if format is yyyy
             release_date_list.append(date)
