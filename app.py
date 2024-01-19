@@ -66,7 +66,6 @@ def home_page():
 # For Summary:
 
     # User name:
-    global user_name
     user_name = spotify.me()["display_name"]
 
     # Top artist:
@@ -113,6 +112,7 @@ def home_page():
 @app.route('/most_recent_tracks')
 def get_most_recent_tracks():
 
+    user_name = spotify.me()["display_name"]
     df1 = recently_played_tracks.most_recently_played_tracks(spotify)
     title = 'Your Most Recent Tracks:'
     
@@ -126,6 +126,7 @@ def get_most_recent_tracks():
 @app.route('/top_artists')
 def get_top_artists():
 
+    user_name = spotify.me()["display_name"]
     df1 = top_artists.get_top_artists_short_term_df(spotify)
     df2 = top_artists.get_top_artists_medium_term_df(spotify)
     df3 = top_artists.get_top_artists_long_term_df(spotify)
@@ -143,6 +144,7 @@ def get_top_artists():
 @app.route('/top_tracks')
 def get_top_tracks():
 
+    user_name = spotify.me()["display_name"]
     df1 = top_tracks.get_top_tracks_short_term_df(spotify)
     df2 = top_tracks.get_top_tracks_medium_term_df(spotify)
     df3 = top_tracks.get_top_tracks_long_term_df(spotify)
@@ -159,6 +161,8 @@ def get_top_tracks():
 
 @app.route('/top_genres_bar_chart')
 def top_genres_visual():
+
+    user_name = spotify.me()["display_name"]
     top_genres_bar_chart.top_genres_bar_chart(spotify)
     title = 'Your Top Genres:'
 
@@ -167,14 +171,18 @@ def top_genres_visual():
 
 @app.route('/top_years_bar_chart')
 def top_years_visual():
+
+    user_name = spotify.me()["display_name"]
     top_years_bar_chart.top_years_bar_chart(spotify)
-    title = 'Your Top Years (based on release year):'
+    title = 'Your Top Years (Based on Release Year):'
 
     return render_template("top_years_bar_chart.html", user_name=user_name, dataEvent=title)
 
 
 @app.route('/audio_features_trend')
 def audio_features_trend_visual():
+
+    user_name = spotify.me()["display_name"]
     audio_features_trend.audio_features_trend(spotify)
     df = audio_features.audio_feature_meaning()
     title = 'Your Audio Features:'
@@ -188,13 +196,14 @@ def audio_features_trend_visual():
 @app.route('/recommendations')
 def get_recommendations():
 
+    user_name = spotify.me()["display_name"]
     df1 = recommendations.get_short_term_track_recs(spotify)
     df2 = recommendations.get_medium_term_track_recs(spotify)
     df3 = recommendations.get_long_term_track_recs(spotify)
     df4 = recommendations.get_short_term_artist_recs(spotify)
     df5 = recommendations.get_medium_term_artist_recs(spotify)
     df6 = recommendations.get_long_term_artist_recs(spotify)
-    title = 'Your Recommendations: (Refresh for new recs)'
+    title = 'Your Recommendations: (Refresh for New Results)'
 
     tables = [
         {'title': 'Based on Top Tracks (Short Term)', 'data': df1, 'id':'table1'},
@@ -211,6 +220,7 @@ def get_recommendations():
 @app.route('/popularity')
 def get_popularity():
 
+    user_name = spotify.me()["display_name"]
     df1 = popularity.get_top_artists_short_term_popularity_df(spotify)
     df2 = popularity.get_top_artists_medium_term_popularity_df(spotify)
     df3 = popularity.get_top_artists_long_term_popularity_df(spotify)
