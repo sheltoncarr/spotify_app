@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <title>{% block title %} {% endblock %}</title>
+    <script>
+        if (window.innerWidth < 600) {
+            document.body.innerHTML = '<div style="text-align: center; padding: 20px; font-size: 18px; color: red;">This website is not available for mobile devices.</div>';
+        }
+    </script>
   </head>
   <body>
     <div id="loading-spinner">Loading...</div>

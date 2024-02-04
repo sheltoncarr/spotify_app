@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     document.getElementById('loading-spinner').style.display = 'block';
-
 
     window.addEventListener('load', function () {
         document.getElementById('loading-spinner').style.display = 'none';
@@ -13,23 +11,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 30000);
     
 });document.addEventListener('DOMContentLoaded', function () {
-    // Show loading spinner
     document.getElementById('loading-spinner').style.display = 'block';
 
-    // Hide loading spinner when the page is fully loaded
     window.addEventListener('load', function () {
         document.getElementById('loading-spinner').style.display = 'none';
     });
 
-    // Hide loading spinner before unloading (when navigating to a new page)
     window.addEventListener('beforeunload', function () {
-        // Introduce a slight delay to ensure the spinner is shown briefly before unloading
         setTimeout(function () {
             document.getElementById('loading-spinner').style.display = 'block';
-        }, 50); // Adjust the delay as needed
+        }, 50);
     });
 });
-
 
 
 
@@ -38,7 +31,6 @@ var currentlyPlayingButton = null;
 
 function playAudio(url) {
     
-    // Create or use the existing audio element
     var audio = document.getElementById('audioPlayer');
     if (!audio) {
         audio = document.createElement('audio');
@@ -46,21 +38,14 @@ function playAudio(url) {
         document.body.appendChild(audio);
     }
 
-    // Set the audio source and play
     audio.src = url;
     audio.play();
 
-    // Update the currently playing audio and its associated button
     currentlyPlayingAudio = audio;
-    currentlyPlayingButton = document.querySelector('.play-button[onclick*="' + url + '"]');
-    togglePlayPauseIcon(currentlyPlayingButton.querySelector('.play-pause-icon'));
 
-    // Add an event listener for the 'ended' event
     audio.addEventListener('ended', function () {
-        // Update the play/pause icon of the button that triggered the playback
         togglePlayPauseIcon(currentlyPlayingButton.querySelector('.play-pause-icon'));
 
-        // Reset currently playing references
         currentlyPlayingAudio = null;
         currentlyPlayingButton = null;
     });
@@ -97,38 +82,34 @@ function togglePlayPause(button, url) {
         else{
             playAudio(url);
         }
-
+        currentlyPlayingButton = button;
+        togglePlayPauseIcon(currentlyPlayingButton.querySelector('.play-pause-icon'));
     }
 }
 
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Initial table load with default number of rows for each table
     var dropdowns = document.querySelectorAll('.row-dropdown');
     dropdowns.forEach(function (dropdown) {
         updateTable(dropdown);
         dropdown.addEventListener('change', function () {
-            // Update the corresponding table with the selected number of rows
             updateTable(dropdown);
         });
     });
 });
 
 function updateTable(dropdown) {
-    // Get the selected number of rows
     var selectedRows = parseInt(dropdown.value);
 
-    // Update the corresponding table with the selected number of rows
     var table = dropdown.closest('.table-container').querySelector('.table');
     updateRows(selectedRows, table);
 }
 
 function updateRows(rows, table) {
-    // Get all rows in the specified table
     var rowsToToggle = table.querySelectorAll('tbody tr');
 
-    // Show the first 'rows' number of rows and hide the rest
     for (var i = 0; i < rowsToToggle.length; i++) {
         if (i < rows) {
             rowsToToggle[i].style.display = 'table-row';
